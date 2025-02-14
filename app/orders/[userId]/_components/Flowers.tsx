@@ -4,11 +4,12 @@ import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '@/store'
-import { Card, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { getPublicFlowers } from '@/store/flowers'
 import { TFlower } from '@/types/flower'
+import { getSum } from '@/lib/utils'
 
 type TItem = { flowerId: string; qty: number; price: number; image: string }
 
@@ -83,7 +84,7 @@ const Flowers: FC<IProps> = props => {
           ))
         ) : flowers.length ? (
           flowers.map(flower => (
-            <Card key={flower._id} className='w-auto overflow-hidden'>
+            <Card key={flower._id} className='w-auto overflow-hidden flex flex-col'>
               <div className='relative w-full h-40'>
                 <Image
                   fill
@@ -97,7 +98,16 @@ const Flowers: FC<IProps> = props => {
                   </div>
                 ) : null}
               </div>
-              <CardFooter className='p-0'>
+              <CardContent className='p-2'>
+                <p>
+                  <b>Nomi: </b> {flower.name}
+                </p>
+                <p>
+                  <b>Narxi: </b>
+                  {getSum(flower.price)}
+                </p>
+              </CardContent>
+              <CardFooter className='p-0 mt-auto mb-0'>
                 {items.some(item => item.flowerId === flower._id) ? (
                   <>
                     <Button

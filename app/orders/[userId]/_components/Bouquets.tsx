@@ -4,11 +4,12 @@ import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '@/store'
-import { Card, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { getPublicBouquets } from '@/store/bouquet'
 import { TBouquet } from '@/types/bouquet'
+import { getSum } from '@/lib/utils'
 
 type TItem = { bouquetId: string; qty: number; price: number; image: string }
 
@@ -27,7 +28,7 @@ const Bouquets: FC<IProps> = props => {
   const { isLoading, bouquets, pageCount } = useAppSelector(state => state.bouquet)
 
   useEffect(() => {
-    dispatch(getPublicBouquets(userId as string, { page, pageCount: limit }))
+    if (page && limit) dispatch(getPublicBouquets(userId as string, { page, pageCount: limit }))
   }, [page, pageCount, userId])
 
   const onChange = (item: { page: number; limit: string }) => {
@@ -74,7 +75,7 @@ const Bouquets: FC<IProps> = props => {
     <div className='my-4'>
       <p>{userId}</p>
       <div className='grid grid-cols-2 gap-4'>
-        {isLoading ? (
+        {isLoading && !bouquets.length ? (
           [...new Array(4)].map((_, index) => (
             <Card key={index}>
               <Skeleton className='h-40 w-full rounded-none' />
@@ -83,7 +84,7 @@ const Bouquets: FC<IProps> = props => {
           ))
         ) : bouquets.length ? (
           bouquets.map(bouquet => (
-            <Card key={bouquet._id} className='w-auto overflow-hidden'>
+            <Card key={bouquet._id} className='w-auto overflow-hidden flex flex-col'>
               <div className='relative w-full h-40'>
                 <Image
                   fill
@@ -97,7 +98,23 @@ const Bouquets: FC<IProps> = props => {
                   </div>
                 ) : null}
               </div>
-              <CardFooter className='p-0'>
+              <CardContent className='p-2'>
+                {bouquet.name ? (
+                  <p>
+                    <b>Nomi: </b> {bouquet.name}
+                  </p>
+                ) : null}
+                <p>
+                  <b>Narxi: </b>
+                  {getSum(bouquet.price)}
+                </p>
+                {bouquet.info ? (
+                  <p>
+                    <b>Ma'lumot: </b> {bouquet.info}
+                  </p>
+                ) : null}
+              </CardContent>
+              <CardFooter className='p-0 mt-auto mb-0'>
                 {items.some(item => item.bouquetId === bouquet._id) ? (
                   <>
                     <Button

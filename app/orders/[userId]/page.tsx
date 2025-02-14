@@ -1,7 +1,6 @@
 'use client'
 
 import { Fragment, useCallback, useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
@@ -28,7 +27,6 @@ interface IFlower {
 }
 
 const Orders = () => {
-  const { userId } = useParams()
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
 
@@ -55,7 +53,8 @@ const Orders = () => {
   }
 
   const onSendData = useCallback(() => {
-    telegram.sendData(JSON.stringify({ bouquets, flowers }))
+    const data = { bouquets, flowers }
+    telegram.sendData(JSON.stringify(data))
   }, [bouquets])
 
   useEffect(() => {
@@ -131,12 +130,16 @@ const Orders = () => {
                     </div>
                   </>
                 ) : null}
-                <Separator className='my-2' />
-                <div className='flex justify-between items-center mt-2'>
-                  <p>Total:</p>
-                  <p>{total(bouquets).totalUnit + total(flowers).totalUnit}</p>
-                  <p>{getSum(total(bouquets).totalSum + total(flowers).totalSum)}</p>
-                </div>
+                {bouquets.length && flowers.length ? (
+                  <>
+                    <Separator className='my-2' />
+                    <div className='flex justify-between items-center mt-2'>
+                      <p>Total:</p>
+                      <p>{total(bouquets).totalUnit + total(flowers).totalUnit}</p>
+                      <p>{getSum(total(bouquets).totalSum + total(flowers).totalSum)}</p>
+                    </div>
+                  </>
+                ) : null}
                 <Button
                   className='w-full mt-2'
                   disabled={!bouquets.length && !flowers.length}
