@@ -55,7 +55,7 @@ const Orders = () => {
   const onSendData = useCallback(() => {
     const data = { bouquets, flowers }
     telegram.sendData(JSON.stringify(data))
-  }, [bouquets])
+  }, [bouquets, flowers])
 
   useEffect(() => {
     telegram.onEvent('mainButtonClicked', onSendData)
