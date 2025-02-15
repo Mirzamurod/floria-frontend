@@ -73,7 +73,6 @@ const Bouquets: FC<IProps> = props => {
 
   return (
     <div className='my-4'>
-      <p>{userId}</p>
       <div className='grid grid-cols-2 gap-4'>
         {isLoading && !bouquets.length ? (
           [...new Array(4)].map((_, index) => (
@@ -133,7 +132,7 @@ const Bouquets: FC<IProps> = props => {
                   </>
                 ) : (
                   <Button className='w-full rounded-none' onClick={() => changeItem(bouquet, '+')}>
-                    Add
+                    Qo'shish
                   </Button>
                 )}
               </CardFooter>

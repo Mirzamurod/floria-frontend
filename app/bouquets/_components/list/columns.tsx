@@ -11,19 +11,19 @@ import { deleteBouquet } from '@/store/bouquet'
 const columns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'image',
+    headerName: 'Rasm',
     renderCell: ({ row }: { row: TBouquet }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   {
     field: 'price',
-    headerName: 'price',
+    headerName: 'Narx',
     renderCell: ({ row }: { row: TBouquet }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'action',
-    headerName: 'action',
+    headerName: '',
     className: 'text-end',
     renderCell: ({ row }: { row: TBouquet }) => (
       <>

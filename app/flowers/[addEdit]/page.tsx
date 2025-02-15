@@ -70,15 +70,15 @@ const AddEditFlower = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className='flex justify-between'>
+      <div className='flex md:flex-row flex-col md:justify-between'>
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
-          {addEdit === 'add' ? 'Add flower' : 'Edit flower'}
+          {addEdit === 'add' ? "Gul qo'shish" : "Gulni o'zgartirish"}
         </h2>
         <Button>
-          <Link href='/flowers/list'>Go to flower</Link>
+          <Link href='/flowers/list'>Gullarga o'tish</Link>
         </Button>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>
         <AddEditCard image={image} setImage={setImage} />
         <AddEditAction />
       </form>

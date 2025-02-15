@@ -78,7 +78,7 @@ const Orders = () => {
       {/* Sidebar */}
       <div className='sticky top-0 z-20 bg-background'>
         <div className='flex justify-between p-2'>
-          <h2 className='scroll-m-20 text-3xl font-semibold tracking-tight'>Flowers</h2>
+          <h2 className='scroll-m-20 text-3xl font-semibold tracking-tight'>Gullar</h2>
           <div className='flex gap-x-2'>
             <Popover>
               <PopoverTrigger asChild>
@@ -93,7 +93,7 @@ const Orders = () => {
                 {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
                 {bouquets.length ? (
                   <>
-                    <p>Bouquets</p>
+                    <p>Buketlar</p>
                     {bouquets.map(item => (
                       <Fragment key={item.bouquetId}>
                         <div className='flex justify-between items-center mt-2'>
@@ -104,7 +104,7 @@ const Orders = () => {
                       </Fragment>
                     ))}
                     <div className='flex justify-between items-center mt-2'>
-                      <p>Total:</p>
+                      <p>Umumiy:</p>
                       <p>{total(bouquets).totalUnit}</p>
                       <p>{getSum(total(bouquets).totalSum)}</p>
                     </div>
@@ -113,7 +113,7 @@ const Orders = () => {
                 ) : null}
                 {flowers.length ? (
                   <>
-                    <p>Custom bouquet</p>
+                    <p>Maxsus guldasta</p>
                     {flowers.map(item => (
                       <Fragment key={item.flowerId}>
                         <div className='flex justify-between items-center mt-2'>
@@ -124,7 +124,7 @@ const Orders = () => {
                       </Fragment>
                     ))}
                     <div className='flex justify-between items-center mt-2'>
-                      <p>Total:</p>
+                      <p>Umumiy:</p>
                       <p>{total(flowers).totalUnit}</p>
                       <p>{getSum(total(flowers).totalSum)}</p>
                     </div>
@@ -134,7 +134,7 @@ const Orders = () => {
                   <>
                     <Separator className='my-2' />
                     <div className='flex justify-between items-center mt-2'>
-                      <p>Total:</p>
+                      <p>Umumiy:</p>
                       <p>{total(bouquets).totalUnit + total(flowers).totalUnit}</p>
                       <p>{getSum(total(bouquets).totalSum + total(flowers).totalSum)}</p>
                     </div>
@@ -157,8 +157,8 @@ const Orders = () => {
       {/* Tabs */}
       <Tabs defaultValue='bouquets' className='mt-4 container'>
         <TabsList>
-          <TabsTrigger value='bouquets'>Bouquets</TabsTrigger>
-          <TabsTrigger value='flowers'>Flowers</TabsTrigger>
+          <TabsTrigger value='bouquets'>Buketlar</TabsTrigger>
+          <TabsTrigger value='flowers'>Gullar</TabsTrigger>
         </TabsList>
         <TabsContent value='bouquets'>
           <Bouquets items={bouquets} setItems={setBouquets} />

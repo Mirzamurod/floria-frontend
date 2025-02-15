@@ -11,20 +11,20 @@ import { TFlower } from '@/types/flower'
 const columns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'image',
+    headerName: 'Rasm',
     renderCell: ({ row }: { row: TFlower }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
-  { field: 'name', headerName: 'name' },
+  { field: 'name', headerName: 'Nom' },
   {
     field: 'price',
-    headerName: 'price',
+    headerName: 'Narx',
     renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'action',
-    headerName: 'action',
+    headerName: '',
     className: 'text-end',
     renderCell: ({ row }: { row: TFlower }) => (
       <>

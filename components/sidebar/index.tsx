@@ -16,6 +16,7 @@ import {
   SidebarMenuSubItem,
   SidebarMenuSubButton,
   SidebarHeader,
+  useSidebar,
 } from '../ui/sidebar'
 import {
   DropdownMenu,
@@ -28,9 +29,10 @@ import { Separator } from '../ui/separator'
 
 const Sidebar = () => {
   const pathname = usePathname()
+  const { setOpenMobile } = useSidebar()
 
   return (
-    <ShadSidebar className='bg-background'>
+    <ShadSidebar className='bg-background z-50'>
       <SidebarHeader>
         <div className='flex gap-2 items-center'>
           <Image src='/flower-icon.webp' alt='flower-icon' width={36} height={36} />
@@ -45,7 +47,11 @@ const Sidebar = () => {
               {sidebar.map(item => (
                 <SidebarMenuItem key={item.title}>
                   {item.href ? (
-                    <SidebarMenuButton asChild isActive={pathname === item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === item.href}
+                      onClick={() => setOpenMobile(false)}
+                    >
                       <Link href={{ pathname: item.href, query: item.query }}>
                         <item.icon size={16} />
                         <span>{item.title}</span>
@@ -61,7 +67,11 @@ const Sidebar = () => {
                     ? item.children.map(child => (
                         <SidebarMenuSub key={child.title}>
                           <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild isActive={pathname === child.href}>
+                            <SidebarMenuSubButton
+                              asChild
+                              isActive={pathname === child.href}
+                              onClick={() => setOpenMobile(false)}
+                            >
                               <Link href={{ pathname: child.href, query: child.query }}>
                                 <child.icon size={16} />
                                 <span>{child.title}</span>
@@ -88,7 +98,11 @@ const Sidebar = () => {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent side='top' className='w-[--radix-popper-anchor-width]'>
-                <DropdownMenuItem asChild className='cursor-pointer'>
+                <DropdownMenuItem
+                  asChild
+                  className='cursor-pointer'
+                  onClick={() => setOpenMobile(false)}
+                >
                   <Link href='/profile'>Account</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()} className='cursor-pointer'>

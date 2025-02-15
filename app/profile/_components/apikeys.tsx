@@ -13,18 +13,19 @@ const ApiKeys = () => {
   const { data: session } = useSession()
   const [telegramToken, setTelegramToken] = useState(session?.currentUser?.telegramToken ?? '')
   const [telegramId, setTelegramId] = useState(session?.currentUser?.telegramId ?? '')
+  const [location, setLocation] = useState('')
 
   const { telegramLoading } = useAppSelector(state => state.login)
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch(editClientTelegram({ telegramToken, telegramId }))
+    dispatch(editClientTelegram({ telegramToken, telegramId, location }))
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Telegram api key</CardTitle>
+        <CardTitle>Telegram bot</CardTitle>
       </CardHeader>
       <CardContent>
         <form className='flex flex-col gap-4' onSubmit={onSubmit}>
@@ -51,8 +52,18 @@ const ApiKeys = () => {
               onChange={e => setTelegramId(e.target.value)}
             />
           </div>
+          <div>
+            <Label>Location</Label>
+            <Input
+              type='text'
+              disabled={telegramLoading}
+              placeholder='Location'
+              value={location}
+              onChange={e => setLocation(e.target.value)}
+            />
+          </div>
           <Button type='submit' disabled={telegramLoading}>
-            Edit
+            O'zgartirish
           </Button>
         </form>
       </CardContent>

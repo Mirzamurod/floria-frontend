@@ -97,7 +97,11 @@ export const userUpdate = (data: any) =>
     onFail: login.actions.onFail.type,
   })
 
-export const editClientTelegram = (data: { telegramToken: string; telegramId?: string }) =>
+export const editClientTelegram = (data: {
+  telegramToken: string
+  telegramId?: string
+  location: string
+}) =>
   flower({
     url: editclienttelegram,
     method: 'patch',

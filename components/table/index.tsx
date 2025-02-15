@@ -52,7 +52,7 @@ const Table: FC<TTable> = props => {
               <TableHead
                 {...column}
                 key={column.field}
-                className={cn(column.className)}
+                className={cn('min-w-14', column.className)}
                 onClick={() => changeSortable(column)}
               >
                 {column.headerName}
@@ -77,7 +77,7 @@ const Table: FC<TTable> = props => {
             data.map(item => (
               <TableRow key={item._id}>
                 {columns.map((column, index) => (
-                  <TableCell {...column} key={index} className={cn(column.className)}>
+                  <TableCell {...column} key={index} className={cn('min-w-14', column.className)}>
                     {column.renderCell
                       ? createElement(column.renderCell as any, { row: item })
                       : item[column.field]}

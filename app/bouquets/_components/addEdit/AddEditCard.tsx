@@ -17,14 +17,17 @@ const AddEditCard: FC<IProps> = props => {
   const { image, setImage } = props
   const { addEdit } = useParams()
 
-  const inputs: TInputType[] = [{ name: 'price', required: true, type: 'number' }, { name: 'name' }]
+  const inputs: TInputType[] = [
+    { name: 'price', label: 'Narxi', required: true, type: 'number' },
+    { name: 'name', label: 'Nomi' },
+  ]
 
   return (
     <div>
-      <div className='grid grid-cols-3 gap-3'>
+      <div className='grid md:grid-cols-3 gap-3'>
         <div>
           <Label>
-            Image <span className='text-red-500'>*</span>
+            Rasm <span className='text-red-500'>*</span>
           </Label>
           <UploadButton
             endpoint='imageUploader'
@@ -39,13 +42,13 @@ const AddEditCard: FC<IProps> = props => {
           <Image src={image} alt='bouquet image' width={200} height={200} />
         ) : null}
       </div>
-      <div className='grid grid-cols-3 gap-3 mt-3'>
+      <div className='grid md:grid-cols-3 gap-3 mt-3'>
         {inputs.map(input => (
           <Input {...input} key={input.name} />
         ))}
       </div>
-      <div className='grid grid-cols-3 gap-3 mt-3'>
-        <Input name='info' textarea />
+      <div className='grid md:grid-cols-3 gap-3 mt-3'>
+        <Input name='info' label="Ma'lumot" textarea />
       </div>
     </div>
   )

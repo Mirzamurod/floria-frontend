@@ -18,15 +18,15 @@ const TableHeader: FC<IProps> = props => {
 
   return (
     <div className='flex flex-col mb-4'>
-      <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Bouquets</h2>
-      <div className='flex justify-between'>
+      <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Buketlar</h2>
+      <div className='flex md:flex-row flex-col md:justify-between'>
         <Input
-          placeholder='Search (price)'
-          className='w-auto max-w-[300px]'
+          placeholder='Qidirish (narx)'
+          className='w-auto md:max-w-[350px]'
           onChange={e => handleTextDebounce(e.target.value)}
         />
-        <Button>
-          <Link href='/bouquets/add'>Add Bouquet</Link>
+        <Button className='mt-2 md:mt-0'>
+          <Link href='/bouquets/add'>Buket qo'shish</Link>
         </Button>
       </div>
     </div>

@@ -11,7 +11,7 @@ const AddEditAction = () => {
   return (
     <div className='flex mt-4 justify-end'>
       <Button disabled={isLoading} variant='outline' type='submit'>
-        {addEdit === 'add' ? 'Add Flower' : 'Edit Flower'}
+        {addEdit === 'add' ? "Gul qo'shish" : "Gulni o'zgartirish"}
       </Button>
     </div>
   )
