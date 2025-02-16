@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import i18n from '@/languages/i18n'
-import { getSession } from 'next-auth/react'
+import { getSession, signOut } from 'next-auth/react'
 import { encode } from 'js-base64'
 import { toast } from 'react-toastify'
 import { generateToken } from '@/lib/generate-token'
@@ -43,8 +43,8 @@ const middleware =
         } else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {
-        if (error?.response?.statusCode === 401) {
-        } else {
+        if (error?.response?.status === 401) signOut()
+        else {
           const data = error?.response?.data
           if (data?.message) toast.error(data?.message)
           dispatch({ type: onFail, payload: error?.response?.data })

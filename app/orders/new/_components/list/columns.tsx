@@ -1,30 +1,32 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { TColumns } from '@/types/table'
 import { getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Eye } from 'lucide-react'
-import { TFlower } from '@/types/flower'
+import { TOrder } from '@/types/orders'
 
 const columns: TColumns[] = [
+  { field: 'orderNumber', headerName: 'Zakaz nomeri' },
   {
-    field: 'image',
-    headerName: 'image',
-    renderCell: ({ row }: { row: TFlower }) => (
-      <Image src={row.image} alt={row.image} width={30} height={50} />
-    ),
+    field: 'customerId',
+    headerName: 'Mijoz raqami',
+    renderCell: ({ row }: { row: TOrder }) => <p>{row.customerId.phone}</p>,
   },
-  { field: 'name', headerName: 'name' },
   {
-    field: 'price',
-    headerName: 'price',
-    renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
+    field: 'bouquetId',
+    headerName: 'Buketlar soni',
+    renderCell: ({ row }: { row: TOrder }) => <p>{row.bouquet?.qty}</p>,
+  },
+  {
+    field: 'flowersId',
+    headerName: 'Gullar soni',
+    renderCell: ({ row }: { row: TOrder }) => <p>{row.flower?.qty}</p>,
   },
   {
     field: 'action',
     headerName: 'action',
     className: 'text-end',
-    renderCell: ({ row }: { row: TFlower }) => (
+    renderCell: ({ row }: { row: TOrder }) => (
       <>
         <Button size='icon' variant='outline' className='mr-2'>
           <Link href={`/flowers/${row._id}`}>

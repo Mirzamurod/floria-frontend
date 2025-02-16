@@ -46,23 +46,6 @@ const Orders = () => {
     checkTelegramApi()
   }, [])
 
-  const onCheckout = () => {
-    console.log({ bouquets, flowers })
-    telegram.MainButton.text = 'Sotib olish'
-    telegram.MainButton.show()
-  }
-
-  const onSendData = useCallback(() => {
-    const data = { bouquets, flowers }
-    telegram.sendData(JSON.stringify(data))
-  }, [bouquets, flowers])
-
-  useEffect(() => {
-    telegram.onEvent('mainButtonClicked', onSendData)
-
-    return () => telegram.offEvent('mainButtonClicked', onSendData)
-  }, [onSendData])
-
   const total = (items: IBouquet[] | IFlower[]): { totalUnit: number; totalSum: number } => {
     let totalUnit = 0
     let totalSum = 0
@@ -72,6 +55,25 @@ const Orders = () => {
 
     return { totalUnit, totalSum }
   }
+
+  const onCheckout = () => {
+    telegram.MainButton.text = 'Sotib olish'
+    telegram.MainButton.show()
+  }
+
+  const onSendData = useCallback(() => {
+    const data = {
+      bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
+      flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
+    }
+    telegram.sendData(JSON.stringify(data))
+  }, [bouquets, flowers])
+
+  useEffect(() => {
+    telegram.onEvent('mainButtonClicked', onSendData)
+
+    return () => telegram.offEvent('mainButtonClicked', onSendData)
+  }, [onSendData])
 
   return (
     <div>

@@ -5,7 +5,7 @@ const userSchema = new Schema<TUser>({
   email: { type: String, required: true, unique: true },
   name: { type: String },
   image: { type: String },
-  role: { type: String, enum: ['admin', 'client'], default: 'admin' },
+  role: { type: String, enum: ['admin', 'client'], default: 'client' },
   block: { type: Boolean, default: true },
 })
 

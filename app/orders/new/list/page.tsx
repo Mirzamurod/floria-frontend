@@ -7,7 +7,7 @@ import { TSortModel } from '@/types/table'
 import TableHeader from '../_components/list/TableHeader'
 import columns from '../_components/list/columns'
 import { useAppSelector } from '@/store'
-import { getFlowers } from '@/store/flowers'
+import { getOrders } from '@/store/orders'
 
 const OrdersNewList = () => {
   const dispatch = useDispatch()
@@ -20,7 +20,7 @@ const OrdersNewList = () => {
 
   const getData = () =>
     dispatch(
-      getFlowers({
+      getOrders({
         search,
         page,
         pageCount: limit,
