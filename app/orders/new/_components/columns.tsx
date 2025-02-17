@@ -29,7 +29,7 @@ const columns: TColumns[] = [
     renderCell: ({ row }: { row: TOrder }) => (
       <>
         <Button size='icon' variant='outline' className='mr-2'>
-          <Link href={`/flowers/${row._id}`}>
+          <Link href={`/orders/view/${row._id}`}>
             <Eye />
           </Link>
         </Button>

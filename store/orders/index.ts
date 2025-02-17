@@ -34,7 +34,7 @@ const orders = createSlice({
     },
     onSuccessGetOrder: (state, { payload }) => {
       state.isLoading = false
-      state.orders = payload.data
+      state.order = payload.data
     },
     onFailGetOrder: state => {
       state.isLoading = false

@@ -15,7 +15,7 @@ export type TOrder = {
       bouquetId: TBouquet
       price: number
       qty: number
-    }
+    }[]
     price: number
     qty: number
   }
@@ -24,7 +24,7 @@ export type TOrder = {
       flowerId: TFlower
       price: number
       qty: number
-    }
+    }[]
     price: number
     qty: number
   }
