@@ -1,8 +1,8 @@
 'use client'
 
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode } from 'react'
 import { useAppSelector } from '@/store'
-import { SidebarProvider, SidebarTrigger, useSidebar } from '../ui/sidebar'
+import { SidebarTrigger, useSidebar } from '../ui/sidebar'
 import Sidebar from '../sidebar'
 import { ModeToggle } from '../shared/mode-toggle'
 import { Button } from '../ui/button'
@@ -24,7 +24,7 @@ const LayoutProvider: FC<IProps> = props => {
       <main className='w-full'>
         {sidebar ? (
           <div className='border-b flex justify-between p-2 w-[-webkit-fill-available] fixed bg-background z-50'>
-            <Button size='icon' variant='outline' onClick={() => setOpen(!open)}>
+            <Button asChild size='icon' variant='outline' onClick={() => setOpen(!open)}>
               <SidebarTrigger />
             </Button>
             <div>

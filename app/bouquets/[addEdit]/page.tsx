@@ -74,7 +74,7 @@ const AddEditBouquet = () => {
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
           {addEdit === 'add' ? "Buket qo'shish" : "Buketni o'zgartirish"}
         </h2>
-        <Button>
+        <Button asChild>
           <Link href='/bouquets/list'>Buketlarga o'tish</Link>
         </Button>
       </div>

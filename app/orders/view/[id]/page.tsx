@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { Button } from '@/components/ui/button'
@@ -28,7 +29,11 @@ const ViewOrder = () => {
     <div>
       <div className='flex md:flex-row flex-col md:justify-between'>
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Zakazni ko'rish</h2>
-        <Button onClick={() => router.back()}>Gullarga o'tish</Button>
+        {order ? (
+          <Button asChild>
+            <Link href={`/orders/${order?.status}/list`}>Gullarga o'tish</Link>
+          </Button>
+        ) : null}
       </div>
       {isLoading ? (
         <div className='flex flex-col gap-2'>
@@ -39,8 +44,9 @@ const ViewOrder = () => {
       ) : (
         <div className='mb-4 mt-2'>
           <Card>
-            <CardHeader>
+            <CardHeader className='flex flex-row items-center justify-between'>
               <CardTitle>Umumiy ma'lumot</CardTitle>
+              {order?.status === 'new' ? <Button>Tayyor</Button> : null}
             </CardHeader>
             <Separator />
             <CardContent className='mt-5'>

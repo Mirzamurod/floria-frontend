@@ -4,28 +4,29 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Table from '@/components/table'
 import { TSortModel } from '@/types/table'
-import TableHeader from '../_components/list/TableHeader'
-import columns from '../_components/list/columns'
+import TableHeader from '../_components/TableHeader'
+import columns from '../_components/columns'
 import { useAppSelector } from '@/store'
-import { getFlowers } from '@/store/flowers'
+import { getOrders } from '@/store/orders'
 
-const FlowersList = () => {
+const OrdersNewList = () => {
   const dispatch = useDispatch()
   const [ordering, setOrdering] = useState<TSortModel | null>(null)
   const [search, setSearch] = useState<string>('')
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState('10')
 
-  const { isLoading, flowers, pageCount, success } = useAppSelector(state => state.flower)
+  const { isLoading, orders, pageCount, success } = useAppSelector(state => state.orders)
 
   const getData = () =>
     dispatch(
-      getFlowers({
+      getOrders({
         search,
         page,
         pageCount: limit,
         sortName: ordering?.field,
         sortValue: ordering?.sort,
+        status: 'old',
       })
     )
 
@@ -46,7 +47,7 @@ const FlowersList = () => {
     <div>
       <TableHeader setSearch={setSearch} />
       <Table
-        data={flowers}
+        data={orders}
         columns={columns}
         loading={isLoading}
         pageCount={pageCount}
@@ -61,4 +62,4 @@ const FlowersList = () => {
   )
 }
 
-export default FlowersList
+export default OrdersNewList

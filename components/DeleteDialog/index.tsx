@@ -32,14 +32,14 @@ const DeleteDialog: FC<IProps> = props => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className='gap-2'>
           <Button variant='destructive' onClick={confirm}>
-            Delete
+            O'chirish
           </Button>
           <DialogClose asChild>
-            <Button variant='secondary'>Close</Button>
+            <Button variant='secondary'>Yopish</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

@@ -42,7 +42,5 @@ export interface IOrderStore {
 }
 
 export type TOrderForm = {
-  image?: string
-  name: string
-  price: string
+  status?: 'new' | 'old'
 }

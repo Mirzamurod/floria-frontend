@@ -74,7 +74,7 @@ const AddEditFlower = () => {
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
           {addEdit === 'add' ? "Gul qo'shish" : "Gulni o'zgartirish"}
         </h2>
-        <Button>
+        <Button asChild>
           <Link href='/flowers/list'>Gullarga o'tish</Link>
         </Button>
       </div>

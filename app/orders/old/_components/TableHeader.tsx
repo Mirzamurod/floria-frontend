@@ -1,7 +1,5 @@
 import { FC, useCallback } from 'react'
-import Link from 'next/link'
 import { debounce } from 'lodash'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface IProps {
@@ -18,16 +16,13 @@ const TableHeader: FC<IProps> = props => {
 
   return (
     <div className='flex flex-col mb-4'>
-      <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Flowers</h2>
+      <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Eski zakazlar</h2>
       <div className='flex justify-between'>
         <Input
-          placeholder='Search'
+          placeholder='Qidirish (zakaz nomeri)'
           className='w-auto max-w-[300px]'
           onChange={e => handleTextDebounce(e.target.value)}
         />
-        <Button>
-          <Link href='/flowers/add'>Add Flower</Link>
-        </Button>
       </div>
     </div>
   )

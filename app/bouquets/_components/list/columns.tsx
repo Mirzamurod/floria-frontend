@@ -27,7 +27,7 @@ const columns: TColumns[] = [
     className: 'text-end',
     renderCell: ({ row }: { row: TBouquet }) => (
       <>
-        <Button size='icon' variant='outline' className='mr-2'>
+        <Button asChild size='icon' variant='outline' className='mr-2'>
           <Link href={`/bouquets/${row._id}`}>
             <Edit />
           </Link>

@@ -52,7 +52,7 @@ const Table: FC<TTable> = props => {
               <TableHead
                 {...column}
                 key={column.field}
-                className={cn('min-w-14', column.className)}
+                className={cn('px-2', column.className)}
                 onClick={() => changeSortable(column)}
               >
                 {column.headerName}

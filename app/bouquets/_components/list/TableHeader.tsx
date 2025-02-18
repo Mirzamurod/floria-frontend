@@ -25,7 +25,7 @@ const TableHeader: FC<IProps> = props => {
           className='w-auto md:max-w-[350px]'
           onChange={e => handleTextDebounce(e.target.value)}
         />
-        <Button className='mt-2 md:mt-0'>
+        <Button className='mt-2 md:mt-0' asChild>
           <Link href='/bouquets/add'>Buket qo'shish</Link>
         </Button>
       </div>

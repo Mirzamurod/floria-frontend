@@ -28,7 +28,7 @@ const columns: TColumns[] = [
     className: 'text-end',
     renderCell: ({ row }: { row: TFlower }) => (
       <>
-        <Button size='icon' variant='outline' className='mr-2'>
+        <Button asChild size='icon' variant='outline' className='mr-2'>
           <Link href={`/flowers/${row._id}`}>
             <Edit />
           </Link>
