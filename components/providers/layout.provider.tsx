@@ -23,7 +23,7 @@ const LayoutProvider: FC<IProps> = props => {
       {sidebar ? <Sidebar /> : null}
       <main className='w-full'>
         {sidebar ? (
-          <div className='border-b flex justify-between p-2 w-[-webkit-fill-available] fixed bg-background z-50'>
+          <div className='border-b flex justify-between p-2 sidebar-width fixed bg-background z-50'>
             <Button asChild size='icon' variant='outline' onClick={() => setOpen(!open)}>
               <SidebarTrigger />
             </Button>

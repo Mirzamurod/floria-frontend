@@ -9,7 +9,7 @@ export const sidebar: TSidebarItem[] = [
     title: 'Zakazlar',
     icon: Logs,
     children: [
-      { title: 'Yengi zakazlar', href: '/orders/new/list', icon: ListOrdered },
+      { title: 'Yangi zakazlar', href: '/orders/new/list', icon: ListOrdered },
       { title: 'Eski zakazlar', href: '/orders/old/list', icon: ListOrdered },
     ],
   },

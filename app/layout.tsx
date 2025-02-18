@@ -14,7 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: 'Flower Web Telegram Bot',
   description: 'Written by Mirzamurod',
-  icons: { icon: 'flower-icon.webp' },
+  icons: { icon: '/logo.png' },
 }
 
 export default function RootLayout({

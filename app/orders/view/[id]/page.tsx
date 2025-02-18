@@ -3,27 +3,41 @@
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { Button } from '@/components/ui/button'
-import { getOrder } from '@/store/orders'
+import { editOrder, getOrder } from '@/store/orders'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { getSum } from '@/lib/utils'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 const ViewOrder = () => {
   const { id } = useParams()
-  const router = useRouter()
   const dispatch = useDispatch()
 
-  const { isLoading, order } = useAppSelector(state => state.orders)
+  const { isLoading, order, success } = useAppSelector(state => state.orders)
+
+  const confirm = () => dispatch(editOrder({ status: 'old' }, order?._id!))
 
   useEffect(() => {
     dispatch(getOrder(id as string))
   }, [id])
+
+  useEffect(() => {
+    dispatch(getOrder(id as string))
+  }, [id, success])
 
   return (
     <div>
@@ -46,7 +60,28 @@ const ViewOrder = () => {
           <Card>
             <CardHeader className='flex flex-row items-center justify-between'>
               <CardTitle>Umumiy ma'lumot</CardTitle>
-              {order?.status === 'new' ? <Button>Tayyor</Button> : null}
+              {order?.status === 'new' ? (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size='sm'>Tayyor</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
+                    </DialogHeader>
+                    <DialogFooter className='gap-2'>
+                      <Button onClick={confirm} disabled={isLoading}>
+                        Ha
+                      </Button>
+                      <DialogClose asChild>
+                        <Button variant='secondary' disabled={isLoading}>
+                          Yo'q
+                        </Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              ) : null}
             </CardHeader>
             <Separator />
             <CardContent className='mt-5'>

@@ -83,3 +83,9 @@
     @apply bg-background text-foreground font-spaceGrotesk;
   }
 }
+
+.sidebar-width {
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+}
