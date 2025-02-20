@@ -36,7 +36,7 @@ const AddEditFlower = () => {
   const onSubmit = (values: TFlowerForm) => {
     if (image) {
       if (addEdit === 'add') dispatch(addFlower({ ...values, image }))
-      else dispatch(editFlower({ ...values, image }, addEdit as string))
+      else dispatch(editFlower(addEdit as string, { ...values, image }))
     }
   }
 

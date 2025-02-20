@@ -83,7 +83,7 @@ const Flowers: FC<IProps> = props => {
         </AlertDescription>
       </Alert>
       <div className='grid grid-cols-2 gap-4 mt-4'>
-        {isLoading ? (
+        {isLoading && !flowers.length ? (
           [...new Array(4)].map((_, index) => (
             <Card key={index}>
               <Skeleton className='h-40 w-full rounded-none' />

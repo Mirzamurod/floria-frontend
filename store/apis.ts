@@ -16,11 +16,13 @@ export const editclienttelegram = '/client/telegram'
 export const bouquets = '/bouquets'
 export const bouquetapi = '/bouquets/'
 export const bouquetpublic = '/bouquets/public/'
+export const bouquetblock = '/bouquets/block/'
 
 // flower
 export const flowersapi = '/flowers'
 export const flowerapi = '/flowers/'
 export const flowerpublic = '/flowers/public/'
+export const flowerblock = '/flowers/block/'
 
 // order
 export const ordersapi = '/orders'

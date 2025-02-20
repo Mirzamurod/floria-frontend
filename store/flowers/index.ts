@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { flowerapi, flowersapi, flower, flowerpublic } from '@/store/apis'
+import { flowerapi, flowersapi, flower, flowerpublic, flowerblock } from '@/store/apis'
 import { IFlowerStore, TFlowerForm } from '@/types/flower'
 
 const initialState: IFlowerStore = {
   isLoading: false,
+  isLoadingBlock: false,
   flowers: [],
   flower: null,
   errors: null,
@@ -51,6 +52,16 @@ const flowers = createSlice({
     onFailAddEditFlower: state => {
       state.isLoading = false
     },
+    // add-edit-block
+    onStartEditFlowerBlock: state => {
+      state.isLoadingBlock = true
+    },
+    onSuccessEditFlowerBlock: state => {
+      state.isLoadingBlock = false
+    },
+    onFailEditFlowerBlock: state => {
+      state.isLoadingBlock = false
+    },
   },
 })
 
@@ -93,7 +104,7 @@ export const addFlower = (data: TFlowerForm) =>
     onFail: flowers.actions.onFailAddEditFlower.type,
   })
 
-export const editFlower = (data: TFlowerForm, id: string) =>
+export const editFlower = (id: string, data: TFlowerForm) =>
   flower({
     url: flowerapi + id,
     method: 'patch',
@@ -101,6 +112,16 @@ export const editFlower = (data: TFlowerForm, id: string) =>
     onStart: flowers.actions.onStartAddEditFlower.type,
     onSuccess: flowers.actions.onSuccessAddEditFlower.type,
     onFail: flowers.actions.onFailAddEditFlower.type,
+  })
+
+export const editFlowerBlock = (id: string, data: { block: boolean }) =>
+  flower({
+    url: flowerblock + id,
+    method: 'patch',
+    data,
+    onStart: flowers.actions.onStartEditFlowerBlock.type,
+    onSuccess: flowers.actions.onSuccessEditFlowerBlock.type,
+    onFail: flowers.actions.onFailEditFlowerBlock.type,
   })
 
 export const deleteFlower = (id: string) =>

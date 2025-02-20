@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { bouquetapi, bouquetpublic, bouquets, flower } from '@/store/apis'
+import { bouquetapi, bouquetblock, bouquetpublic, bouquets, flower } from '@/store/apis'
 import { IBouquetStore, TBouquetForm } from '@/types/bouquet'
 
 const initialState: IBouquetStore = {
   isLoading: false,
+  isLoadingBlock: false,
   bouquets: [],
   bouquet: null,
   errors: null,
@@ -51,6 +52,16 @@ const bouquet = createSlice({
     onFailAddEditBouquets: state => {
       state.isLoading = false
     },
+    // add-edit-block
+    onStartEditBouquetsBlock: state => {
+      state.isLoadingBlock = true
+    },
+    onSuccessEditBouquetsBlock: state => {
+      state.isLoadingBlock = false
+    },
+    onFailEditBouquetsBlock: state => {
+      state.isLoadingBlock = false
+    },
   },
 })
 
@@ -93,7 +104,7 @@ export const addBouquet = (data: TBouquetForm) =>
     onFail: bouquet.actions.onFailAddEditBouquets.type,
   })
 
-export const editBouquet = (data: TBouquetForm, id: string) =>
+export const editBouquet = (id: string, data: TBouquetForm) =>
   flower({
     url: bouquetapi + id,
     method: 'patch',
@@ -101,6 +112,16 @@ export const editBouquet = (data: TBouquetForm, id: string) =>
     onStart: bouquet.actions.onStartAddEditBouquets.type,
     onSuccess: bouquet.actions.onSuccessAddEditBouquets.type,
     onFail: bouquet.actions.onFailAddEditBouquets.type,
+  })
+
+export const editBouquetBlock = (id: string, data: { block: boolean }) =>
+  flower({
+    url: bouquetblock + id,
+    method: 'patch',
+    data,
+    onStart: bouquet.actions.onStartEditBouquetsBlock.type,
+    onSuccess: bouquet.actions.onSuccessEditBouquetsBlock.type,
+    onFail: bouquet.actions.onFailEditBouquetsBlock.type,
   })
 
 export const deleteBouquet = (id: string) =>

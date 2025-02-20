@@ -36,7 +36,7 @@ const AddEditBouquet = () => {
   const onSubmit = (values: TBouquetForm) => {
     if (image) {
       if (addEdit === 'add') dispatch(addBouquet({ ...values, image }))
-      else dispatch(editBouquet({ ...values, image }, addEdit as string))
+      else dispatch(editBouquet(addEdit as string, { ...values, image }))
     }
   }
 

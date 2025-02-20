@@ -5,13 +5,16 @@ export type TFlower = {
   image: string
   name: string
   price: number | string
+  info?: string
   createdAt: string
   updatedAt: string
   userId: string
+  block: boolean
 }
 
 export interface IFlowerStore {
   isLoading: boolean
+  isLoadingBlock: boolean
   flower: TFlower | null
   flowers: TFlower[]
   errors: TError[] | null

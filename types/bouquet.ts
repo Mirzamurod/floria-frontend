@@ -9,10 +9,12 @@ export type TBouquet = {
   createdAt: string
   updatedAt: string
   userId: string
+  block: boolean
 }
 
 export interface IBouquetStore {
   isLoading: boolean
+  isLoadingBlock: boolean
   bouquet: TBouquet | null
   bouquets: TBouquet[]
   errors: TError[] | null

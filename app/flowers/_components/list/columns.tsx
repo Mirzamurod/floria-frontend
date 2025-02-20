@@ -5,8 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
 import Link from 'next/link'
 import DeleteDialog from '@/components/DeleteDialog'
-import { deleteFlower } from '@/store/flowers'
+import { deleteFlower, editFlowerBlock } from '@/store/flowers'
 import { TFlower } from '@/types/flower'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '@/store'
+import { Switch } from '@/components/ui/switch'
 
 const columns: TColumns[] = [
   {
@@ -21,6 +24,21 @@ const columns: TColumns[] = [
     field: 'price',
     headerName: 'Narx',
     renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
+  },
+  {
+    field: 'block',
+    headerName: 'Active',
+    renderCell: ({ row }: { row: TFlower }) => {
+      const dispatch = useDispatch()
+
+      const { isLoadingBlock } = useAppSelector(state => state.bouquet)
+
+      const onChange = () => dispatch(editFlowerBlock(row._id, { block: !row.block }))
+
+      return (
+        <Switch defaultChecked={!row.block} onCheckedChange={onChange} disabled={isLoadingBlock} />
+      )
+    },
   },
   {
     field: 'action',

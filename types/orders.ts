@@ -44,3 +44,17 @@ export interface IOrderStore {
 export type TOrderForm = {
   status?: 'new' | 'old'
 }
+
+export interface IBouquet {
+  bouquetId: string
+  qty: number
+  price: number
+  image: string
+}
+
+export interface IFlower {
+  flowerId: string
+  qty: number
+  price: number
+  image: string
+}

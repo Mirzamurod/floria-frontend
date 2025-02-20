@@ -1,34 +1,23 @@
 'use client'
 
-import { Fragment, useCallback, useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useCallback, useEffect, useState } from 'react'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { getSum } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Bouquets from './_components/Bouquets'
 import Flowers from './_components/Flowers'
-
-interface IBouquet {
-  bouquetId: string
-  qty: number
-  price: number
-  image: string
-}
-
-interface IFlower {
-  flowerId: string
-  qty: number
-  price: number
-  image: string
-}
+import Modal from './_components/Modal'
+import Popup from './_components/Popup'
+import { IBouquet, IFlower } from '@/types/orders'
 
 const Orders = () => {
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
+  const [open, setOpen] = useState(false)
+  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>('takeaway')
 
   const telegram = window.Telegram.WebApp
 
@@ -65,6 +54,7 @@ const Orders = () => {
     const data = {
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
+      delivery,
     }
     telegram.sendData(JSON.stringify(data))
   }, [bouquets, flowers])
@@ -92,63 +82,7 @@ const Orders = () => {
                 </Button>
               </PopoverTrigger>
               <PopoverContent>
-                {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
-                {bouquets.length ? (
-                  <>
-                    <p>Buketlar</p>
-                    {bouquets.map(item => (
-                      <Fragment key={item.bouquetId}>
-                        <div className='flex justify-between items-center mt-2'>
-                          <Image src={item.image} alt='Bouquet image' width={40} height={50} />
-                          <p>{item.qty}</p>
-                          <p>{getSum(item.price)}</p>
-                        </div>
-                      </Fragment>
-                    ))}
-                    <div className='flex justify-between items-center mt-2'>
-                      <p>Umumiy:</p>
-                      <p>{total(bouquets).totalUnit}</p>
-                      <p>{getSum(total(bouquets).totalSum)}</p>
-                    </div>
-                    <Separator className='my-2' />
-                  </>
-                ) : null}
-                {flowers.length ? (
-                  <>
-                    <p>Maxsus guldasta</p>
-                    {flowers.map(item => (
-                      <Fragment key={item.flowerId}>
-                        <div className='flex justify-between items-center mt-2'>
-                          <Image src={item.image} alt='Bouquet image' width={40} height={50} />
-                          <p>{item.qty}</p>
-                          <p>{getSum(item.price)}</p>
-                        </div>
-                      </Fragment>
-                    ))}
-                    <div className='flex justify-between items-center mt-2'>
-                      <p>Umumiy:</p>
-                      <p>{total(flowers).totalUnit}</p>
-                      <p>{getSum(total(flowers).totalSum)}</p>
-                    </div>
-                  </>
-                ) : null}
-                {bouquets.length && flowers.length ? (
-                  <>
-                    <Separator className='my-2' />
-                    <div className='flex justify-between items-center mt-2'>
-                      <p>Umumiy:</p>
-                      <p>{total(bouquets).totalUnit + total(flowers).totalUnit}</p>
-                      <p>{getSum(total(bouquets).totalSum + total(flowers).totalSum)}</p>
-                    </div>
-                  </>
-                ) : null}
-                <Button
-                  className='w-full mt-2'
-                  disabled={!bouquets.length && !flowers.length}
-                  onClick={onCheckout}
-                >
-                  Zakaz berish
-                </Button>
+                <Popup bouquets={bouquets} flowers={flowers} setOpen={setOpen} total={total} />
               </PopoverContent>
             </Popover>
             <ModeToggle />
@@ -169,6 +103,16 @@ const Orders = () => {
           <Flowers items={flowers} setItems={setFlowers} />
         </TabsContent>
       </Tabs>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        bouquets={bouquets}
+        flowers={flowers}
+        onCheckout={onCheckout}
+        total={total}
+        delivery={delivery}
+        setDelivery={setDelivery}
+      />
     </div>
   )
 }
