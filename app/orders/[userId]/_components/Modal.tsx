@@ -38,7 +38,7 @@ const Modal: FC<IProps> = props => {
         </DialogHeader>
         <div>
           <p>Yetkazib berish turi</p>
-          <RadioGroup defaultValue='takeaway' className='mb-4'>
+          <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4'>
             <div className='flex items-center space-x-2'>
               <RadioGroupItem value='takeaway' id='takeaway' />
               <Label htmlFor='takeaway'>Olib ketish</Label>

@@ -13,7 +13,7 @@ const ApiKeys = () => {
   const { data: session } = useSession()
   const [telegramToken, setTelegramToken] = useState(session?.currentUser?.telegramToken ?? '')
   const [telegramId, setTelegramId] = useState(session?.currentUser?.telegramId ?? '')
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState(session?.currentUser?.location ?? '')
 
   const { telegramLoading } = useAppSelector(state => state.login)
 

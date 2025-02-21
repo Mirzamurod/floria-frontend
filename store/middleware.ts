@@ -28,8 +28,8 @@ const middleware =
 
     // @ts-ignore
     axios({
-      // baseURL: 'http://localhost:5000/api/',
-      baseURL: 'https://test-telegram-backend.onrender.com/api',
+      baseURL: 'http://localhost:5000/api/',
+      // baseURL: 'https://test-telegram-backend.onrender.com/api',
       method,
       data,
       url,

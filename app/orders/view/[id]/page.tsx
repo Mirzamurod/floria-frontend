@@ -86,10 +86,10 @@ const ViewOrder = () => {
             <Separator />
             <CardContent className='mt-5'>
               <p>
-                <b>Mijor raqami: </b> &nbsp; {order?.customerId.phone}
+                <b>Mijoz raqami: </b> &nbsp; {order?.customerId.phone}
               </p>
               <p>
-                <b>Mijor ismi: </b> &nbsp; {order?.customerId.name}
+                <b>Mijoz ismi: </b> &nbsp; {order?.customerId.name}
               </p>
             </CardContent>
             {order?.bouquet.bouquets.length ? (

@@ -9,6 +9,7 @@ export type TUser = {
   block: boolean
   telegramToken?: string
   telegramId?: string
+  location?: string
 }
 
 export interface IUserStore {

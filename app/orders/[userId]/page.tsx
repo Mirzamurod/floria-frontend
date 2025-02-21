@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -14,6 +15,7 @@ import Popup from './_components/Popup'
 import { IBouquet, IFlower } from '@/types/orders'
 
 const Orders = () => {
+  const { userId } = useParams()
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
   const [open, setOpen] = useState(false)
@@ -52,12 +54,13 @@ const Orders = () => {
 
   const onSendData = useCallback(() => {
     const data = {
+      userId,
+      delivery,
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
-      delivery,
     }
     telegram.sendData(JSON.stringify(data))
-  }, [bouquets, flowers])
+  }, [bouquets, flowers, delivery, userId])
 
   useEffect(() => {
     telegram.onEvent('mainButtonClicked', onSendData)
