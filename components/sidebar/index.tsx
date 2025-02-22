@@ -24,7 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { sidebar } from '@/lib/constants'
+import { sidebar, themeConfig } from '@/lib/constants'
 import { Separator } from '../ui/separator'
 
 const Sidebar = () => {
@@ -36,7 +36,7 @@ const Sidebar = () => {
       <SidebarHeader>
         <div className='flex gap-2 items-center'>
           <Image src='/flower-icon.webp' alt='flower-icon' width={36} height={36} />
-          <p className='text-xl'>Flowers</p>
+          <p className='text-xl'>{themeConfig.app.name}</p>
         </div>
       </SidebarHeader>
       <Separator />
@@ -103,7 +103,7 @@ const Sidebar = () => {
                   className='cursor-pointer'
                   onClick={() => setOpenMobile(false)}
                 >
-                  <Link href='/profile'>Account</Link>
+                  <Link href='/profile'>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()} className='cursor-pointer'>
                   <span>Sign out</span>

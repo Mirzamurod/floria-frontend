@@ -3,6 +3,8 @@ import { Flower2, Home, List, ListOrdered, Logs } from 'lucide-react'
 import { GiHerbsBundle } from 'react-icons/gi'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 
+export const themeConfig = { app: { name: 'Floria' } }
+
 export const sidebar: TSidebarItem[] = [
   { title: 'Dashboard', icon: Home, href: '/' },
   {

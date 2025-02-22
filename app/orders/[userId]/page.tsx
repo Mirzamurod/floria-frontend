@@ -16,6 +16,7 @@ import Popup from './_components/Popup'
 import { IBouquet, IFlower } from '@/types/orders'
 import { getPublicBouquets } from '@/store/bouquet'
 import { getPublicFlowers } from '@/store/flowers'
+import { themeConfig } from '@/lib/constants'
 
 const Orders = () => {
   const { userId } = useParams()
@@ -149,7 +150,9 @@ const Orders = () => {
       {/* Sidebar */}
       <div className='sticky top-0 z-20 bg-background'>
         <div className='flex justify-between p-2'>
-          <h2 className='scroll-m-20 text-3xl font-semibold tracking-tight'>Gullar</h2>
+          <h2 className='scroll-m-20 text-3xl font-semibold tracking-tight'>
+            {themeConfig.app.name}
+          </h2>
           <div className='flex gap-x-2'>
             <Popover open={popup} onOpenChange={setPopup}>
               <PopoverTrigger asChild>

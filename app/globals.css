@@ -91,7 +91,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 0px;
   height: 2px;
   border-radius: 10px;
 }

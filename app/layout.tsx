@@ -3,6 +3,7 @@ import { Space_Grotesk } from 'next/font/google'
 import { ThemeProvider } from '@/components/providers/theme.provider'
 import SessionProvider from '@/components/providers/session.provider'
 import LayoutProvider from '@/components/providers/layout.provider'
+import { themeConfig } from '@/lib/constants'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -12,7 +13,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Flower Web Telegram Bot',
+  title: themeConfig.app.name,
   description: 'Written by Mirzamurod',
   icons: { icon: '/logo.png' },
 }
