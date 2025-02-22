@@ -1,13 +1,10 @@
-import { FC, useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { FC } from 'react'
 import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
-import { useDispatch } from 'react-redux'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
-import { getPublicBouquets } from '@/store/bouquet'
 import { TBouquet } from '@/types/bouquet'
 import { getSum } from '@/lib/utils'
 
@@ -16,20 +13,16 @@ type TItem = { bouquetId: string; qty: number; price: number; image: string }
 interface IProps {
   items: TItem[]
   setItems: (value: TItem[]) => void
+  page: number
+  setPage: (value: number) => void
+  limit: string
+  setLimit: (value: string) => void
 }
 
 const Bouquets: FC<IProps> = props => {
-  const { items, setItems } = props
-  const { userId } = useParams()
-  const dispatch = useDispatch()
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState('10')
+  const { items, setItems, page, setPage, limit, setLimit } = props
 
   const { isLoading, bouquets, pageCount } = useAppSelector(state => state.bouquet)
-
-  useEffect(() => {
-    if (page && limit) dispatch(getPublicBouquets(userId as string, { page, pageCount: limit }))
-  }, [page, pageCount, userId])
 
   const onChange = (item: { page: number; limit: string }) => {
     setPage(item.page)
@@ -73,8 +66,8 @@ const Bouquets: FC<IProps> = props => {
 
   return (
     <div className='my-4'>
-      <div className='grid grid-cols-2 gap-4'>
-        {isLoading && !bouquets.length ? (
+      <div className='grid grid-cols-2 gap-2'>
+        {isLoading ? (
           [...new Array(4)].map((_, index) => (
             <Card key={index}>
               <Skeleton className='h-40 w-full rounded-none' />
@@ -148,6 +141,7 @@ const Bouquets: FC<IProps> = props => {
             previousLabel='<'
             nextLabel='>'
             breakLabel='...'
+            initialPage={page - 1}
             pageCount={pageCount! ?? 1}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}

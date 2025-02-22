@@ -1,13 +1,10 @@
-import { FC, useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { FC } from 'react'
 import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
-import { useDispatch } from 'react-redux'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
-import { getPublicFlowers } from '@/store/flowers'
 import { TFlower } from '@/types/flower'
 import { getSum } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -18,20 +15,16 @@ type TItem = { flowerId: string; qty: number; price: number; image: string }
 interface IProps {
   items: TItem[]
   setItems: (value: TItem[]) => void
+  page: number
+  setPage: (value: number) => void
+  limit: string
+  setLimit: (value: string) => void
 }
 
 const Flowers: FC<IProps> = props => {
-  const { items, setItems } = props
-  const { userId } = useParams()
-  const dispatch = useDispatch()
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState('10')
+  const { items, setItems, page, setPage, limit, setLimit } = props
 
   const { isLoading, flowers, pageCount } = useAppSelector(state => state.flower)
-
-  useEffect(() => {
-    dispatch(getPublicFlowers(userId as string, { page, pageCount: limit }))
-  }, [page, pageCount, userId])
 
   const onChange = (item: { page: number; limit: string }) => {
     setPage(item.page)
@@ -150,6 +143,7 @@ const Flowers: FC<IProps> = props => {
             previousLabel='<'
             nextLabel='>'
             breakLabel='...'
+            initialPage={page - 1}
             pageCount={pageCount! ?? 1}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}

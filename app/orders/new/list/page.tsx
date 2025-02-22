@@ -23,7 +23,7 @@ const OrdersNewList = () => {
       getOrders({
         search,
         page,
-        pageCount: limit,
+        limit,
         sortName: ordering?.field,
         sortValue: ordering?.sort,
         status: 'new',
@@ -52,10 +52,8 @@ const OrdersNewList = () => {
         loading={isLoading}
         pageCount={pageCount}
         sortModel={ordering}
-        paginationModel={{ page, pageSize: limit }}
-        onPaginationModelChange={newItem =>
-          onChange({ page: newItem.page, limit: newItem.pageSize })
-        }
+        paginationModel={{ page, limit }}
+        onPaginationModelChange={onChange}
         onSortModelChange={sort => setOrdering(sort)}
       />
     </div>

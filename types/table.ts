@@ -1,5 +1,4 @@
-import { ReactNode, StyleHTMLAttributes } from 'react'
-import { ClassValue } from 'clsx'
+import { ReactNode } from 'react'
 
 export type TTable = {
   data: any[]
@@ -10,8 +9,8 @@ export type TTable = {
   pageSizeOptions?: number[]
   sortModel?: TSortModel | null
   onSortModelChange?: (value: TSortModel | null) => void
-  paginationModel?: { page: number; pageSize: string }
-  onPaginationModelChange?: (value: { page: number; pageSize: string }) => void
+  paginationModel?: { page: number; limit: string }
+  onPaginationModelChange?: (value: { page: number; limit: string }) => void
 }
 
 export type TColumns = {

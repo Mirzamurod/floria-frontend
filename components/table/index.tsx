@@ -91,8 +91,8 @@ const Table: FC<TTable> = props => {
       {footerPagination && !loading ? (
         <div className='mt-2 gap-3 flex justify-end items-center'>
           <Select
-            value={paginationModel?.pageSize ?? '10'}
-            onValueChange={value => onPaginationModelChange!({ page: 1, pageSize: value })}
+            value={paginationModel?.limit ?? '10'}
+            onValueChange={value => onPaginationModelChange!({ page: 1, limit: value })}
           >
             <SelectTrigger className='w-auto'>
               <SelectValue />
@@ -110,14 +110,12 @@ const Table: FC<TTable> = props => {
               previousLabel='<'
               nextLabel='>'
               breakLabel='...'
+              initialPage={paginationModel?.page! - 1}
               pageCount={pageCount! ?? 1}
               marginPagesDisplayed={2}
               pageRangeDisplayed={3}
               onPageChange={({ selected }) =>
-                onPaginationModelChange!({
-                  page: selected! + 1,
-                  pageSize: paginationModel?.pageSize!,
-                })
+                onPaginationModelChange!({ page: selected! + 1, limit: paginationModel?.limit! })
               }
               containerClassName='flex gap-2 justify-center'
               pageClassName='px-3 py-[7px] text-sm font-medium rounded-md border border-green-500'

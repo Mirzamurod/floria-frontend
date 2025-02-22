@@ -20,13 +20,7 @@ const BouquetsList = () => {
 
   const getData = () =>
     dispatch(
-      getBouquets({
-        search,
-        page,
-        pageCount: limit,
-        sortName: ordering?.field,
-        sortValue: ordering?.sort,
-      })
+      getBouquets({ search, page, limit, sortName: ordering?.field, sortValue: ordering?.sort })
     )
 
   useEffect(() => {
@@ -51,10 +45,8 @@ const BouquetsList = () => {
         loading={isLoading}
         pageCount={pageCount}
         sortModel={ordering}
-        paginationModel={{ page, pageSize: limit }}
-        onPaginationModelChange={newItem =>
-          onChange({ page: newItem.page, limit: newItem.pageSize })
-        }
+        paginationModel={{ page, limit }}
+        onPaginationModelChange={onChange}
         onSortModelChange={sort => setOrdering(sort)}
       />
     </div>

@@ -1,4 +1,5 @@
 import { FC, Fragment } from 'react'
+import Image from 'next/image'
 import {
   Dialog,
   DialogContent,
@@ -8,12 +9,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { IBouquet, IFlower } from '@/types/orders'
-import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { CircleX, Minus, Plus } from 'lucide-react'
 
 interface IProps {
   open: boolean
@@ -24,10 +26,23 @@ interface IProps {
   flowers: IFlower[]
   delivery: 'takeaway' | 'delivery'
   setDelivery: (value: 'takeaway' | 'delivery') => void
+  deleteItem: (type: 'bouquet' | 'flower', item: IBouquet | IFlower) => void
+  changeItem: (type: 'bouquet' | 'flower', operator: '-' | '+', item: IBouquet | IFlower) => void
 }
 
 const Modal: FC<IProps> = props => {
-  const { open, setOpen, total, onCheckout, bouquets, flowers, delivery, setDelivery } = props
+  const {
+    open,
+    setOpen,
+    total,
+    onCheckout,
+    bouquets,
+    flowers,
+    delivery,
+    setDelivery,
+    deleteItem,
+    changeItem,
+  } = props
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -36,7 +51,7 @@ const Modal: FC<IProps> = props => {
           <DialogTitle>Tekshirish</DialogTitle>
           <DialogDescription>Buket va gullarni to'g'riligini tekshiring</DialogDescription>
         </DialogHeader>
-        <div>
+        <ScrollArea className='max-h-[70vh]'>
           <p>Yetkazib berish turi</p>
           <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4'>
             <div className='flex items-center space-x-2'>
@@ -56,8 +71,33 @@ const Modal: FC<IProps> = props => {
                 <Fragment key={item.bouquetId}>
                   <div className='flex justify-between items-center mt-2'>
                     <Image src={item.image} alt='Bouquet image' width={40} height={50} />
-                    <p>{item.qty}</p>
-                    <p>{getSum(item.price)}</p>
+                    <div className='flex gap-3 items-center py-1 px-2'>
+                      <Button
+                        size='icon'
+                        variant='secondary'
+                        onClick={() => changeItem('bouquet', '-', item)}
+                      >
+                        <Minus />
+                      </Button>
+                      <p>{item.qty}</p>
+                      <Button
+                        size='icon'
+                        variant='secondary'
+                        onClick={() => changeItem('bouquet', '+', item)}
+                      >
+                        <Plus />
+                      </Button>
+                    </div>
+                    <div className='flex gap-1 items-center'>
+                      <p>{getSum(item.price)}</p>
+                      <Button
+                        size='icon'
+                        variant='ghost'
+                        onClick={() => deleteItem('bouquet', item)}
+                      >
+                        <CircleX />
+                      </Button>
+                    </div>
                   </div>
                 </Fragment>
               ))}
@@ -71,8 +111,33 @@ const Modal: FC<IProps> = props => {
                 <Fragment key={item.flowerId}>
                   <div className='flex justify-between items-center mt-2'>
                     <Image src={item.image} alt='Bouquet image' width={40} height={50} />
-                    <p>{item.qty}</p>
-                    <p>{getSum(item.price)}</p>
+                    <div className='flex gap-3 items-center py-1 px-2'>
+                      <Button
+                        size='icon'
+                        variant='secondary'
+                        onClick={() => changeItem('flower', '-', item)}
+                      >
+                        <Minus />
+                      </Button>
+                      <p>{item.qty}</p>
+                      <Button
+                        size='icon'
+                        variant='secondary'
+                        onClick={() => changeItem('flower', '+', item)}
+                      >
+                        <Plus />
+                      </Button>
+                    </div>
+                    <div className='flex gap-2'>
+                      <p>{getSum(item.price)}</p>
+                      <Button
+                        size='icon'
+                        variant='ghost'
+                        onClick={() => deleteItem('flower', item)}
+                      >
+                        <CircleX />
+                      </Button>
+                    </div>
                   </div>
                 </Fragment>
               ))}
@@ -88,7 +153,7 @@ const Modal: FC<IProps> = props => {
               </div>
             </>
           ) : null}
-        </div>
+        </ScrollArea>
         <DialogFooter>
           <Button disabled={!bouquets.length && !flowers.length} onClick={onCheckout}>
             Zakaz berish
