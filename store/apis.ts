@@ -24,6 +24,12 @@ export const flowerapi = '/flowers/'
 export const flowerpublic = '/flowers/public/'
 export const flowerblock = '/flowers/block/'
 
+// category
+export const categories = '/category'
+export const categoryapi = '/category/'
+export const categorypublic = '/category/public/'
+export const categoryblock = '/category/block/'
+
 // order
 export const ordersapi = '/orders'
 export const orderapi = '/orders/'

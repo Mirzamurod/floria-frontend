@@ -1,8 +1,7 @@
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FormControl, FormField, FormItem, FormMessage } from '../ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { TInputType } from '@/types/input'
-import { Label } from '../ui/label'
 import { Input as ShadInput } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 
@@ -16,9 +15,9 @@ const Input: FC<TInputType> = props => {
       control={control}
       render={({ field }) => (
         <FormItem>
-          <Label>
+          <FormLabel>
             {label || name} {required ? <span className='text-red-500'>*</span> : null}
-          </Label>
+          </FormLabel>
           <FormControl>
             {textarea ? (
               // @ts-ignore

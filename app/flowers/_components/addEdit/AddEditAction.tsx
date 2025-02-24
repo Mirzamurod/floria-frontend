@@ -1,4 +1,3 @@
-import {} from 'react'
 import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/store'

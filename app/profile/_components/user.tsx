@@ -1,4 +1,3 @@
-import {} from 'react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'

@@ -38,6 +38,7 @@ const Orders = () => {
       if (window.Telegram?.WebApp) {
         telegram.ready()
         console.log('Telegram WepApp Api muvaffaqiyatli yuklandi')
+        telegram.expand()
       } else {
         console.error('Telegram WebApp Api hali yuklanmagan. Tekshirish davom etmoqda...')
         setTimeout(checkTelegramApi, 500)

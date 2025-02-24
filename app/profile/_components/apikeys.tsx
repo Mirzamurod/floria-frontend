@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { editClientTelegram } from '@/store/user/login'
 import { useAppSelector } from '@/store'
+import TelegramToken from './TelegramToken'
+import TelegramId from './TelegramId'
+import Location from './Location'
 
 const ApiKeys = () => {
   const dispatch = useDispatch()
@@ -30,10 +33,12 @@ const ApiKeys = () => {
       <CardContent>
         <form className='flex flex-col gap-4' onSubmit={onSubmit}>
           <div>
-            <Label>
-              Telegram token <span className='text-red-500'>*</span>
+            <Label htmlFor='token'>
+              Telegram token <span className='text-red-500'>*</span>{' '}
+              <TelegramToken>?</TelegramToken>
             </Label>
             <Input
+              id='token'
               required
               type='text'
               disabled={telegramLoading}
@@ -43,8 +48,11 @@ const ApiKeys = () => {
             />
           </div>
           <div>
-            <Label>Telegram group id</Label>
+            <Label htmlFor='id'>
+              Telegram group id <TelegramId>?</TelegramId>
+            </Label>
             <Input
+              id='id'
               type='text'
               disabled={telegramLoading}
               placeholder='Telegram group id'
@@ -53,9 +61,12 @@ const ApiKeys = () => {
             />
           </div>
           <div>
-            <Label>Location</Label>
+            <Label htmlFor='location'>
+              Location <Location>?</Location>
+            </Label>
             <Input
               type='text'
+              id='location'
               disabled={telegramLoading}
               placeholder='Location'
               value={location}

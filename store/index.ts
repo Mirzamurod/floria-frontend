@@ -9,15 +9,10 @@ import register from './user/register'
 import bouquet from './bouquet'
 import flower from './flowers'
 import orders from './orders'
+import category from './category'
 
 export const store = configureStore({
-  reducer: {
-    login,
-    register,
-    bouquet,
-    flower,
-    orders,
-  },
+  reducer: { login, register, bouquet, flower, orders, category },
   middleware: () => [middleware] as any,
 })
 

@@ -31,4 +31,12 @@ export const sidebar: TSidebarItem[] = [
       { title: "Gul qo'shish", icon: IoMdAddCircleOutline, href: '/flowers/add' },
     ],
   },
+  {
+    title: 'Kategoriya',
+    icon: Flower2,
+    children: [
+      { title: "Kategoriya ro'yxati", icon: List, href: '/category/list' },
+      { title: "Kategoriya qo'shish", icon: IoMdAddCircleOutline, href: '/category/add' },
+    ],
+  },
 ]
