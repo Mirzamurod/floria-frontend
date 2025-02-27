@@ -26,6 +26,11 @@ const columns: TColumns[] = [
     renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
   },
   {
+    field: 'categoryId',
+    headerName: 'Kategoriya',
+    renderCell: ({ row }: { row: TFlower }) => <p>{row?.category?.name}</p>,
+  },
+  {
     field: 'block',
     headerName: 'Active',
     renderCell: ({ row }: { row: TFlower }) => {

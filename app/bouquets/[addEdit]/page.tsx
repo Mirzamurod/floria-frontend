@@ -13,20 +13,22 @@ import { Button } from '@/components/ui/button'
 import AddEditCard from '../_components/addEdit/AddEditCard'
 import AddEditAction from '../_components/addEdit/AddEditAction'
 import { addBouquet, editBouquet, getBouquet } from '@/store/bouquet'
+import { getCategories } from '@/store/category'
 
 const AddEditBouquet = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { addEdit } = useParams()
   const formSchema = yup.object().shape({
-    price: yup.string().required('price_required'),
+    price: yup.string().required('Narx majburiy'),
+    category: yup.string().required('Kategoriya majburiy'),
     name: yup.string(),
     info: yup.string(),
   })
   const methods = useForm<TBouquetForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { price: '', name: '', info: '' },
+    defaultValues: { price: '', name: '', info: '', category: '' },
   })
   const [image, setImage] = useState('')
   const { handleSubmit, setValue, setError, reset } = methods
@@ -39,6 +41,10 @@ const AddEditBouquet = () => {
       else dispatch(editBouquet(addEdit as string, { ...values, image }))
     }
   }
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
 
   useEffect(() => {
     if (addEdit && addEdit !== 'add') dispatch(getBouquet(addEdit as string))

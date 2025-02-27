@@ -17,6 +17,7 @@ import { IBouquet, IFlower } from '@/types/orders'
 import { getPublicBouquets } from '@/store/bouquet'
 import { getPublicFlowers } from '@/store/flowers'
 import { themeConfig } from '@/lib/constants'
+import { getPublicCategories } from '@/store/category'
 
 const Orders = () => {
   const { userId } = useParams()
@@ -30,6 +31,7 @@ const Orders = () => {
   const [bouquetsLimit, setBouquetsLimit] = useState('10')
   const [flowersPage, setFlowersPage] = useState(1)
   const [flowersLimit, setFlowersLimit] = useState('10')
+  const [category, setCategory] = useState('')
 
   const telegram = window.Telegram.WebApp
 
@@ -45,18 +47,24 @@ const Orders = () => {
       }
     }
 
+    dispatch(getPublicCategories(userId as string))
+
     checkTelegramApi()
   }, [])
 
   useEffect(() => {
     if (bouquetsPage && bouquetsLimit)
-      dispatch(getPublicBouquets(userId as string, { page: bouquetsPage, limit: bouquetsLimit }))
-  }, [bouquetsPage, bouquetsLimit, userId])
+      dispatch(
+        getPublicBouquets(userId as string, { page: bouquetsPage, limit: bouquetsLimit, category })
+      )
+  }, [bouquetsPage, bouquetsLimit, userId, category])
 
   useEffect(() => {
     if (flowersPage && flowersLimit)
-      dispatch(getPublicFlowers(userId as string, { page: flowersPage, limit: flowersLimit }))
-  }, [flowersPage, flowersLimit, userId])
+      dispatch(
+        getPublicFlowers(userId as string, { page: flowersPage, limit: flowersLimit, category })
+      )
+  }, [flowersPage, flowersLimit, userId, category])
 
   useEffect(() => {
     if (open || popup) document.body.style.overflow = 'hidden'
@@ -194,6 +202,8 @@ const Orders = () => {
             setPage={setBouquetsPage}
             limit={bouquetsLimit}
             setLimit={setBouquetsLimit}
+            active={category}
+            setActive={setCategory}
           />
         </TabsContent>
         <TabsContent value='flowers'>
@@ -204,6 +214,8 @@ const Orders = () => {
             setPage={setFlowersPage}
             limit={flowersLimit}
             setLimit={setFlowersLimit}
+            active={category}
+            setActive={setCategory}
           />
         </TabsContent>
       </Tabs>

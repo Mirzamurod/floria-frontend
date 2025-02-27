@@ -28,7 +28,7 @@ const middleware =
 
     // @ts-ignore
     axios({
-      baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
+      baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/apis`,
       method,
       data,
       url,

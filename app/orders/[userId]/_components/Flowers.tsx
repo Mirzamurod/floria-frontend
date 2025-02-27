@@ -9,6 +9,7 @@ import { TFlower } from '@/types/flower'
 import { getSum } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { OctagonAlert } from 'lucide-react'
+import Category from './Category'
 
 type TItem = { flowerId: string; qty: number; price: number; image: string }
 
@@ -19,10 +20,12 @@ interface IProps {
   setPage: (value: number) => void
   limit: string
   setLimit: (value: string) => void
+  active: string
+  setActive: (active: string) => void
 }
 
 const Flowers: FC<IProps> = props => {
-  const { items, setItems, page, setPage, limit, setLimit } = props
+  const { items, setItems, page, setPage, limit, setLimit, active, setActive } = props
 
   const { isLoading, flowers, pageCount } = useAppSelector(state => state.flower)
 
@@ -67,7 +70,8 @@ const Flowers: FC<IProps> = props => {
   }
 
   return (
-    <div className='my-4'>
+    <div className='mt-2 mb-4'>
+      <Category active={active} setActive={setActive} />
       <Alert>
         <OctagonAlert className='h-4 w-4' />
         <AlertTitle>Diqqat!</AlertTitle>

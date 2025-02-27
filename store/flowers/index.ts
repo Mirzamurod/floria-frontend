@@ -35,7 +35,7 @@ const flowers = createSlice({
     },
     onSuccessGetFlower: (state, { payload }) => {
       state.isLoading = false
-      state.flowers = payload.data
+      state.flower = payload.data
     },
     onFailGetFlower: state => {
       state.isLoading = false

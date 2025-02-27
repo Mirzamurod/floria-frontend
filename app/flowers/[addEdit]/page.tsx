@@ -13,20 +13,22 @@ import AddEditCard from '../_components/addEdit/AddEditCard'
 import AddEditAction from '../_components/addEdit/AddEditAction'
 import { TFlowerForm } from '@/types/flower'
 import { addFlower, editFlower, getFlower } from '@/store/flowers'
+import { getCategories } from '@/store/category'
 
 const AddEditFlower = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { addEdit } = useParams()
   const formSchema = yup.object().shape({
-    price: yup.string().required('price_required'),
-    name: yup.string().required('name_required'),
+    price: yup.string().required('Narx majburiy'),
+    name: yup.string().required('Nomi majburiy'),
+    category: yup.string().required('Kategoriya majburiy'),
     info: yup.string(),
   })
   const methods = useForm<TFlowerForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { price: '', name: '' },
+    defaultValues: { price: '', name: '', info: '', category: '' },
   })
   const [image, setImage] = useState('')
   const { handleSubmit, setValue, setError, reset } = methods
@@ -39,6 +41,10 @@ const AddEditFlower = () => {
       else dispatch(editFlower(addEdit as string, { ...values, image }))
     }
   }
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
 
   useEffect(() => {
     if (addEdit && addEdit !== 'add') dispatch(getFlower(addEdit as string))

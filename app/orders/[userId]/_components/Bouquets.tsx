@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { TBouquet } from '@/types/bouquet'
 import { getSum } from '@/lib/utils'
+import Category from './Category'
 
 type TItem = { bouquetId: string; qty: number; price: number; image: string }
 
@@ -17,10 +18,12 @@ interface IProps {
   setPage: (value: number) => void
   limit: string
   setLimit: (value: string) => void
+  active: string
+  setActive: (active: string) => void
 }
 
 const Bouquets: FC<IProps> = props => {
-  const { items, setItems, page, setPage, limit, setLimit } = props
+  const { items, setItems, page, setPage, limit, setLimit, active, setActive } = props
 
   const { isLoading, bouquets, pageCount } = useAppSelector(state => state.bouquet)
 
@@ -65,7 +68,8 @@ const Bouquets: FC<IProps> = props => {
   }
 
   return (
-    <div className='my-4'>
+    <div className='mt-2 mb-4'>
+      <Category active={active} setActive={setActive} />
       <div className='grid grid-cols-2 gap-2'>
         {isLoading ? (
           [...new Array(4)].map((_, index) => (

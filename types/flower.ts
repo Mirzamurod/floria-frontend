@@ -1,3 +1,4 @@
+import { TCategory } from './category'
 import { TError } from './error'
 
 export type TFlower = {
@@ -10,6 +11,7 @@ export type TFlower = {
   updatedAt: string
   userId: string
   block: boolean
+  category: TCategory
 }
 
 export interface IFlowerStore {
@@ -26,4 +28,6 @@ export type TFlowerForm = {
   image?: string
   name: string
   price: string
+  info?: string
+  category: string
 }

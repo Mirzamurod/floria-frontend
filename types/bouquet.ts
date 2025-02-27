@@ -1,3 +1,4 @@
+import { TCategory } from './category'
 import { TError } from './error'
 
 export type TBouquet = {
@@ -10,6 +11,7 @@ export type TBouquet = {
   updatedAt: string
   userId: string
   block: boolean
+  category: TCategory
 }
 
 export interface IBouquetStore {
@@ -27,4 +29,5 @@ export type TBouquetForm = {
   name?: string
   price: string
   info?: string
+  category: string
 }
