@@ -10,9 +10,10 @@ import bouquet from './bouquet'
 import flower from './flowers'
 import orders from './orders'
 import category from './category'
+import users from './users'
 
 export const store = configureStore({
-  reducer: { login, register, bouquet, flower, orders, category },
+  reducer: { login, register, bouquet, flower, orders, category, users },
   middleware: () => [middleware] as any,
 })
 

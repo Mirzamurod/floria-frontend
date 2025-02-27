@@ -22,6 +22,13 @@ export interface IUserStore {
   telegramLoading: boolean
 }
 
+export interface IUsersStore {
+  isLoading: boolean
+  users: TUser[]
+  success: boolean
+  pageCount: number
+}
+
 export interface IRegister {
   isLoading: boolean
   success: boolean

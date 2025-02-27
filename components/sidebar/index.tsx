@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { ChevronUp, User2 } from 'lucide-react'
 import {
   SidebarContent,
@@ -30,6 +30,7 @@ import { Separator } from '../ui/separator'
 const Sidebar = () => {
   const pathname = usePathname()
   const { setOpenMobile } = useSidebar()
+  const { data: session } = useSession()
 
   return (
     <ShadSidebar className='bg-background z-50'>
@@ -40,53 +41,55 @@ const Sidebar = () => {
         </div>
       </SidebarHeader>
       <Separator />
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {sidebar.map(item => (
-                <SidebarMenuItem key={item.title}>
-                  {item.href ? (
-                    <SidebarMenuButton
-                      asChild
-                      isActive={pathname === item.href}
-                      onClick={() => setOpenMobile(false)}
-                    >
-                      <Link href={{ pathname: item.href, query: item.query }}>
+      {session?.currentUser ? (
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {sidebar?.[session?.currentUser?.role as string]?.map(item => (
+                  <SidebarMenuItem key={item.title}>
+                    {item.href ? (
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === item.href}
+                        onClick={() => setOpenMobile(false)}
+                      >
+                        <Link href={{ pathname: item.href, query: item.query }}>
+                          <item.icon size={16} />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    ) : (
+                      <SidebarMenu className='flex flex-row items-center p-2'>
                         <item.icon size={16} />
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  ) : (
-                    <SidebarMenu className='flex flex-row items-center p-2'>
-                      <item.icon size={16} />
-                      {item.title}
-                    </SidebarMenu>
-                  )}
-                  {item.children?.length
-                    ? item.children.map(child => (
-                        <SidebarMenuSub key={child.title}>
-                          <SidebarMenuSubItem>
-                            <SidebarMenuSubButton
-                              asChild
-                              isActive={pathname === child.href}
-                              onClick={() => setOpenMobile(false)}
-                            >
-                              <Link href={{ pathname: child.href, query: child.query }}>
-                                <child.icon size={16} />
-                                <span>{child.title}</span>
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        </SidebarMenuSub>
-                      ))
-                    : null}
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+                        {item.title}
+                      </SidebarMenu>
+                    )}
+                    {item.children?.length
+                      ? item.children.map(child => (
+                          <SidebarMenuSub key={child.title}>
+                            <SidebarMenuSubItem>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={pathname === child.href}
+                                onClick={() => setOpenMobile(false)}
+                              >
+                                <Link href={{ pathname: child.href, query: child.query }}>
+                                  <child.icon size={16} />
+                                  <span>{child.title}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          </SidebarMenuSub>
+                        ))
+                      : null}
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      ) : null}
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>

@@ -5,3 +5,7 @@ export type TSidebarItem = {
   query?: { [x: string]: any }
   children?: TSidebarItem[]
 }
+
+export type TSidebar = {
+  [x: string]: TSidebarItem[]
+}

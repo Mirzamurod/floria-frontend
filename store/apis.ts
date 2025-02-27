@@ -10,7 +10,7 @@ export const userprofile = '/users'
 export const userupdate = '/users/update'
 export const userdelete = '/users/delete'
 export const getUsersApi = '/users'
-export const editclienttelegram = '/client/telegram'
+export const editclienttelegram = '/clients/telegram'
 
 // bouquet
 export const bouquets = '/bouquets'
@@ -33,3 +33,7 @@ export const categoryblock = '/category/block/'
 // order
 export const ordersapi = '/orders'
 export const orderapi = '/orders/'
+
+// clients
+export const clientsapi = '/clients'
+export const clientapi = '/clients/'
