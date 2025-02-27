@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { ModeToggle } from '@/components/shared/mode-toggle'
@@ -159,9 +160,10 @@ const Orders = () => {
       {/* Sidebar */}
       <div className='sticky top-0 z-20 bg-background'>
         <div className='flex justify-between p-2'>
-          <h2 className='scroll-m-20 text-3xl font-semibold tracking-tight'>
-            {themeConfig.app.name}
-          </h2>
+          <div className='flex gap-2 items-center'>
+            <Image src='/flower-icon.webp' alt='flower-icon' width={36} height={36} />
+            <p className='text-xl'>{themeConfig.app.name}</p>
+          </div>
           <div className='flex gap-x-2'>
             <Popover open={popup} onOpenChange={setPopup}>
               <PopoverTrigger asChild>

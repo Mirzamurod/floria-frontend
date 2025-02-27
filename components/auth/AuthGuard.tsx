@@ -17,6 +17,10 @@ const AuthGuard: FC<IProps> = ({ children }) => {
     router.push('/login')
     return null
   }
+  if (session && session.currentUser?.block) {
+    router.push('/inactive')
+    return null
+  }
 
   return <>{children}</>
 }
