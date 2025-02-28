@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { flower, clientsapi, clientapi } from '@/store/apis'
+import { flower, clientsapi, clienteditapi } from '@/store/apis'
 import { IUsersStore } from '@/types/user'
 
 const initialState: IUsersStore = {
@@ -52,7 +52,7 @@ export const getClients = (params?: any) =>
 
 export const editClient = (id: string, data: { block: boolean }) =>
   flower({
-    url: clientapi + id,
+    url: clienteditapi + id,
     method: 'patch',
     data,
     onStart: users.actions.onStartGetUser.type,

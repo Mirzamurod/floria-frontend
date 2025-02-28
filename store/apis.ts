@@ -36,4 +36,4 @@ export const orderapi = '/orders/'
 
 // clients
 export const clientsapi = '/clients'
-export const clientapi = '/clients/'
+export const clienteditapi = '/clients/edit/'
