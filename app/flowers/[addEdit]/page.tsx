@@ -30,15 +30,24 @@ const AddEditFlower = () => {
     resolver: yupResolver(formSchema),
     defaultValues: { price: '', name: '', info: '', category: '' },
   })
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState<File | null>(null)
+  const [imageLink, setImageLink] = useState('')
   const { handleSubmit, setValue, setError, reset } = methods
 
   const { success, flower, errors } = useAppSelector(state => state.flower)
 
   const onSubmit = (values: TFlowerForm) => {
-    if (image) {
-      if (addEdit === 'add') dispatch(addFlower({ ...values, image }))
-      else dispatch(editFlower(addEdit as string, { ...values, image }))
+    const formData = new FormData()
+    Object.entries(values).map(([key, value]) => formData.append(key, value))
+    if (addEdit === 'add' && image) {
+      formData.append('image', image)
+      dispatch(addFlower(formData))
+    } else {
+      if (image) {
+        formData.delete('image')
+        formData.append('image', image)
+      }
+      dispatch(editFlower(addEdit as string, formData))
     }
   }
 
@@ -56,7 +65,7 @@ const AddEditFlower = () => {
       Object.entries(flower).map(([key, value]) =>
         setValue(key as keyof TFlowerForm, value as string)
       )
-      setImage(flower.image)
+      setImageLink(flower.image)
     }
   }, [flower])
 
@@ -85,7 +94,12 @@ const AddEditFlower = () => {
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>
-        <AddEditCard image={image} setImage={setImage} />
+        <AddEditCard
+          image={image}
+          setImage={setImage}
+          imageLink={imageLink}
+          setImageLink={setImageLink}
+        />
         <AddEditAction />
       </form>
     </FormProvider>

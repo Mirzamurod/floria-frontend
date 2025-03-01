@@ -30,15 +30,24 @@ const AddEditBouquet = () => {
     resolver: yupResolver(formSchema),
     defaultValues: { price: '', name: '', info: '', category: '' },
   })
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState<File | null>(null)
+  const [imageLink, setImageLink] = useState('')
   const { handleSubmit, setValue, setError, reset } = methods
 
   const { success, bouquet, errors } = useAppSelector(state => state.bouquet)
 
   const onSubmit = (values: TBouquetForm) => {
-    if (image) {
-      if (addEdit === 'add') dispatch(addBouquet({ ...values, image }))
-      else dispatch(editBouquet(addEdit as string, { ...values, image }))
+    const formData = new FormData()
+    Object.entries(values).map(([key, value]) => formData.append(key, value))
+    if (addEdit === 'add' && image) {
+      formData.append('image', image)
+      dispatch(addBouquet(formData))
+    } else {
+      if (image) {
+        formData.delete('image')
+        formData.append('image', image)
+      }
+      dispatch(editBouquet(addEdit as string, formData))
     }
   }
 
@@ -56,7 +65,7 @@ const AddEditBouquet = () => {
       Object.entries(bouquet).map(([key, value]) =>
         setValue(key as keyof TBouquetForm, value as string)
       )
-      setImage(bouquet.image)
+      setImageLink(bouquet.image)
     }
   }, [bouquet])
 
@@ -85,7 +94,12 @@ const AddEditBouquet = () => {
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>
-        <AddEditCard image={image} setImage={setImage} />
+        <AddEditCard
+          image={image}
+          setImage={setImage}
+          imageLink={imageLink}
+          setImageLink={setImageLink}
+        />
         <AddEditAction />
       </form>
     </FormProvider>

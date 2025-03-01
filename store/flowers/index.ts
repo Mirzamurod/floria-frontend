@@ -94,7 +94,7 @@ export const getFlower = (id: string) =>
     onFail: flowers.actions.onFailGetFlower.type,
   })
 
-export const addFlower = (data: TFlowerForm) =>
+export const addFlower = (data: FormData) =>
   flower({
     url: flowersapi,
     method: 'post',
@@ -104,7 +104,7 @@ export const addFlower = (data: TFlowerForm) =>
     onFail: flowers.actions.onFailAddEditFlower.type,
   })
 
-export const editFlower = (id: string, data: TFlowerForm) =>
+export const editFlower = (id: string, data: FormData) =>
   flower({
     url: flowerapi + id,
     method: 'patch',

@@ -1,11 +1,8 @@
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
-import { toast } from 'react-toastify'
 import { useFormContext } from 'react-hook-form'
 import Input from '@/components/input'
 import { TInputType } from '@/types/input'
-import { UploadButton } from '@/lib/uploadthing'
 import { Upload } from 'lucide-react'
 import { Label } from '@/components/ui/label'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -17,16 +14,19 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useAppSelector } from '@/store'
+import { Button } from '@/components/ui/button'
 
 interface IProps {
-  image: string
-  setImage: (value: string) => void
+  image: File | null
+  setImage: (value: File | null) => void
+  imageLink: string
+  setImageLink: (value: string) => void
 }
 
 const AddEditCard: FC<IProps> = props => {
-  const { image, setImage } = props
-  const { addEdit } = useParams()
+  const { image, setImage, imageLink, setImageLink } = props
   const { control } = useFormContext()
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const { categories } = useAppSelector(state => state.category)
 
@@ -38,22 +38,31 @@ const AddEditCard: FC<IProps> = props => {
   return (
     <div>
       <div className='grid md:grid-cols-3 gap-3'>
-        <div>
+        <div className='flex flex-col gap-3'>
           <Label>
             Rasm <span className='text-red-500'>*</span>
           </Label>
-          <UploadButton
-            endpoint='imageUploader'
-            onClientUploadComplete={res => setImage(res[0].url)}
-            config={{ appendOnPaste: true, mode: 'auto' }}
-            content={{ button: <Upload /> }}
-            // @ts-ignore
-            onUploadError={error => toast.error(error.message)}
+          <Button
+            onClick={event => {
+              event.preventDefault()
+              fileInputRef.current?.click()
+            }}
+          >
+            <Upload />
+            Upload
+          </Button>
+          <input
+            type='file'
+            hidden
+            ref={fileInputRef}
+            onChange={e => {
+              setImage((e.target.files as any)[0])
+              setImageLink(URL.createObjectURL((e.target.files as any)[0]))
+            }}
+            accept='image/png, image/jpeg, image/jpg'
           />
         </div>
-        {addEdit !== 'add' && image ? (
-          <Image src={image} alt='bouquet image' width={200} height={200} />
-        ) : null}
+        {imageLink ? <Image src={imageLink} alt='bouquet image' width={200} height={200} /> : null}
       </div>
       <div className='grid md:grid-cols-3 gap-3 mt-3'>
         {inputs.map(input => (

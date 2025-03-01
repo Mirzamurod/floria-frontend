@@ -94,7 +94,7 @@ export const getBouquet = (id: string) =>
     onFail: bouquet.actions.onFailGetBouquet.type,
   })
 
-export const addBouquet = (data: TBouquetForm) =>
+export const addBouquet = (data: FormData) =>
   flower({
     url: bouquets,
     method: 'post',
@@ -104,7 +104,7 @@ export const addBouquet = (data: TBouquetForm) =>
     onFail: bouquet.actions.onFailAddEditBouquets.type,
   })
 
-export const editBouquet = (id: string, data: TBouquetForm) =>
+export const editBouquet = (id: string, data: FormData) =>
   flower({
     url: bouquetapi + id,
     method: 'patch',
