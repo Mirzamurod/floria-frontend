@@ -10,7 +10,7 @@ import { editOrder, getOrder } from '@/store/orders'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -143,6 +143,7 @@ const ViewOrder = () => {
                         <div className='relative w-44 h-40'>
                           <Image
                             fill
+                            loader={customLoader}
                             src={bouquet.bouquetId.image}
                             alt='bouquet image'
                             className='object-cover w-full h-auto'
@@ -181,6 +182,7 @@ const ViewOrder = () => {
                         <div className='relative w-44 h-40'>
                           <Image
                             fill
+                            loader={customLoader}
                             src={flower.flowerId.image}
                             alt='flower image'
                             className='object-cover w-full h-auto'

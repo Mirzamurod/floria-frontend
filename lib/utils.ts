@@ -8,3 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 export const getSum = (sum: number | string) => {
   return `${Number(sum).toLocaleString().replaceAll(',', ' ')} so'm`
 }
+
+export const customLoader = ({ src }: { src: string }) => src

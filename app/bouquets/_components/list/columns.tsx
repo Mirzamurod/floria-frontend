@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useDispatch } from 'react-redux'
 import { TColumns } from '@/types/table'
 import { TBouquet } from '@/types/bouquet'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
 import DeleteDialog from '@/components/DeleteDialog'
@@ -16,7 +16,7 @@ const columns: TColumns[] = [
     field: 'image',
     headerName: 'Rasm',
     renderCell: ({ row }: { row: TBouquet }) => (
-      <Image src={row.image} alt={row.image} width={30} height={50} />
+      <Image loader={customLoader} src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   {

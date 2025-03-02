@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { TColumns } from '@/types/table'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
 import Link from 'next/link'
@@ -16,7 +16,7 @@ const columns: TColumns[] = [
     field: 'image',
     headerName: 'Rasm',
     renderCell: ({ row }: { row: TFlower }) => (
-      <Image src={row.image} alt={row.image} width={30} height={50} />
+      <Image loader={customLoader} src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   { field: 'name', headerName: 'Nom' },

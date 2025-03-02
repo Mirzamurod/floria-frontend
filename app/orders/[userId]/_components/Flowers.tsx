@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { TFlower } from '@/types/flower'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { OctagonAlert } from 'lucide-react'
 import Category from './Category'
@@ -93,6 +93,7 @@ const Flowers: FC<IProps> = props => {
               <div className='relative w-full h-40'>
                 <Image
                   fill
+                  loader={customLoader}
                   src={flower.image}
                   alt='flower image'
                   className='object-cover w-full h-auto'

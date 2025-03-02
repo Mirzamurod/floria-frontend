@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { customLoader } from '@/lib/utils'
 
 const User = () => {
   const { data: session } = useSession()
@@ -11,6 +12,7 @@ const User = () => {
         <div className='relative w-40 h-40 mx-auto'>
           <Image
             fill
+            loader={customLoader}
             src={session?.currentUser?.image!}
             alt='user image'
             className='object-cover w-40 h-auto rounded-full'

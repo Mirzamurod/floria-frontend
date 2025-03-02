@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/select'
 import { useAppSelector } from '@/store'
 import { Button } from '@/components/ui/button'
+import { customLoader } from '@/lib/utils'
 
 interface IProps {
   image: File | null
@@ -66,7 +67,15 @@ const AddEditCard: FC<IProps> = props => {
             accept='image/png, image/jpeg, image/jpg'
           />
         </div>
-        {imageLink ? <Image src={imageLink} alt='flower image' width={200} height={200} /> : null}
+        {imageLink ? (
+          <Image
+            loader={customLoader}
+            src={imageLink}
+            alt='flower image'
+            width={200}
+            height={200}
+          />
+        ) : null}
       </div>
       <div className='grid md:grid-cols-3 gap-3 mt-3'>
         {inputs.map(input => (

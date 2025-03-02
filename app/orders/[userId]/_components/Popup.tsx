@@ -2,7 +2,7 @@ import { FC, Fragment } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import { IBouquet, IFlower } from '@/types/orders'
 import { CircleX, Minus, Plus } from 'lucide-react'
 
@@ -27,7 +27,13 @@ const Popup: FC<IProps> = props => {
           {bouquets.map(item => (
             <Fragment key={item.bouquetId}>
               <div className='flex justify-between items-center mt-2'>
-                <Image src={item.image} alt='Bouquet image' width={40} height={50} />
+                <Image
+                  loader={customLoader}
+                  src={item.image}
+                  alt='Bouquet image'
+                  width={40}
+                  height={50}
+                />
                 <div className='flex gap-3 items-center py-1 px-2'>
                   <Button
                     size='icon'
@@ -68,7 +74,13 @@ const Popup: FC<IProps> = props => {
           {flowers.map(item => (
             <Fragment key={item.flowerId}>
               <div className='flex justify-between items-center mt-2'>
-                <Image src={item.image} alt='Bouquet image' width={40} height={50} />
+                <Image
+                  loader={customLoader}
+                  src={item.image}
+                  alt='Bouquet image'
+                  width={40}
+                  height={50}
+                />
                 <div className='flex gap-3 items-center py-1 px-2'>
                   <Button
                     size='icon'

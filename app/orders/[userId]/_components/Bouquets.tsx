@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { TBouquet } from '@/types/bouquet'
-import { getSum } from '@/lib/utils'
+import { customLoader, getSum } from '@/lib/utils'
 import Category from './Category'
 
 type TItem = { bouquetId: string; qty: number; price: number; image: string }
@@ -84,6 +84,7 @@ const Bouquets: FC<IProps> = props => {
               <div className='relative w-full h-40'>
                 <Image
                   fill
+                  loader={customLoader}
                   src={bouquet.image}
                   alt='bouquet image'
                   className='object-cover w-full h-auto'
