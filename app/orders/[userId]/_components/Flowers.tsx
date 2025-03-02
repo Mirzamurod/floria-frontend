@@ -90,13 +90,13 @@ const Flowers: FC<IProps> = props => {
         ) : flowers.length ? (
           flowers.map(flower => (
             <Card key={flower._id} className='w-auto overflow-hidden flex flex-col'>
-              <div className='relative w-full h-40'>
-                <Image
-                  fill
-                  loader={customLoader}
+              <div className='relative w-full h-40 overflow-hidden'>
+                <img
+                  // fill
+                  // loader={customLoader}
                   src={flower.image}
-                  alt='flower image'
-                  className='object-cover w-full h-auto'
+                  alt='bouquet image'
+                  className='object-cover w-full h-full'
                 />
                 {items.some(item => item.flowerId === flower._id) ? (
                   <div className='absolute top-2 left-2 w-6 h-6 text-center rounded-lg bg-primary'>

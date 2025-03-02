@@ -64,8 +64,8 @@ const AddEditCard: FC<IProps> = props => {
           />
         </div>
         {imageLink ? (
-          <Image
-            loader={customLoader}
+          <img
+            // loader={customLoader}
             src={imageLink}
             alt='bouquet image'
             width={200}

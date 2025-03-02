@@ -16,7 +16,13 @@ const columns: TColumns[] = [
     field: 'image',
     headerName: 'Rasm',
     renderCell: ({ row }: { row: TFlower }) => (
-      <Image loader={customLoader} src={row.image} alt={row.image} width={30} height={50} />
+      <img
+        // loader={customLoader}
+        src={row.image}
+        alt={row.image}
+        width={30}
+        height={50}
+      />
     ),
   },
   { field: 'name', headerName: 'Nom' },
