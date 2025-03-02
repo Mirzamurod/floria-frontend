@@ -141,8 +141,8 @@ const ViewOrder = () => {
                         className='w-auto overflow-hidden col-span-2'
                       >
                         <div className='relative w-44 h-40'>
-                          <img
-                            // fill
+                          <Image
+                            fill
                             // loader={customLoader}
                             src={bouquet.bouquetId.image}
                             alt='bouquet image'
@@ -180,8 +180,8 @@ const ViewOrder = () => {
                     {order.flower.flowers.map(flower => (
                       <Card key={flower.flowerId._id} className='w-auto overflow-hidden col-span-2'>
                         <div className='relative w-44 h-40'>
-                          <img
-                            // fill
+                          <Image
+                            fill
                             // loader={customLoader}
                             src={flower.flowerId.image}
                             alt='flower image'

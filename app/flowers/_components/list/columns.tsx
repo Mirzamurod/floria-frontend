@@ -16,7 +16,7 @@ const columns: TColumns[] = [
     field: 'image',
     headerName: 'Rasm',
     renderCell: ({ row }: { row: TFlower }) => (
-      <img
+      <Image
         // loader={customLoader}
         src={row.image}
         alt={row.image}

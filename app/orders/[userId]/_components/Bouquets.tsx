@@ -82,8 +82,8 @@ const Bouquets: FC<IProps> = props => {
           bouquets.map(bouquet => (
             <Card key={bouquet._id} className='w-auto overflow-hidden flex flex-col'>
               <div className='relative w-full h-40 overflow-hidden'>
-                <img
-                  // fill
+                <Image
+                  fill
                   // loader={customLoader}
                   src={bouquet.image}
                   alt='bouquet image'

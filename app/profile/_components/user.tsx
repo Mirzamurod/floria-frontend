@@ -10,8 +10,8 @@ const User = () => {
     <Card>
       <CardHeader>
         <div className='relative w-40 h-40 mx-auto'>
-          <img
-            // fill
+          <Image
+            fill
             // loader={customLoader}
             src={session?.currentUser?.image!}
             alt='user image'

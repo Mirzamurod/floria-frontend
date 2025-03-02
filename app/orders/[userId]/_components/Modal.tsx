@@ -70,7 +70,7 @@ const Modal: FC<IProps> = props => {
               {bouquets.map(item => (
                 <Fragment key={item.bouquetId}>
                   <div className='flex justify-between items-center mt-2'>
-                    <img
+                    <Image
                       // loader={customLoader}
                       src={item.image}
                       alt='Bouquet image'
@@ -116,7 +116,7 @@ const Modal: FC<IProps> = props => {
               {flowers.map(item => (
                 <Fragment key={item.flowerId}>
                   <div className='flex justify-between items-center mt-2'>
-                    <img
+                    <Image
                       // loader={customLoader}
                       src={item.image}
                       alt='Bouquet image'
