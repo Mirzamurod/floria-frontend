@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
+import { useSession } from 'next-auth/react'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -23,11 +24,14 @@ import { getPublicCategories } from '@/store/category'
 const Orders = () => {
   const { userId } = useParams()
   const dispatch = useDispatch()
+  const { data: session } = useSession()
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
   const [open, setOpen] = useState(false)
   const [popup, setPopup] = useState(false)
-  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>('takeaway')
+  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>(
+    session?.currentUser?.location ? 'takeaway' : 'delivery'
+  )
   const [bouquetsPage, setBouquetsPage] = useState(1)
   const [bouquetsLimit, setBouquetsLimit] = useState('10')
   const [flowersPage, setFlowersPage] = useState(1)

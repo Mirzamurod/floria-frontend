@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { TFlower } from '@/types/flower'
-import { customLoader, getSum } from '@/lib/utils'
+import { getSum } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { OctagonAlert } from 'lucide-react'
 import Category from './Category'
@@ -90,13 +90,12 @@ const Flowers: FC<IProps> = props => {
         ) : flowers.length ? (
           flowers.map(flower => (
             <Card key={flower._id} className='w-auto overflow-hidden flex flex-col'>
-              <div className='relative w-full h-40 overflow-hidden'>
+              <div className='relative w-full h-40'>
                 <Image
                   fill
-                  // loader={customLoader}
                   src={flower.image}
                   alt='bouquet image'
-                  className='object-cover w-full h-full'
+                  className='object-cover w-full h-auto'
                 />
                 {items.some(item => item.flowerId === flower._id) ? (
                   <div className='absolute top-2 left-2 w-6 h-6 text-center rounded-lg bg-primary'>

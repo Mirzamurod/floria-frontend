@@ -1,5 +1,6 @@
 import { FC, Fragment } from 'react'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import {
   Dialog,
   DialogContent,
@@ -10,12 +11,13 @@ import {
 } from '@/components/ui/dialog'
 import { IBouquet, IFlower } from '@/types/orders'
 import { Separator } from '@/components/ui/separator'
-import { customLoader, getSum } from '@/lib/utils'
+import { getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { CircleX, Minus, Plus } from 'lucide-react'
+import { CircleX, Minus, OctagonAlert, Plus } from 'lucide-react'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 interface IProps {
   open: boolean
@@ -43,6 +45,7 @@ const Modal: FC<IProps> = props => {
     deleteItem,
     changeItem,
   } = props
+  const { data: session } = useSession()
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -54,15 +57,25 @@ const Modal: FC<IProps> = props => {
         <ScrollArea className='max-h-[70vh]'>
           <p>Yetkazib berish turi</p>
           <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4'>
-            <div className='flex items-center space-x-2'>
-              <RadioGroupItem value='takeaway' id='takeaway' />
-              <Label htmlFor='takeaway'>Olib ketish</Label>
-            </div>
+            {session?.currentUser?.location ? (
+              <div className='flex items-center space-x-2'>
+                <RadioGroupItem value='takeaway' id='takeaway' />
+                <Label htmlFor='takeaway'>Olib ketish</Label>
+              </div>
+            ) : null}
             <div className='flex items-center space-x-2'>
               <RadioGroupItem value='delivery' id='delivery' />
               <Label htmlFor='delivery'>Yetkazib berish</Label>
             </div>
           </RadioGroup>
+          {delivery === 'delivery' ? (
+            <Alert className='mb-2'>
+              <OctagonAlert className='h-4 w-4' />
+              <AlertDescription>
+                Zakaz berishni bosganingizdan keyin telegram orqali manzilni yuboring!
+              </AlertDescription>
+            </Alert>
+          ) : null}
           {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
           {bouquets.length ? (
             <>
@@ -70,13 +83,7 @@ const Modal: FC<IProps> = props => {
               {bouquets.map(item => (
                 <Fragment key={item.bouquetId}>
                   <div className='flex justify-between items-center mt-2'>
-                    <Image
-                      // loader={customLoader}
-                      src={item.image}
-                      alt='Bouquet image'
-                      width={40}
-                      height={50}
-                    />
+                    <Image src={item.image} alt='Bouquet image' width={40} height={50} />
                     <div className='flex gap-3 items-center py-1 px-2'>
                       <Button
                         size='icon'
@@ -116,13 +123,7 @@ const Modal: FC<IProps> = props => {
               {flowers.map(item => (
                 <Fragment key={item.flowerId}>
                   <div className='flex justify-between items-center mt-2'>
-                    <Image
-                      // loader={customLoader}
-                      src={item.image}
-                      alt='Bouquet image'
-                      width={40}
-                      height={50}
-                    />
+                    <Image src={item.image} alt='Bouquet image' width={40} height={50} />
                     <div className='flex gap-3 items-center py-1 px-2'>
                       <Button
                         size='icon'

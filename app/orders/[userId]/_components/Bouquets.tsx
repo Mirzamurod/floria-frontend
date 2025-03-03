@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { TBouquet } from '@/types/bouquet'
-import { customLoader, getSum } from '@/lib/utils'
+import { getSum } from '@/lib/utils'
 import Category from './Category'
 
 type TItem = { bouquetId: string; qty: number; price: number; image: string }
@@ -81,13 +81,12 @@ const Bouquets: FC<IProps> = props => {
         ) : bouquets.length ? (
           bouquets.map(bouquet => (
             <Card key={bouquet._id} className='w-auto overflow-hidden flex flex-col'>
-              <div className='relative w-full h-40 overflow-hidden'>
+              <div className='relative w-full h-40'>
                 <Image
                   fill
-                  // loader={customLoader}
                   src={bouquet.image}
                   alt='bouquet image'
-                  className='object-cover w-full h-full'
+                  className='object-cover w-full h-auto'
                 />
                 {items.some(item => item.bouquetId === bouquet._id) ? (
                   <div className='absolute top-2 left-2 w-6 h-6 text-center rounded-lg bg-primary'>
