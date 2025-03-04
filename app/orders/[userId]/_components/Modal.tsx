@@ -18,6 +18,8 @@ import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { CircleX, Minus, OctagonAlert, Plus } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import DatePicker from './DatePicker'
+import { addDays, addHours } from 'date-fns'
 
 interface IProps {
   open: boolean
@@ -30,6 +32,8 @@ interface IProps {
   setDelivery: (value: 'takeaway' | 'delivery') => void
   deleteItem: (type: 'bouquet' | 'flower', item: IBouquet | IFlower) => void
   changeItem: (type: 'bouquet' | 'flower', operator: '-' | '+', item: IBouquet | IFlower) => void
+  date?: Date
+  setDate?: (date?: Date) => void
 }
 
 const Modal: FC<IProps> = props => {
@@ -44,6 +48,8 @@ const Modal: FC<IProps> = props => {
     setDelivery,
     deleteItem,
     changeItem,
+    date,
+    setDate,
   } = props
   const { data: session } = useSession()
 
@@ -55,8 +61,8 @@ const Modal: FC<IProps> = props => {
           <DialogDescription>Buket va gullarni to'g'riligini tekshiring</DialogDescription>
         </DialogHeader>
         <ScrollArea className='max-h-[70vh]'>
-          <p>Yetkazib berish turi</p>
-          <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4'>
+          <p>Yetkazib berish yoki olib ketish</p>
+          <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4 mt-1'>
             {session?.currentUser?.location ? (
               <div className='flex items-center space-x-2'>
                 <RadioGroupItem value='takeaway' id='takeaway' />
@@ -76,13 +82,26 @@ const Modal: FC<IProps> = props => {
               </AlertDescription>
             </Alert>
           ) : null}
+          <p>Qachonga tayyor bo'lishi kerak?</p>
+          <DatePicker date={date} setDate={setDate} />
+          {date! > addDays(addHours(new Date(), 3), 2) ? (
+            <Alert className='mt-2'>
+              <OctagonAlert className='h-4 w-4' />
+              <AlertDescription>
+                Agar zakaz 2 yoki undan ko'proq kundan keyin tayyorlab berilishi kerak bo'lsa,
+                to'lov oldindan qilinadi. To'lov zakaz qilinganidan keyin telegram orqali karta
+                raqami beriladi, shunga kerakli summani tashlab rasmini jo'natishingiz kerak
+                bo'ladi.
+              </AlertDescription>
+            </Alert>
+          ) : null}
           {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
           {bouquets.length ? (
             <>
-              <p>Buketlar</p>
+              <p className='mt-2'>Buketlar</p>
               {bouquets.map(item => (
                 <Fragment key={item.bouquetId}>
-                  <div className='flex justify-between items-center mt-2'>
+                  <div className='flex justify-between items-center mt-1'>
                     <Image src={item.image} alt='Bouquet image' width={40} height={50} />
                     <div className='flex gap-3 items-center py-1 px-2'>
                       <Button
@@ -119,10 +138,10 @@ const Modal: FC<IProps> = props => {
           ) : null}
           {flowers.length ? (
             <>
-              <p>Maxsus guldasta</p>
+              <p className='mt-2'>Maxsus guldasta</p>
               {flowers.map(item => (
                 <Fragment key={item.flowerId}>
-                  <div className='flex justify-between items-center mt-2'>
+                  <div className='flex justify-between items-center mt-1'>
                     <Image src={item.image} alt='Bouquet image' width={40} height={50} />
                     <div className='flex gap-3 items-center py-1 px-2'>
                       <Button

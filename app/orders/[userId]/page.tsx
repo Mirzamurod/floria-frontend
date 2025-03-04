@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
+import { addHours } from 'date-fns'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -37,6 +38,7 @@ const Orders = () => {
   const [flowersPage, setFlowersPage] = useState(1)
   const [flowersLimit, setFlowersLimit] = useState('10')
   const [category, setCategory] = useState('')
+  const [date, setDate] = useState<Date | undefined>(addHours(new Date(), 3))
 
   const telegram = window.Telegram.WebApp
 
@@ -139,12 +141,13 @@ const Orders = () => {
   }
 
   const onCheckout = () => {
-    telegram.MainButton.text = 'Sotib olish'
+    telegram.MainButton.text = 'Buyurtma berish'
     telegram.MainButton.show()
   }
 
   const onSendData = useCallback(() => {
     const data = {
+      date,
       userId,
       delivery,
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
@@ -236,6 +239,8 @@ const Orders = () => {
         setDelivery={setDelivery}
         deleteItem={deleteItem}
         changeItem={changeItem}
+        date={date}
+        setDate={setDate}
       />
     </div>
   )
