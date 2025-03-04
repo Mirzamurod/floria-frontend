@@ -1,6 +1,7 @@
 import { FC, Fragment } from 'react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
+import { addDays, addHours } from 'date-fns'
 import {
   Dialog,
   DialogContent,
@@ -19,7 +20,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { CircleX, Minus, OctagonAlert, Plus } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import DatePicker from './DatePicker'
-import { addDays, addHours } from 'date-fns'
 
 interface IProps {
   open: boolean
@@ -54,7 +54,7 @@ const Modal: FC<IProps> = props => {
   const { data: session } = useSession()
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <DialogContent>
         <DialogHeader className='text-start'>
           <DialogTitle>Tekshirish</DialogTitle>
