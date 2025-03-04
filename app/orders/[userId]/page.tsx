@@ -150,7 +150,7 @@ const Orders = () => {
       date,
       userId,
       delivery,
-      prepayment: date! > addDays(addHours(new Date(), 3), 2),
+      prepayment: date! > addDays(addHours(new Date(), 3), 2) ? true : false,
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
     }
