@@ -155,7 +155,7 @@ const Orders = () => {
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
     }
     telegram.sendData(JSON.stringify(data))
-  }, [bouquets, flowers, delivery, userId])
+  }, [bouquets, flowers, delivery, userId, date])
 
   useEffect(() => {
     telegram.onEvent('mainButtonClicked', onSendData)
