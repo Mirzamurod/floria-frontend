@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
-import { addHours } from 'date-fns'
+import { addDays, addHours } from 'date-fns'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -150,6 +150,7 @@ const Orders = () => {
       date,
       userId,
       delivery,
+      prepayment: date! > addDays(addHours(new Date(), 3), 2),
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
     }
