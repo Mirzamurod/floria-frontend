@@ -3,6 +3,7 @@ import { encode } from 'js-base64'
 import {
   editclienttelegram,
   flower,
+  getuserapi,
   loginUser,
   userdelete,
   userprofile,
@@ -87,6 +88,15 @@ export const userProfile = () =>
     onFail: login.actions.onFail.type,
   })
 
+export const getUser = (id: string) =>
+  flower({
+    url: getuserapi + id,
+    method: 'get',
+    onStart: login.actions.onStart.type,
+    onSuccess: login.actions.userProfile.type,
+    onFail: login.actions.onFail.type,
+  })
+
 export const userUpdate = (data: any) =>
   flower({
     url: userupdate,
@@ -98,9 +108,11 @@ export const userUpdate = (data: any) =>
   })
 
 export const editClientTelegram = (data: {
-  telegramToken: string
+  telegramToken?: string
   telegramId?: string
-  location: string
+  location?: string
+  card_name?: string
+  card_number?: string
 }) =>
   flower({
     url: editclienttelegram,

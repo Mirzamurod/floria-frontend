@@ -7,6 +7,7 @@ export const flower = createAction<TFlower>('flower')
 export const registeruser = '/users'
 export const loginUser = '/users/login'
 export const userprofile = '/users'
+export const getuserapi = '/users/public/'
 export const userupdate = '/users/update'
 export const userdelete = '/users/delete'
 export const getUsersApi = '/users'

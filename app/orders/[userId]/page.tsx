@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-import { useSession } from 'next-auth/react'
 import { addDays, addHours } from 'date-fns'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
@@ -21,24 +20,27 @@ import { getPublicBouquets } from '@/store/bouquet'
 import { getPublicFlowers } from '@/store/flowers'
 import { themeConfig } from '@/lib/constants'
 import { getPublicCategories } from '@/store/category'
+import { getUser } from '@/store/user/login'
+import { useAppSelector } from '@/store'
 
 const Orders = () => {
   const { userId } = useParams()
   const dispatch = useDispatch()
-  const { data: session } = useSession()
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
   const [open, setOpen] = useState(false)
   const [popup, setPopup] = useState(false)
-  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>(
-    session?.currentUser?.location ? 'takeaway' : 'delivery'
-  )
   const [bouquetsPage, setBouquetsPage] = useState(1)
   const [bouquetsLimit, setBouquetsLimit] = useState('10')
   const [flowersPage, setFlowersPage] = useState(1)
   const [flowersLimit, setFlowersLimit] = useState('10')
   const [category, setCategory] = useState('')
   const [date, setDate] = useState<Date | undefined>(addHours(new Date(), 3))
+
+  const { user } = useAppSelector(state => state.login)
+  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>(
+    user?.location ? 'takeaway' : 'delivery'
+  )
 
   const telegram = window.Telegram.WebApp
 
@@ -55,6 +57,7 @@ const Orders = () => {
     }
 
     dispatch(getPublicCategories(userId as string))
+    dispatch(getUser(userId as string))
 
     checkTelegramApi()
   }, [])

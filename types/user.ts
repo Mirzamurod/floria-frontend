@@ -10,6 +10,8 @@ export type TUser = {
   telegramToken?: string
   telegramId?: string
   location?: string
+  card_name?: string
+  card_number?: string
 }
 
 export interface IUserStore {

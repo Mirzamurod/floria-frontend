@@ -2,6 +2,7 @@
 
 import User from './_components/user'
 import ApiKeys from './_components/apikeys'
+import CardInfo from './_components/cardinfo'
 
 const Profile = () => {
   return (
@@ -13,6 +14,7 @@ const Profile = () => {
         </div>
         <div className='xl:col-span-8 col-span-12'>
           <ApiKeys />
+          <CardInfo />
         </div>
       </div>
     </div>

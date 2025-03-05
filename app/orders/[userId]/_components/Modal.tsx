@@ -20,6 +20,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { CircleX, Minus, OctagonAlert, Plus } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import DatePicker from './DatePicker'
+import { useAppSelector } from '@/store'
 
 interface IProps {
   open: boolean
@@ -51,7 +52,7 @@ const Modal: FC<IProps> = props => {
     date,
     setDate,
   } = props
-  const { data: session } = useSession()
+  const { user } = useAppSelector(state => state.login)
 
   return (
     <Dialog open={open} onOpenChange={setOpen} modal={false}>
@@ -63,7 +64,7 @@ const Modal: FC<IProps> = props => {
         <ScrollArea className='max-h-[70vh]'>
           <p>Yetkazib berish yoki olib ketish</p>
           <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4 mt-1'>
-            {session?.currentUser?.location ? (
+            {user?.location ? (
               <div className='flex items-center space-x-2'>
                 <RadioGroupItem value='takeaway' id='takeaway' />
                 <Label htmlFor='takeaway'>Olib ketish</Label>
