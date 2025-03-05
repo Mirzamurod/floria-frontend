@@ -36,7 +36,7 @@ const ViewOrder = () => {
   }, [id])
 
   useEffect(() => {
-    dispatch(getOrder(id as string))
+    if (success) dispatch(getOrder(id as string))
   }, [id, success])
 
   return (
