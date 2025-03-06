@@ -22,6 +22,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
+import Prepayment from '@/components/prepayment'
 
 const ViewOrder = () => {
   const { id } = useParams()
@@ -29,7 +31,7 @@ const ViewOrder = () => {
 
   const { isLoading, order, success } = useAppSelector(state => state.orders)
 
-  const confirm = () => dispatch(editOrder({ status: 'old' }, order?._id!))
+  const confirm = () => dispatch(editOrder(order?._id!, { status: 'old' }))
 
   useEffect(() => {
     dispatch(getOrder(id as string))
@@ -91,6 +93,17 @@ const ViewOrder = () => {
               <p>
                 <b>Mijoz ismi: </b> &nbsp; {order?.customerId.name}
               </p>
+              <p>
+                <b>Tayyor bo'lish sanasi: </b> &nbsp; {order?.date?.slice(0, 10)}
+              </p>
+              {order?.prepaymentImage ? (
+                <div>
+                  <b>Oldindan to'lov: </b> &nbsp;
+                  <Prepayment order={order!} />
+                </div>
+              ) : (
+                <Badge variant='destructive' />
+              )}
             </CardContent>
             {order?.bouquet.bouquets.length ? (
               <>

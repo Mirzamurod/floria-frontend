@@ -83,7 +83,7 @@ export const addOrder = (data: TOrderForm) =>
     onFail: orders.actions.onFailAddEditOrder.type,
   })
 
-export const editOrder = (data: TOrderForm, id: string) =>
+export const editOrder = (id: string, data: TOrderForm) =>
   flower({
     url: orderapi + id,
     method: 'patch',

@@ -10,6 +10,10 @@ export type TOrder = {
   createdAt: string
   status: 'new' | 'old'
   updatedAt: string
+  payment: 'accepted' | 'cancelled' | 'pending'
+  prepayment: boolean
+  prepaymentImage: string
+  date: string
   bouquet: {
     bouquets: {
       bouquetId: TBouquet
@@ -42,7 +46,8 @@ export interface IOrderStore {
 }
 
 export type TOrderForm = {
-  status?: 'new' | 'old'
+  status?: 'new' | 'old' | 'cancelled'
+  payment?: 'accepted' | 'cancelled' | 'pending'
 }
 
 export interface IBouquet {

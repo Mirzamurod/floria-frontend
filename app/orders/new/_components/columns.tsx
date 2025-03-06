@@ -15,9 +15,17 @@ import {
 } from '@/components/ui/dialog'
 import { editOrder } from '@/store/orders'
 import { useAppSelector } from '@/store'
+import { Badge } from '@/components/ui/badge'
+import Prepayment from '@/components/prepayment'
 
 const columns: TColumns[] = [
-  { field: 'orderNumber', headerName: 'Zakaz nomeri' },
+  {
+    field: 'orderNumber',
+    headerName: 'Zakaz nomeri',
+    renderCell: ({ row }: { row: TOrder }) => (
+      <Link href={`/orders/view/${row._id}`}>{row.orderNumber}</Link>
+    ),
+  },
   {
     field: 'status',
     headerName: "Holarni o'zgartirish",
@@ -26,7 +34,7 @@ const columns: TColumns[] = [
 
       const { isLoading } = useAppSelector(state => state.orders)
 
-      const confirm = () => dispatch(editOrder({ status: 'old' }, row._id))
+      const confirm = () => dispatch(editOrder(row._id, { status: 'old' }))
 
       return (
         <Dialog>
@@ -56,6 +64,18 @@ const columns: TColumns[] = [
     field: 'customerId',
     headerName: 'Mijoz raqami',
     renderCell: ({ row }: { row: TOrder }) => <p>{row.customerId.phone}</p>,
+  },
+  {
+    field: 'date',
+    headerName: "Tayyor bo'lish sanasi",
+    renderCell: ({ row }: { row: TOrder }) => <p>{row?.date?.slice(0, 10)}</p>,
+  },
+  {
+    field: 'prepayment',
+    headerName: "Oldindan to'lov",
+    renderCell: ({ row }: { row: TOrder }) => {
+      return row.prepayment ? <Prepayment order={row!} /> : <Badge variant='destructive' />
+    },
   },
   {
     field: 'bouquetId',
