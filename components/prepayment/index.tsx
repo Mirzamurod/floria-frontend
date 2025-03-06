@@ -24,9 +24,9 @@ const Prepayment: FC<IProps> = props => {
   const dispatch = useDispatch()
 
   const buttonColor = {
-    accepted: 'bg-green-800',
-    cancelled: 'bg-red-800',
-    pending: 'bg-amber-500',
+    accepted: 'bg-green-600 hover:bg-green-700',
+    cancelled: 'bg-red-600 hover:bg-red-700',
+    pending: 'bg-amber-600 hover:bg-amber-700',
   }
 
   const changeOrder = (payment: TOrder['payment']) => dispatch(editOrder(order._id, { payment }))
@@ -52,10 +52,19 @@ const Prepayment: FC<IProps> = props => {
           />
         </div>
         <DialogFooter className='gap-2 z-20'>
-          <Button size='sm' variant='destructive' onClick={() => changeOrder('cancelled')}>
+          <Button
+            size='sm'
+            variant='destructive'
+            disabled={order.payment === 'cancelled'}
+            onClick={() => changeOrder('cancelled')}
+          >
             Soxta
           </Button>
-          <Button size='sm' onClick={() => changeOrder('accepted')}>
+          <Button
+            size='sm'
+            disabled={order.payment === 'accepted'}
+            onClick={() => changeOrder('accepted')}
+          >
             Haqiqiy
           </Button>
           <DialogClose asChild>
