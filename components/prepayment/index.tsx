@@ -55,14 +55,22 @@ const Prepayment: FC<IProps> = props => {
           <Button
             size='sm'
             variant='destructive'
-            disabled={order.payment === 'cancelled'}
+            disabled={
+              order.payment === 'cancelled' ||
+              order.prepaymentNumber === 2 ||
+              order.status === 'cancelled'
+            }
             onClick={() => changeOrder('cancelled')}
           >
             Soxta
           </Button>
           <Button
             size='sm'
-            disabled={order.payment === 'accepted'}
+            disabled={
+              order.payment === 'accepted' ||
+              order.prepaymentNumber === 2 ||
+              order.status === 'cancelled'
+            }
             onClick={() => changeOrder('accepted')}
           >
             Haqiqiy

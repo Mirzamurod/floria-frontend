@@ -8,11 +8,12 @@ export type TOrder = {
   _id: string
   orderNumber: number
   createdAt: string
-  status: 'new' | 'old'
+  status: 'new' | 'old' | 'cancelled'
   updatedAt: string
   payment: 'accepted' | 'cancelled' | 'pending'
   prepayment: boolean
   prepaymentImage: string
+  prepaymentNumber: number
   date: string
   bouquet: {
     bouquets: {

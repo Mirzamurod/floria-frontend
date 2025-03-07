@@ -47,7 +47,7 @@ const ViewOrder = () => {
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Zakazni ko'rish</h2>
         {order ? (
           <Button asChild>
-            <Link href={`/orders/${order?.status}/list`}>Gullarga o'tish</Link>
+            <Link href={`/orders/status/${order?.status}`}>Gullarga o'tish</Link>
           </Button>
         ) : null}
       </div>

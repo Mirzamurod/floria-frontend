@@ -12,8 +12,9 @@ export const sidebar: TSidebar = {
       title: 'Zakazlar',
       icon: Logs,
       children: [
-        { title: 'Yangi zakazlar', href: '/orders/new/list', icon: ListOrdered },
-        { title: 'Eski zakazlar', href: '/orders/old/list', icon: ListOrdered },
+        { title: 'Yangi zakazlar', href: '/orders/status/new', icon: ListOrdered },
+        { title: 'Eski zakazlar', href: '/orders/status/old', icon: ListOrdered },
+        { title: "Bekor bo'lganlar", href: '/orders/status/cancelled', icon: ListOrdered },
       ],
     },
     {

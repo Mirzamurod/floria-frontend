@@ -40,24 +40,25 @@ const LayoutProvider: FC<IProps> = props => {
           </>
         ) : null}
         <div className={cn('z-0', sidebar ? 'p-2 mt-14' : null)}>
-          {/* {!session?.currentUser?.card_name ||
-          !session?.currentUser?.card_number ||
-          !session?.currentUser?.telegramToken ||
-          !session?.currentUser?.userName ||
-          !session?.currentUser?.userPhone ? ( */}
-          <Alert className='mb-2'>
-            <OctagonAlert className='h-4 w-4' />
-            <AlertTitle>Diqqat!</AlertTitle>
-            <AlertDescription>
-              Profilega o'tib kerakli ma'lumotlarni kiritishingiz kerak, shunda telegram bot
-              ishlashni boshlaydi. Profilega o'tish{' '}
-              <Link href='/profile' className='underline'>
-                shu yerga
-              </Link>{' '}
-              bosing.
-            </AlertDescription>
-          </Alert>
-          {/* ) : null} */}
+          {sidebar &&
+          (!session?.currentUser?.card_name ||
+            !session?.currentUser?.card_number ||
+            !session?.currentUser?.telegramToken ||
+            !session?.currentUser?.userName ||
+            !session?.currentUser?.userPhone) ? (
+            <Alert className='mb-2'>
+              <OctagonAlert className='h-4 w-4' />
+              <AlertTitle>Diqqat!</AlertTitle>
+              <AlertDescription>
+                Profilega o'tib kerakli ma'lumotlarni kiritishingiz kerak, shunda telegram bot
+                ishlashni boshlaydi. Profilega o'tish{' '}
+                <Link href='/profile' className='underline'>
+                  shu yerga
+                </Link>{' '}
+                bosing.
+              </AlertDescription>
+            </Alert>
+          ) : null}
           {children}
         </div>
       </main>
