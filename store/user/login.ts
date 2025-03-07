@@ -113,6 +113,8 @@ export const editClientTelegram = (data: {
   location?: string
   card_name?: string
   card_number?: string
+  userName?: string
+  userPhone?: string
 }) =>
   flower({
     url: editclienttelegram,

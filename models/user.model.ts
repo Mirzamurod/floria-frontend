@@ -7,6 +7,13 @@ const userSchema = new Schema<TUser>({
   image: { type: String },
   role: { type: String, enum: ['admin', 'client'], default: 'client' },
   block: { type: Boolean, default: true },
+  telegramToken: { type: String },
+  telegramId: { type: String },
+  location: { type: String },
+  card_number: { type: String },
+  card_name: { type: String },
+  userName: { type: String },
+  userPhone: { type: String },
 })
 
 const User = models.User || model<TUser>('User', userSchema)

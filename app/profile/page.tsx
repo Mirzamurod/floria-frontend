@@ -3,6 +3,7 @@
 import User from './_components/user'
 import ApiKeys from './_components/apikeys'
 import CardInfo from './_components/cardinfo'
+import UserInfo from './_components/userInfo'
 
 const Profile = () => {
   return (
@@ -11,6 +12,7 @@ const Profile = () => {
       <div className='grid grid-cols-12 gap-2 py-2'>
         <div className='xl:col-span-4 col-span-12'>
           <User />
+          <UserInfo />
         </div>
         <div className='xl:col-span-8 col-span-12'>
           <ApiKeys />

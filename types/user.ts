@@ -12,6 +12,8 @@ export type TUser = {
   location?: string
   card_name?: string
   card_number?: string
+  userName?: string
+  userPhone?: string
 }
 
 export interface IUserStore {
