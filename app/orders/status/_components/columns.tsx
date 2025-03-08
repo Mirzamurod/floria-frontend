@@ -41,7 +41,7 @@ const columns: TColumns[] = [
       return (
         <Dialog>
           <DialogTrigger asChild>
-            <Button size='sm' disabled={status === 'cancelled'}>
+            <Button size='sm' disabled={status !== 'new'}>
               Tayyor
             </Button>
           </DialogTrigger>
