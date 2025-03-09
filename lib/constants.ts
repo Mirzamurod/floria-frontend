@@ -5,6 +5,19 @@ import { IoMdAddCircleOutline } from 'react-icons/io'
 
 export const themeConfig = { app: { name: 'Floria' } }
 
+export const yandexgo = ({
+  start_lat,
+  start_lon,
+  end_lat,
+  end_lon,
+}: {
+  start_lat?: number
+  start_lon?: number
+  end_lat?: number
+  end_lon?: number
+}) =>
+  `https://3.redirect.appmetrica.yandex.com/route?start-lat=${start_lat}&start-lon=${start_lon}&end-lat=${end_lat}&end-lon=${end_lon}&appmetrica_tracking_id=1178268795219780156`
+
 export const sidebar: TSidebar = {
   client: [
     { title: 'Dashboard', icon: Home, href: '/' },

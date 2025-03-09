@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { TColumns } from '@/types/table'
 import { Button } from '@/components/ui/button'
 import { EllipsisVertical, Eye } from 'lucide-react'
@@ -24,6 +25,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { yandexgo } from '@/lib/constants'
 
 const columns: TColumns[] = [
   {
@@ -90,7 +92,41 @@ const columns: TColumns[] = [
   {
     field: 'prepaymentNumber',
     headerName: "To'lov",
-    renderCell: ({ row }: { row: TOrder }) => <p>{row.prepaymentNumber} marta to'lov qilindi.</p>,
+    renderCell: ({ row }: { row: TOrder }) =>
+      row.prepaymentNumber ? (
+        <p>{row.prepaymentNumber} marta to'lov qilindi.</p>
+      ) : (
+        <Badge variant='destructive' />
+      ),
+  },
+  {
+    field: 'location',
+    headerName: 'Manzil',
+    renderCell: ({ row }: { row: TOrder }) => {
+      const { data: session } = useSession()
+
+      let data: any = {}
+      if (session?.currentUser?.location?.split(', ').length) {
+        data.start_lat = session?.currentUser?.location?.split(', ')[0]
+        data.start_lon = session?.currentUser?.location?.split(', ')[1]
+      }
+
+      return row.location ? (
+        <Link
+          target='_blank'
+          className='underline'
+          href={yandexgo({
+            end_lat: row.location.latitude,
+            end_lon: row.location.longitude,
+            ...(Object.keys(data).length ? data : {}),
+          })}
+        >
+          Ko'rish
+        </Link>
+      ) : (
+        <Badge variant='destructive' />
+      )
+    },
   },
   {
     field: 'bouquetId',

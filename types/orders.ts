@@ -14,6 +14,7 @@ export type TOrder = {
   prepayment: boolean
   prepaymentImage: string
   prepaymentNumber: number
+  location: { longitude: number; latitude: number }
   date: string
   bouquet: {
     bouquets: {
