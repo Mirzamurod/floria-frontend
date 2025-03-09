@@ -20,7 +20,7 @@ const Popup: FC<IProps> = props => {
 
   return (
     <div className='max-h-[50vh] overflow-y-auto'>
-      {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
+      {!bouquets.length && !flowers.length ? <h3>Ma'lumot yo'q</h3> : null}
       {bouquets.length ? (
         <>
           <p>Buketlar</p>

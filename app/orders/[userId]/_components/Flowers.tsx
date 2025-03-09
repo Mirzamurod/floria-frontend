@@ -138,7 +138,7 @@ const Flowers: FC<IProps> = props => {
             </Card>
           ))
         ) : (
-          <h3>No data</h3>
+          <h3>Ma'lumot yo'q</h3>
         )}
       </div>
       {flowers.length ? (

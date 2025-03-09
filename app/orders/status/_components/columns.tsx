@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'next/navigation'
 import { TColumns } from '@/types/table'
 import { Button } from '@/components/ui/button'
-import { Eye } from 'lucide-react'
+import { EllipsisVertical, Eye } from 'lucide-react'
 import { TOrder } from '@/types/orders'
 import {
   Dialog,
@@ -14,10 +14,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { editOrder } from '@/store/orders'
+import { editOrder, sendMessageUnsubmitted } from '@/store/orders'
 import { useAppSelector } from '@/store'
 import { Badge } from '@/components/ui/badge'
 import Prepayment from '@/components/prepayment'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 const columns: TColumns[] = [
   {
@@ -82,6 +88,11 @@ const columns: TColumns[] = [
     },
   },
   {
+    field: 'prepaymentNumber',
+    headerName: "To'lov",
+    renderCell: ({ row }: { row: TOrder }) => <p>{row.prepaymentNumber} marta to'lov qilindi.</p>,
+  },
+  {
     field: 'bouquetId',
     headerName: 'Buketlar soni',
     renderCell: ({ row }: { row: TOrder }) => <p>{row.bouquet?.qty}</p>,
@@ -95,15 +106,34 @@ const columns: TColumns[] = [
     field: 'action',
     headerName: 'action',
     className: 'text-end',
-    renderCell: ({ row }: { row: TOrder }) => (
-      <>
+    renderCell: ({ row }: { row: TOrder }) => {
+      const { status } = useParams()
+      const dispatch = useDispatch()
+
+      const sendMessage = () => dispatch(sendMessageUnsubmitted(row._id))
+
+      return status === 'unsubmitted' ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size='icon' variant='outline'>
+              <EllipsisVertical />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem asChild>
+              <Link href={`/orders/view/${row._id}`}>Zakazni ko'rish</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={sendMessage}>Zakazni topshirdim</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
         <Button asChild size='icon' variant='outline' className='mr-2'>
           <Link href={`/orders/view/${row._id}`}>
             <Eye />
           </Link>
         </Button>
-      </>
-    ),
+      )
+    },
   },
 ]
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useAppSelector } from '@/store'
 import { SidebarTrigger, useSidebar } from '../ui/sidebar'
@@ -11,6 +11,9 @@ import { cn } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
 import { OctagonAlert } from 'lucide-react'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { getUnsubmittedOrders } from '@/store/orders'
+import { usePathname } from 'next/navigation'
 
 interface IProps {
   children: ReactNode
@@ -18,10 +21,17 @@ interface IProps {
 
 const LayoutProvider: FC<IProps> = props => {
   const { children } = props
+  const dispatch = useDispatch()
+  const pathname = usePathname()
   const { open, setOpen } = useSidebar()
   const { data: session } = useSession()
 
   const { sidebar } = useAppSelector(state => state.login)
+  const { ordersUnsubmitted } = useAppSelector(state => state.orders)
+
+  useEffect(() => {
+    dispatch(getUnsubmittedOrders({ status: 'unsubmitted' }))
+  }, [pathname])
 
   return (
     <>
@@ -30,9 +40,12 @@ const LayoutProvider: FC<IProps> = props => {
         {sidebar ? (
           <>
             <div className='border-b flex justify-between p-2 sidebar-width fixed bg-background z-50'>
-              <Button asChild size='icon' variant='outline' onClick={() => setOpen(!open)}>
-                <SidebarTrigger />
-              </Button>
+              <div className='flex gap-2 items-center'>
+                <Button asChild size='icon' variant='outline' onClick={() => setOpen(!open)}>
+                  <SidebarTrigger />
+                </Button>
+                {ordersUnsubmitted.length ? <p>Sizda 1ta topshirilmagan zakaz bor.</p> : null}
+              </div>
               <div>
                 <ModeToggle />
               </div>

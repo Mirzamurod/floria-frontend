@@ -15,6 +15,7 @@ export const sidebar: TSidebar = {
         { title: 'Yangi zakazlar', href: '/orders/status/new', icon: ListOrdered },
         { title: 'Eski zakazlar', href: '/orders/status/old', icon: ListOrdered },
         { title: "Bekor bo'lganlar", href: '/orders/status/cancelled', icon: ListOrdered },
+        { title: 'Topshirilmagan zakazlar', href: '/orders/status/unsubmitted', icon: ListOrdered },
       ],
     },
     {

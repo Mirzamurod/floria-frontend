@@ -39,8 +39,10 @@ export type TOrder = {
 
 export interface IOrderStore {
   isLoading: boolean
+  isLoadingUnsubmitted: boolean
   order: TOrder | null
   orders: TOrder[]
+  ordersUnsubmitted: TOrder[]
   errors: TError[] | null
   success: boolean
   pageCount: number

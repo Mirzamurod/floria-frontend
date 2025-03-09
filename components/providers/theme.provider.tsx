@@ -14,7 +14,13 @@ export function ThemeProvider({ children, ...props }: ComponentProps<typeof Next
       <WindowWrapper>
         <SidebarProvider>{children}</SidebarProvider>
       </WindowWrapper>
-      <ToastContainer position='bottom-right' theme={resolvedTheme} />
+      <ToastContainer
+        stacked
+        position='bottom-right'
+        theme={resolvedTheme}
+        autoClose={60000}
+        className='bg-background'
+      />
     </NextThemesProvider>
   )
 }

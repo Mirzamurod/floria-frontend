@@ -96,7 +96,7 @@ const Modal: FC<IProps> = props => {
               </AlertDescription>
             </Alert>
           ) : null}
-          {!bouquets.length && !flowers.length ? <h3>No data</h3> : null}
+          {!bouquets.length && !flowers.length ? <h3>Ma'lumot yo'q</h3> : null}
           {bouquets.length ? (
             <>
               <p className='mt-2'>Buketlar</p>

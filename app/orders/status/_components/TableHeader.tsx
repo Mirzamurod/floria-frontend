@@ -16,7 +16,12 @@ const TableHeader: FC<IProps> = props => {
     []
   )
 
-  const text = { new: 'Yangi', old: 'Eski', cancelled: "Bekor bo'lgan" }
+  const text = {
+    new: 'Yangi',
+    old: 'Eski',
+    cancelled: "Bekor bo'lgan",
+    unsubmitted: 'Topshirilmagan',
+  }
 
   return (
     <div className='flex flex-col mb-4'>
