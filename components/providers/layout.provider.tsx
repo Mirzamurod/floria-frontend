@@ -30,8 +30,9 @@ const LayoutProvider: FC<IProps> = props => {
   const { ordersUnsubmitted } = useAppSelector(state => state.orders)
 
   useEffect(() => {
-    dispatch(getUnsubmittedOrders({ status: 'unsubmitted' }))
-  }, [pathname])
+    if (session?.currentUser?.role === 'client')
+      dispatch(getUnsubmittedOrders({ status: 'unsubmitted' }))
+  }, [pathname, session?.currentUser])
 
   return (
     <>
@@ -54,6 +55,7 @@ const LayoutProvider: FC<IProps> = props => {
         ) : null}
         <div className={cn('z-0', sidebar ? 'p-2 mt-14' : null)}>
           {sidebar &&
+          session?.currentUser?.role === 'client' &&
           (!session?.currentUser?.card_name ||
             !session?.currentUser?.card_number ||
             !session?.currentUser?.telegramToken ||
