@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { addDays, addHours, format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 import { CalendarIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -13,6 +14,10 @@ interface IProps {
 
 const DatePicker: FC<IProps> = props => {
   const { date, setDate } = props
+
+  const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
+  const now = new Date()
+  const nowInUzbekistan = toZonedTime(now, UZBEKISTAN_TIMEZONE)
 
   return (
     <Popover>
@@ -35,8 +40,8 @@ const DatePicker: FC<IProps> = props => {
           onSelect={setDate}
           initialFocus
           disabled={{
-            before: addHours(new Date(), 3),
-            after: addDays(addHours(new Date(), 3), 21),
+            before: addHours(nowInUzbekistan, 3),
+            after: addDays(addHours(nowInUzbekistan, 3), 21),
           }}
         />
       </PopoverContent>

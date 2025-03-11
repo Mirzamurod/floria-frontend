@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { addDays, addHours } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -149,11 +150,15 @@ const Orders = () => {
   }
 
   const onSendData = useCallback(() => {
+    const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
+    const now = new Date()
+    const nowInUzbekistan = toZonedTime(now, UZBEKISTAN_TIMEZONE)
+
     const data = {
       date,
       userId,
       delivery,
-      prepayment: date! > addDays(addHours(new Date(), 3), 2) ? true : false,
+      prepayment: date! > addDays(addHours(nowInUzbekistan, 3), 2) ? true : false,
       bouquet: { bouquets, qty: total(bouquets).totalUnit, price: total(bouquets).totalSum },
       flower: { flowers, qty: total(flowers).totalUnit, price: total(flowers).totalSum },
     }
