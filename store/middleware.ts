@@ -38,14 +38,15 @@ const middleware =
       .then(res => {
         if (res.status === 200 || res.status === 201) {
           dispatch({ type: onSuccess, payload: res.data })
-          if (res.data.message && res.data.success) toast.success(res.data?.message)
+          if (res.data.message && res.data.success)
+            toast.success(res.data?.message, { autoClose: 10000 })
         } else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {
         if (error?.response?.status === 401) signOut()
         else {
           const data = error?.response?.data
-          if (data?.message) toast.error(data?.message)
+          if (data?.message) toast.error(data?.message, { autoClose: 60000 })
           dispatch({ type: onFail, payload: error?.response?.data })
         }
       })

@@ -30,7 +30,7 @@ const LayoutProvider: FC<IProps> = props => {
   const { ordersUnsubmitted } = useAppSelector(state => state.orders)
 
   useEffect(() => {
-    if (session?.currentUser?.role === 'client')
+    if (session?.currentUser?.role === 'client' && session.currentUser.block === false)
       dispatch(getUnsubmittedOrders({ status: 'unsubmitted' }))
   }, [pathname, session?.currentUser])
 
@@ -67,7 +67,7 @@ const LayoutProvider: FC<IProps> = props => {
               <AlertDescription>
                 Profilega o'tib kerakli ma'lumotlarni kiritishingiz kerak, shunda telegram bot
                 ishlashni boshlaydi. Profilega o'tish{' '}
-                <Link href='/profile' className='underline'>
+                <Link href='/profile' className='underline text-green-600'>
                   shu yerga
                 </Link>{' '}
                 bosing.

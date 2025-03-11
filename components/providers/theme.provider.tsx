@@ -18,7 +18,6 @@ export function ThemeProvider({ children, ...props }: ComponentProps<typeof Next
         stacked
         position='bottom-right'
         theme={resolvedTheme}
-        autoClose={60000}
         className='bg-background'
       />
     </NextThemesProvider>

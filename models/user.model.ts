@@ -1,5 +1,8 @@
 import { Schema, model, models } from 'mongoose'
+import { toZonedTime } from 'date-fns-tz'
 import { TUser } from '@/types/user'
+
+const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
 
 const userSchema = new Schema<TUser>({
   email: { type: String, required: true, unique: true },
@@ -7,6 +10,8 @@ const userSchema = new Schema<TUser>({
   image: { type: String },
   role: { type: String, enum: ['admin', 'client'], default: 'client' },
   block: { type: Boolean, default: true },
+  plan: { type: String, enum: ['week', 'month', 'vip'], default: 'week' },
+  date: { type: Date, default: toZonedTime(new Date(), UZBEKISTAN_TIMEZONE) },
   telegramToken: { type: String },
   telegramId: { type: String },
   location: { type: String },

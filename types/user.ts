@@ -14,6 +14,8 @@ export type TUser = {
   card_number?: string
   userName?: string
   userPhone?: string
+  plan: string
+  date: Date
 }
 
 export interface IUserStore {
