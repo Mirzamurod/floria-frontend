@@ -58,6 +58,7 @@ const category = createSlice({
     },
     onSuccessEditCategoryBlock: state => {
       state.isLoadingBlock = false
+      state.success = true
     },
     onFailEditCategoryBlock: state => {
       state.isLoadingBlock = false

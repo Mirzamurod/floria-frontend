@@ -17,4 +17,9 @@ const nextConfig = {
   },
 }
 
-export default withPWA({ dest: 'public' })(nextConfig)
+export default withPWA({
+  dest: 'public',
+  disable: false, // Majburan PWA yoqilganligiga ishonch hosil qilish
+  register: true,
+  skipWaiting: true,
+})(nextConfig)

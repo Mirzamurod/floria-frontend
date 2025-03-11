@@ -83,6 +83,10 @@ const AddEditBouquet = () => {
       )
   }, [errors])
 
+  useEffect(() => {
+    if (image) setImageLink(URL?.createObjectURL(image))
+  }, [image])
+
   return (
     <FormProvider {...methods}>
       <div className='flex md:flex-row flex-col md:justify-between'>

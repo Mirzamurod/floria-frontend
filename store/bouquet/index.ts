@@ -58,6 +58,7 @@ const bouquet = createSlice({
     },
     onSuccessEditBouquetsBlock: state => {
       state.isLoadingBlock = false
+      state.success = true
     },
     onFailEditBouquetsBlock: state => {
       state.isLoadingBlock = false

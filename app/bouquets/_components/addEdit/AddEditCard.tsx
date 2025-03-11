@@ -55,10 +55,7 @@ const AddEditCard: FC<IProps> = props => {
             type='file'
             hidden
             ref={fileInputRef}
-            onChange={e => {
-              setImage((e.target.files as any)[0])
-              setImageLink(URL.createObjectURL((e.target.files as any)[0]))
-            }}
+            onChange={e => setImage((e.target.files as any)[0])}
             accept='image/png, image/jpeg, image/jpg'
           />
         </div>

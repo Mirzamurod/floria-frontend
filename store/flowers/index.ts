@@ -58,6 +58,7 @@ const flowers = createSlice({
     },
     onSuccessEditFlowerBlock: state => {
       state.isLoadingBlock = false
+      state.success = true
     },
     onFailEditFlowerBlock: state => {
       state.isLoadingBlock = false
