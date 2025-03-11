@@ -27,6 +27,9 @@ import { useAppSelector } from '@/store'
 const Orders = () => {
   const { userId } = useParams()
   const dispatch = useDispatch()
+  const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
+  const now = new Date()
+  const nowInUzbekistan = toZonedTime(now, UZBEKISTAN_TIMEZONE)
   const [bouquets, setBouquets] = useState<IBouquet[]>([])
   const [flowers, setFlowers] = useState<IFlower[]>([])
   const [open, setOpen] = useState(false)
@@ -36,7 +39,7 @@ const Orders = () => {
   const [flowersPage, setFlowersPage] = useState(1)
   const [flowersLimit, setFlowersLimit] = useState('10')
   const [category, setCategory] = useState('')
-  const [date, setDate] = useState<Date | undefined>(addHours(new Date(), 3))
+  const [date, setDate] = useState<Date | undefined>(addHours(nowInUzbekistan, 3))
 
   const { user } = useAppSelector(state => state.login)
   const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>(
@@ -149,11 +152,9 @@ const Orders = () => {
     telegram.MainButton.show()
   }
 
-  const onSendData = useCallback(() => {
-    const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
-    const now = new Date()
-    const nowInUzbekistan = toZonedTime(now, UZBEKISTAN_TIMEZONE)
+  console.log(date)
 
+  const onSendData = useCallback(() => {
     const data = {
       date,
       userId,
