@@ -14,7 +14,7 @@ export type TUser = {
   card_number?: string
   userName?: string
   userPhone?: string
-  plan: string
+  plan: 'week' | 'month' | 'vip'
   date: Date
 }
 

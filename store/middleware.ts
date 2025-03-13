@@ -39,7 +39,7 @@ const middleware =
         if (res.status === 200 || res.status === 201) {
           dispatch({ type: onSuccess, payload: res.data })
           if (res.data.message && res.data.success)
-            toast.success(res.data?.message, { autoClose: 10000 })
+            toast.success(res.data?.message, { autoClose: 5000 })
         } else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {

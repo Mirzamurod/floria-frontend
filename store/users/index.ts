@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { flower, clientsapi, clienteditapi } from '@/store/apis'
-import { IUsersStore } from '@/types/user'
+import { IUsersStore, TUser } from '@/types/user'
 
 const initialState: IUsersStore = {
   isLoading: false,
@@ -50,7 +50,10 @@ export const getClients = (params?: any) =>
     onFail: users.actions.onFailGetUsers.type,
   })
 
-export const editClient = (id: string, data: { block: boolean }) =>
+export const editClient = (
+  id: string,
+  data: { block?: boolean; plan?: TUser['plan']; date?: Date }
+) =>
   flower({
     url: clienteditapi + id,
     method: 'patch',
