@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 export type TTable = {
   data: any[]
   columns: TColumns[]
+  mobileColumns?: TColumns[]
   loading?: boolean
   pageCount?: number
   footerPagination?: boolean

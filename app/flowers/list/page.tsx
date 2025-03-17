@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import Table from '@/components/table'
 import { TSortModel } from '@/types/table'
 import TableHeader from '../_components/list/TableHeader'
-import columns from '../_components/list/columns'
+import columns, { mobileColumns } from '../_components/list/columns'
 import { useAppSelector } from '@/store'
 import { getFlowers } from '@/store/flowers'
 
@@ -42,6 +42,7 @@ const FlowersList = () => {
       <Table
         data={flowers}
         columns={columns}
+        mobileColumns={mobileColumns}
         loading={isLoading}
         pageCount={pageCount}
         sortModel={ordering}

@@ -14,11 +14,13 @@ import { TColumns, TTable } from '@/types/table'
 import { Loader2 } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { cn } from '@/lib/utils'
+import useWindowWidth from '@/hooks/use-width'
 
 const Table: FC<TTable> = props => {
   const {
     data,
     columns,
+    mobileColumns,
     loading,
     pageCount,
     sortModel,
@@ -28,6 +30,7 @@ const Table: FC<TTable> = props => {
     onPaginationModelChange,
     pageSizeOptions = ['10', '20', '50'],
   } = props
+  const width = useWindowWidth()
 
   const changeSortable = (column: TColumns) => {
     if (column.sortable) !column.renderCell && changeSort(column.field)
@@ -48,11 +51,11 @@ const Table: FC<TTable> = props => {
       <ShadTable>
         <TableHeader>
           <TableRow>
-            {columns.map(column => (
+            {[...(mobileColumns?.length && width < 768 ? mobileColumns : columns)].map(column => (
               <TableHead
                 {...column}
                 key={column.field}
-                className={cn('px-2 min-w-32', column.className)}
+                className={cn('px-2 min-w-28', column.className)}
                 onClick={() => changeSortable(column)}
               >
                 {column.headerName}
@@ -63,7 +66,11 @@ const Table: FC<TTable> = props => {
         <TableBody>
           {loading || (!loading && !data.length) ? (
             <TableRow>
-              <TableCell colSpan={columns.length}>
+              <TableCell
+                colSpan={
+                  mobileColumns?.length && width < 768 ? mobileColumns.length : columns.length
+                }
+              >
                 {loading ? (
                   <div className='flex justify-center items-center'>
                     <Loader2 className='animate-spin' />
@@ -76,13 +83,15 @@ const Table: FC<TTable> = props => {
           ) : (
             data.map(item => (
               <TableRow key={item._id}>
-                {columns.map((column, index) => (
-                  <TableCell {...column} key={index} className={cn('min-w-32', column.className)}>
-                    {column.renderCell
-                      ? createElement(column.renderCell as any, { row: item })
-                      : item[column.field]}
-                  </TableCell>
-                ))}
+                {[...(mobileColumns?.length && width < 768 ? mobileColumns : columns)].map(
+                  (column, index) => (
+                    <TableCell {...column} key={index} className={cn('min-w-28', column.className)}>
+                      {column.renderCell
+                        ? createElement(column.renderCell as any, { row: item })
+                        : item[column.field]}
+                    </TableCell>
+                  )
+                )}
               </TableRow>
             ))
           )}

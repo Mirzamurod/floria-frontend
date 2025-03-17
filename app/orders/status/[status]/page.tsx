@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import Table from '@/components/table'
 import { TSortModel } from '@/types/table'
 import TableHeader from '../_components/TableHeader'
-import columns from '../_components/columns'
+import columns, { mobileColumns } from '../_components/columns'
 import { useAppSelector } from '@/store'
 import { getOrders } from '@/store/orders'
 
@@ -51,6 +51,7 @@ const OrdersStatusList = () => {
       <Table
         data={orders}
         columns={columns}
+        mobileColumns={mobileColumns}
         loading={isLoading}
         pageCount={pageCount}
         sortModel={ordering}

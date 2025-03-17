@@ -61,4 +61,54 @@ const columns: TColumns[] = [
   },
 ]
 
+export const mobileColumns: TColumns[] = [
+  {
+    field: 'image',
+    headerName: 'Rasm',
+    renderCell: ({ row }: { row: TBouquet }) => (
+      <Image src={row.image} alt={row.image} width={30} height={50} />
+    ),
+  },
+  {
+    field: 'price',
+    headerName: 'Narx',
+    renderCell: ({ row }: { row: TBouquet }) => (
+      <div>
+        <p>{getSum(row.price)}</p>
+        <p>{row?.category?.name}</p>
+      </div>
+    ),
+  },
+  {
+    field: 'block',
+    headerName: 'Active',
+    renderCell: ({ row }: { row: TBouquet }) => {
+      const dispatch = useDispatch()
+
+      const { isLoadingBlock } = useAppSelector(state => state.bouquet)
+
+      const onChange = () => dispatch(editBouquetBlock(row._id, { block: !row.block }))
+
+      return (
+        <Switch defaultChecked={!row.block} onCheckedChange={onChange} disabled={isLoadingBlock} />
+      )
+    },
+  },
+  {
+    field: 'action',
+    headerName: '',
+    className: 'text-end',
+    renderCell: ({ row }: { row: TBouquet }) => (
+      <>
+        <Button asChild size='icon' variant='outline' className='mr-2'>
+          <Link href={`/bouquets/${row._id}`}>
+            <Edit />
+          </Link>
+        </Button>
+        <DeleteDialog data={row} deleteAction={deleteBouquet} />
+      </>
+    ),
+  },
+]
+
 export default columns

@@ -42,9 +42,7 @@ const Orders = () => {
   const [date, setDate] = useState<Date | undefined>(addHours(nowInUzbekistan, 3))
 
   const { user } = useAppSelector(state => state.login)
-  const [delivery, setDelivery] = useState<'takeaway' | 'delivery'>(
-    user?.location ? 'takeaway' : 'delivery'
-  )
+  const [delivery, setDelivery] = useState<'takeaway' | 'delivery' | ''>('')
 
   const telegram = window.Telegram.WebApp
 
@@ -88,6 +86,11 @@ const Orders = () => {
       document.body.style.overflow = 'auto'
     }
   }, [open, popup])
+
+  useEffect(() => {
+    if (user?.location) setDelivery('takeaway')
+    else setDelivery('delivery')
+  }, [user?.location])
 
   const total = (items: IBouquet[] | IFlower[]): { totalUnit: number; totalSum: number } => {
     let totalUnit = 0
@@ -151,8 +154,6 @@ const Orders = () => {
     telegram.MainButton.text = 'Buyurtma berish'
     telegram.MainButton.show()
   }
-
-  console.log(date)
 
   const onSendData = useCallback(() => {
     const data = {
@@ -245,7 +246,7 @@ const Orders = () => {
         flowers={flowers}
         onCheckout={onCheckout}
         total={total}
-        delivery={delivery}
+        delivery={delivery as 'delivery'}
         setDelivery={setDelivery}
         deleteItem={deleteItem}
         changeItem={changeItem}
