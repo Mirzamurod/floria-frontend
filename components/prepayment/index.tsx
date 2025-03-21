@@ -57,7 +57,7 @@ const Prepayment: FC<IProps> = props => {
             variant='destructive'
             disabled={
               order.payment === 'cancelled' ||
-              order.prepaymentNumber === 2 ||
+              order.prepaymentNumber > 2 ||
               order.status === 'cancelled'
             }
             onClick={() => changeOrder('cancelled')}
@@ -68,7 +68,7 @@ const Prepayment: FC<IProps> = props => {
             size='sm'
             disabled={
               order.payment === 'accepted' ||
-              order.prepaymentNumber === 2 ||
+              order.prepaymentNumber > 2 ||
               order.status === 'cancelled'
             }
             onClick={() => changeOrder('accepted')}

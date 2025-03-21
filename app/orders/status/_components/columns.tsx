@@ -50,7 +50,7 @@ const columns: TColumns[] = [
       return (
         <Dialog>
           <DialogTrigger asChild>
-            <Button size='sm' disabled={status !== 'new'}>
+            <Button size='sm' disabled={status !== 'new' || row.payment === 'pending'}>
               Tayyor
             </Button>
           </DialogTrigger>
