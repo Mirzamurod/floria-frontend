@@ -200,8 +200,9 @@ export const mobileColumns: TColumns[] = [
       return (
         <div>
           <p>{row.customerId.phone}</p>
-          <p>{row?.date?.slice(0, 10)}</p>
-          {row.location ? (
+          <p className='mb-1'>{row?.date?.slice(0, 10)}</p>
+          {row.prepayment ? <Prepayment order={row!} /> : <Badge variant='destructive' />}
+          {/* {row.location ? (
             <Link
               target='_blank'
               className='underline'
@@ -213,7 +214,7 @@ export const mobileColumns: TColumns[] = [
             >
               Ko'rish
             </Link>
-          ) : null}
+          ) : null} */}
         </div>
       )
     },
@@ -243,7 +244,12 @@ export const mobileColumns: TColumns[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {status === 'new' ? (
-                <DropdownMenuItem onClick={() => setOpen(true)}>Zakaz tayyor</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setOpen(true)}
+                  disabled={row.prepayment && row.payment === 'pending'}
+                >
+                  Zakaz tayyor
+                </DropdownMenuItem>
               ) : null}
               <DropdownMenuItem asChild>
                 <Link href={`/orders/view/${row._id}`}>Zakazni ko'rish</Link>

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { editOrder, getOrder } from '@/store/orders'
 import { useAppSelector } from '@/store'
@@ -24,14 +25,22 @@ import {
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
 import Prepayment from '@/components/prepayment'
+import { yandexgo } from '@/lib/constants'
 
 const ViewOrder = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
+  const { data: session } = useSession()
 
   const { isLoading, order, success } = useAppSelector(state => state.orders)
 
   const confirm = () => dispatch(editOrder(order?._id!, { status: 'old' }))
+
+  let data: any = {}
+  if (session?.currentUser?.location?.split(', ').length) {
+    data.start_lat = session?.currentUser?.location?.split(', ')[0]
+    data.start_lon = session?.currentUser?.location?.split(', ')[1]
+  }
 
   useEffect(() => {
     dispatch(getOrder(id as string))
@@ -65,7 +74,9 @@ const ViewOrder = () => {
               {order?.status === 'new' ? (
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size='sm'>Tayyor</Button>
+                    <Button size='sm' disabled={order.prepayment && order.payment === 'pending'}>
+                      Tayyor
+                    </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
@@ -104,6 +115,22 @@ const ViewOrder = () => {
               ) : (
                 <Badge variant='destructive' />
               )}
+              {order?.location ? (
+                <div>
+                  <b>Manzil: </b> &nbsp;
+                  <Link
+                    target='_blank'
+                    className='underline'
+                    href={yandexgo({
+                      end_lat: order.location.latitude,
+                      end_lon: order.location.longitude,
+                      ...(Object.keys(data).length ? data : {}),
+                    })}
+                  >
+                    Ko'rish
+                  </Link>
+                </div>
+              ) : null}
             </CardContent>
             {order?.bouquet.bouquets.length ? (
               <>

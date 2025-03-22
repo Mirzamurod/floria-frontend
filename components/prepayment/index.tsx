@@ -38,12 +38,12 @@ const Prepayment: FC<IProps> = props => {
           Ko'rish
         </Button>
       </DialogTrigger>
-      <DialogContent className='h-auto'>
+      <DialogContent className='h-[calc(100vh-100px)]'>
         <DialogHeader className='z-20'>
           <DialogTitle>Zakaz raqami: {order.orderNumber}</DialogTitle>
           <DialogDescription>{order.customerId.phone}</DialogDescription>
         </DialogHeader>
-        <div className='h-[calc(100vh-200px)]'>
+        <div className='h-max'>
           <Image
             fill
             alt='prepayment_image'
@@ -51,7 +51,7 @@ const Prepayment: FC<IProps> = props => {
             className='object-contain h-auto'
           />
         </div>
-        <DialogFooter className='gap-2 z-20'>
+        <DialogFooter className='gap-2 mt-auto z-20'>
           <Button
             size='sm'
             variant='destructive'
