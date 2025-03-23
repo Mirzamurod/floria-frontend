@@ -23,7 +23,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Badge } from '@/components/ui/badge'
 import Prepayment from '@/components/prepayment'
 import { yandexgo } from '@/lib/constants'
 
@@ -112,9 +111,7 @@ const ViewOrder = () => {
                   <b>Oldindan to'lov: </b> &nbsp;
                   <Prepayment order={order!} />
                 </div>
-              ) : (
-                <Badge variant='destructive' />
-              )}
+              ) : null}
               {order?.location ? (
                 <div>
                   <b>Manzil: </b> &nbsp;
@@ -137,7 +134,7 @@ const ViewOrder = () => {
                 <Separator />
                 <CardContent className='mt-5'>
                   <p>
-                    <b>Buketlar soni: </b> &nbsp; {order?.bouquet.qty} ta
+                    <b>Buketlar soni: </b> &nbsp; {order?.bouquet?.qty} ta
                   </p>
                   <p>
                     <b>Buketlar narxi: </b> &nbsp; {getSum(order?.bouquet.price)}
@@ -161,7 +158,11 @@ const ViewOrder = () => {
             <Separator />
             <CardContent className='mt-5'>
               <p>
-                <b>Buketlar umumiy soni: </b> &nbsp; {order?.bouquet.qty! + order?.flower.qty!} ta
+                <b>Buketlar umumiy soni: </b> &nbsp;{' '}
+                {isNaN(order?.bouquet.qty! + order?.flower.qty!)
+                  ? 0
+                  : order?.bouquet.qty! + order?.flower.qty!}{' '}
+                ta
               </p>
               <p>
                 <b>Buketlar umumiy narxi: </b> &nbsp;{' '}
