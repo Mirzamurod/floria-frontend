@@ -11,7 +11,7 @@ import {
   Table as ShadTable,
 } from '../ui/table'
 import { TColumns, TTable } from '@/types/table'
-import { Loader2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, Loader2 } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { cn } from '@/lib/utils'
 import useWindowWidth from '@/hooks/use-width'
@@ -33,7 +33,7 @@ const Table: FC<TTable> = props => {
   const width = useWindowWidth()
 
   const changeSortable = (column: TColumns) => {
-    if (column.sortable) !column.renderCell && changeSort(column.field)
+    if (column.sortable) changeSort(column.field)
   }
 
   const changeSort = (field: string) => {
@@ -58,7 +58,21 @@ const Table: FC<TTable> = props => {
                 className={cn('px-2 min-w-28', column.className)}
                 onClick={() => changeSortable(column)}
               >
-                {column.headerName}
+                <div
+                  className={cn(
+                    'flex justify-between items-center',
+                    column.sortable && 'cursor-pointer'
+                  )}
+                >
+                  {column.headerName}
+                  {sortModel?.field === column.field ? (
+                    sortModel.sort === 'asc' ? (
+                      <ArrowDown size={14} />
+                    ) : (
+                      <ArrowUp size={14} />
+                    )
+                  ) : null}
+                </div>
               </TableHead>
             ))}
           </TableRow>

@@ -19,20 +19,23 @@ const columns: TColumns[] = [
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
-  { field: 'name', headerName: 'Nom' },
+  { field: 'name', headerName: 'Nom', sortable: true },
   {
     field: 'price',
     headerName: 'Narx',
+    sortable: true,
     renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'categoryId',
     headerName: 'Kategoriya',
+    sortable: true,
     renderCell: ({ row }: { row: TFlower }) => <p>{row?.category?.name}</p>,
   },
   {
     field: 'block',
     headerName: 'Active',
+    sortable: true,
     renderCell: ({ row }: { row: TFlower }) => {
       const dispatch = useDispatch()
 
@@ -73,6 +76,7 @@ export const mobileColumns: TColumns[] = [
   {
     field: 'price',
     headerName: 'Narx',
+    sortable: true,
     renderCell: ({ row }: { row: TFlower }) => (
       <div>
         <p>{row.name}</p>

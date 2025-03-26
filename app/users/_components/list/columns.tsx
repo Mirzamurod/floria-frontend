@@ -14,16 +14,18 @@ import {
 import { addMonths, addWeeks, format } from 'date-fns'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'Name' },
-  { field: 'email', headerName: 'Email' },
+  { field: 'name', headerName: 'Name', sortable: true },
+  { field: 'email', headerName: 'Email', sortable: true },
   {
     field: 'date',
     headerName: 'End date',
+    sortable: true,
     renderCell: ({ row }: { row: TUser }) => <p>{format(row.date, 'd MMM y')}</p>,
   },
   {
     field: 'plan',
     headerName: 'Plan',
+    sortable: true,
     renderCell: ({ row }: { row: TUser }) => {
       const dispatch = useDispatch()
 
@@ -51,6 +53,7 @@ const columns: TColumns[] = [
   {
     field: 'block',
     headerName: 'Active',
+    sortable: true,
     renderCell: ({ row }: { row: TUser }) => {
       const dispatch = useDispatch()
 

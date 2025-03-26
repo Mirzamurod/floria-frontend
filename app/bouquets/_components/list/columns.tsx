@@ -22,16 +22,19 @@ const columns: TColumns[] = [
   {
     field: 'price',
     headerName: 'Narx',
+    sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'categoryId',
     headerName: 'Kategoriya',
+    sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => <p>{row?.category?.name}</p>,
   },
   {
     field: 'block',
     headerName: 'Active',
+    sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => {
       const dispatch = useDispatch()
 
@@ -72,6 +75,7 @@ export const mobileColumns: TColumns[] = [
   {
     field: 'price',
     headerName: 'Narx',
+    sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => (
       <div>
         <p>{getSum(row.price)}</p>
@@ -82,6 +86,7 @@ export const mobileColumns: TColumns[] = [
   {
     field: 'block',
     headerName: 'Active',
+    sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => {
       const dispatch = useDispatch()
 

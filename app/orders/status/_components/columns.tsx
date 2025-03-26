@@ -32,6 +32,7 @@ const columns: TColumns[] = [
   {
     field: 'orderNumber',
     headerName: 'Zakaz nomeri',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => (
       <Link href={`/orders/view/${row._id}`}>{row.orderNumber}</Link>
     ),
@@ -79,16 +80,19 @@ const columns: TColumns[] = [
   {
     field: 'customerId',
     headerName: 'Mijoz raqami',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.customerId.phone}</p>,
   },
   {
     field: 'date',
     headerName: "Tayyor bo'lish sanasi",
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row?.date?.slice(0, 10)}</p>,
   },
   {
     field: 'prepayment',
     headerName: "Oldindan to'lov",
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       return row.prepayment ? <Prepayment order={row!} /> : <Badge variant='destructive' />
     },
@@ -96,6 +100,7 @@ const columns: TColumns[] = [
   {
     field: 'prepaymentNumber',
     headerName: "To'lov",
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) =>
       row.prepaymentNumber ? (
         <p>{row.prepaymentNumber} marta to'lov qilindi.</p>
@@ -106,6 +111,7 @@ const columns: TColumns[] = [
   {
     field: 'location',
     headerName: 'Manzil',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       const { data: session } = useSession()
 
@@ -135,11 +141,13 @@ const columns: TColumns[] = [
   {
     field: 'bouquetId',
     headerName: 'Buketlar soni',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.bouquet?.qty}</p>,
   },
   {
     field: 'flowersId',
     headerName: 'Gullar soni',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.flower?.qty}</p>,
   },
   {
@@ -181,6 +189,7 @@ export const mobileColumns: TColumns[] = [
   {
     field: 'orderNumber',
     headerName: 'Zakaz nomeri',
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => (
       <Link href={`/orders/view/${row._id}`}>{row.orderNumber}</Link>
     ),
@@ -188,6 +197,7 @@ export const mobileColumns: TColumns[] = [
   {
     field: 'date',
     headerName: "Ma'lumot",
+    sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       const { data: session } = useSession()
 

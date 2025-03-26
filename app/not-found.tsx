@@ -25,7 +25,7 @@ const NotFound = () => {
         </p>
         <div className='mt-10 flex items-center justify-center gap-x-6'>
           <Button variant='outline' asChild>
-            <Link href='/'>Go back home</Link>
+            <a href='/'>Go back home</a>
           </Button>
         </div>
       </div>
