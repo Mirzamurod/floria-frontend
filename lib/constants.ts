@@ -3,7 +3,7 @@ import { Flower2, Home, List, ListOrdered, Logs, Users } from 'lucide-react'
 import { GiHerbsBundle } from 'react-icons/gi'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 
-export const themeConfig = { app: { name: 'Floria' } }
+export const themeConfig = { app: { name: 'Floria', icon: '/flower-icon.webp' } }
 
 export const yandexgo = ({
   start_lat,

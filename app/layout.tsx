@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: themeConfig.app.name,
   description: 'Written by Mirzamurod',
-  icons: { icon: '/logo.png' },
+  icons: { icon: themeConfig.app.icon },
 }
 
 export default function RootLayout({

@@ -9,7 +9,7 @@ import columns from '../_components/list/columns'
 import { useAppSelector } from '@/store'
 import { getClients } from '@/store/users'
 
-const FlowersList = () => {
+const UsersList = () => {
   const dispatch = useDispatch()
   const [ordering, setOrdering] = useState<TSortModel | null>(null)
   const [search, setSearch] = useState<string>('')
@@ -53,4 +53,4 @@ const FlowersList = () => {
   )
 }
 
-export default FlowersList
+export default UsersList

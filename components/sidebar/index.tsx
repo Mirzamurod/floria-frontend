@@ -36,7 +36,7 @@ const Sidebar = () => {
     <ShadSidebar className='bg-background z-50'>
       <SidebarHeader>
         <div className='flex gap-2 items-center'>
-          <Image src='/flower-icon.webp' alt='flower-icon' width={36} height={36} />
+          <Image src={themeConfig.app.icon} alt='flower-icon' width={36} height={36} />
           <p className='text-xl'>{themeConfig.app.name}</p>
         </div>
       </SidebarHeader>
