@@ -28,6 +28,8 @@ export default function RootLayout({
       <html lang='en' suppressHydrationWarning>
         <head>
           <script src='https://telegram.org/js/telegram-web-app.js?56' />
+          <link rel='manifest' href='/manifest.json' />
+          <meta name='theme-color' content='#32a852' />
         </head>
         <body className={`${spaceGrotesk.variable} antialiased`} suppressHydrationWarning>
           <ThemeProvider
