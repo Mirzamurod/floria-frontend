@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { signIn } from 'next-auth/react'
+import { useDispatch } from 'react-redux'
 import { FaGoogle } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 import { ModeToggle } from '@/components/shared/mode-toggle'
-import { useDispatch } from 'react-redux'
 import { showSidebar } from '@/store/user/login'
+import { themeConfig } from '@/lib/constants'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ const Login = () => {
   return (
     <div className='container max-w-md w-full h-screen flex justify-center items-center flex-col space-y-4'>
       <div className='flex items-center gap-2'>
-        <h1 className='text-4xl font-bold'>Flowers</h1>
+        <h1 className='text-4xl font-bold'>{themeConfig.app.name}</h1>
         <ModeToggle />
       </div>
       <div className='w-full'>
