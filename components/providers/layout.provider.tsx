@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { getUnsubmittedOrders } from '@/store/orders'
 import { usePathname } from 'next/navigation'
+import Language from '../language'
 
 interface IProps {
   children: ReactNode
@@ -47,8 +48,11 @@ const LayoutProvider: FC<IProps> = props => {
                 </Button>
                 {ordersUnsubmitted.length ? <p>Sizda 1ta topshirilmagan zakaz bor.</p> : null}
               </div>
-              <div>
-                <ModeToggle />
+              <div className='flex gap-2'>
+                <Language />
+                <div>
+                  <ModeToggle />
+                </div>
               </div>
             </div>
           </>
