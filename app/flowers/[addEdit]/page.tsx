@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -19,10 +20,11 @@ const AddEditFlower = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { addEdit } = useParams()
+  const { t } = useTranslation()
   const formSchema = yup.object().shape({
-    price: yup.string().required('Narx majburiy'),
-    name: yup.string().required('Nomi majburiy'),
-    category: yup.string().required('Kategoriya majburiy'),
+    price: yup.string().required(t('pricerequired')),
+    name: yup.string().required(t('namerequired')),
+    category: yup.string().required(t('categoryrequired')),
     info: yup.string(),
   })
   const methods = useForm<TFlowerForm>({
@@ -79,7 +81,7 @@ const AddEditFlower = () => {
   useEffect(() => {
     if (errors?.length)
       errors.map(item =>
-        setError(item.path as keyof TFlowerForm, { type: 'custom', message: item.msg })
+        setError(item.path as keyof TFlowerForm, { type: 'custom', message: t(item.msg) })
       )
   }, [errors])
 
@@ -87,10 +89,10 @@ const AddEditFlower = () => {
     <FormProvider {...methods}>
       <div className='flex md:flex-row flex-col md:justify-between'>
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
-          {addEdit === 'add' ? "Gul qo'shish" : "Gulni o'zgartirish"}
+          {addEdit === 'add' ? t('addflower') : t('editflower')}
         </h2>
         <Button asChild>
-          <Link href='/flowers/list'>Gullarga o'tish</Link>
+          <Link href='/flowers/list'>{t('goflowers')}</Link>
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>

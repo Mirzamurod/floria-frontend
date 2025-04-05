@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -11,6 +12,7 @@ import { useAppSelector } from '@/store'
 const CardInfo = () => {
   const dispatch = useDispatch()
   const { data: session } = useSession()
+  const { t } = useTranslation()
   const [card_number, setCardNumber] = useState(session?.currentUser?.card_number ?? '')
   const [card_name, setCardName] = useState(session?.currentUser?.card_name ?? '')
 
@@ -24,40 +26,40 @@ const CardInfo = () => {
   return (
     <Card className='mt-2'>
       <CardHeader>
-        <CardTitle>Karta ma'lumotlari</CardTitle>
+        <CardTitle>{t('cardinfo')}</CardTitle>
       </CardHeader>
       <CardContent>
         <form className='flex flex-col gap-4' onSubmit={onSubmit}>
           <div>
             <Label htmlFor='card_number'>
-              Karta raqami <span className='text-red-500'>*</span>
+              {t('cardnumber')} <span className='text-red-500'>*</span>
             </Label>
             <Input
-              id='card_number'
               required
               type='text'
-              disabled={telegramLoading}
-              placeholder='Karta raqami'
+              id='card_number'
               value={card_number}
+              disabled={telegramLoading}
+              placeholder={t('cardnumber')}
               onChange={e => setCardNumber(e.target.value)}
             />
           </div>
           <div>
             <Label htmlFor='card_name'>
-              Ism <span className='text-red-500'>*</span>
+              {t('username')} <span className='text-red-500'>*</span>
             </Label>
             <Input
-              id='card_name'
               required
               type='text'
-              disabled={telegramLoading}
-              placeholder='Ism'
+              id='card_name'
               value={card_name}
+              disabled={telegramLoading}
+              placeholder={t('username')}
               onChange={e => setCardName(e.target.value)}
             />
           </div>
           <Button type='submit' disabled={telegramLoading}>
-            O'zgartirish
+            {t('edit')}
           </Button>
         </form>
       </CardContent>

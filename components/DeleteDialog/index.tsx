@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import {
   Dialog,
   DialogClose,
@@ -20,6 +21,7 @@ interface IProps {
 const DeleteDialog: FC<IProps> = props => {
   const { data, deleteAction } = props
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const confirm = () => dispatch(deleteAction(data._id))
 
@@ -32,14 +34,14 @@ const DeleteDialog: FC<IProps> = props => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
+          <DialogTitle>{t('areyousure')}</DialogTitle>
         </DialogHeader>
         <DialogFooter className='gap-2'>
           <Button variant='destructive' onClick={confirm}>
-            O'chirish
+            {t('delete')}
           </Button>
           <DialogClose asChild>
-            <Button variant='secondary'>Yopish</Button>
+            <Button variant='secondary'>{t('close')}</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

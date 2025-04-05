@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -14,6 +15,7 @@ import Location from './Location'
 const ApiKeys = () => {
   const dispatch = useDispatch()
   const { data: session } = useSession()
+  const { t } = useTranslation()
   const [telegramToken, setTelegramToken] = useState(session?.currentUser?.telegramToken ?? '')
   const [telegramId, setTelegramId] = useState(session?.currentUser?.telegramId ?? '')
   const [location, setLocation] = useState(session?.currentUser?.location ?? '')
@@ -38,12 +40,12 @@ const ApiKeys = () => {
               <TelegramToken>?</TelegramToken>
             </Label>
             <Input
-              id='token'
               required
+              id='token'
               type='text'
+              value={telegramToken}
               disabled={telegramLoading}
               placeholder='Telegram token'
-              value={telegramToken}
               onChange={e => setTelegramToken(e.target.value)}
             />
           </div>
@@ -54,27 +56,27 @@ const ApiKeys = () => {
             <Input
               id='id'
               type='text'
+              value={telegramId}
               disabled={telegramLoading}
               placeholder='Telegram group id'
-              value={telegramId}
               onChange={e => setTelegramId(e.target.value)}
             />
           </div>
           <div>
             <Label htmlFor='location'>
-              Location <Location>?</Location>
+              {t('location')} <Location>?</Location>
             </Label>
             <Input
               type='text'
               id='location'
-              disabled={telegramLoading}
-              placeholder='Location'
               value={location}
+              placeholder='Location'
+              disabled={telegramLoading}
               onChange={e => setLocation(e.target.value)}
             />
           </div>
           <Button type='submit' disabled={telegramLoading}>
-            O'zgartirish
+            {t('edit')}
           </Button>
         </form>
       </CardContent>

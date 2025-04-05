@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { editOrder, getOrder } from '@/store/orders'
 import { useAppSelector } from '@/store'
@@ -30,6 +31,7 @@ const ViewOrder = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { data: session } = useSession()
+  const { t } = useTranslation()
 
   const { isLoading, order, success } = useAppSelector(state => state.orders)
 
@@ -52,10 +54,10 @@ const ViewOrder = () => {
   return (
     <div>
       <div className='flex md:flex-row flex-col md:justify-between'>
-        <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>Zakazni ko'rish</h2>
+        <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>{t('vieworder')}</h2>
         {order ? (
           <Button asChild>
-            <Link href={`/orders/status/${order?.status}`}>Gullarga o'tish</Link>
+            <Link href={`/orders/status/${order?.status}`}>{t('goorders')}</Link>
           </Button>
         ) : null}
       </div>
@@ -69,25 +71,25 @@ const ViewOrder = () => {
         <div className='mb-4 mt-2'>
           <Card>
             <CardHeader className='flex flex-row items-center justify-between'>
-              <CardTitle>Umumiy ma'lumot</CardTitle>
+              <CardTitle>{t('generalinfo')}</CardTitle>
               {order?.status === 'new' ? (
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button size='sm' disabled={order.prepayment && order.payment === 'pending'}>
-                      Tayyor
+                      {t('done')}
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
+                      <DialogTitle>{t('areyousure')}</DialogTitle>
                     </DialogHeader>
                     <DialogFooter className='gap-2'>
                       <Button onClick={confirm} disabled={isLoading}>
-                        Ha
+                        {t('yes')}
                       </Button>
                       <DialogClose asChild>
                         <Button variant='secondary' disabled={isLoading}>
-                          Yo'q
+                          {t('no')}
                         </Button>
                       </DialogClose>
                     </DialogFooter>
@@ -98,23 +100,23 @@ const ViewOrder = () => {
             <Separator />
             <CardContent className='mt-5'>
               <p>
-                <b>Mijoz raqami: </b> &nbsp; {order?.customerId.phone}
+                <b>{t('customernumber')}: </b> &nbsp; {order?.customerId.phone}
               </p>
               <p>
-                <b>Mijoz ismi: </b> &nbsp; {order?.customerId.name}
+                <b>{t('customernumber')}: </b> &nbsp; {order?.customerId.name}
               </p>
               <p>
-                <b>Tayyor bo'lish sanasi: </b> &nbsp; {order?.date?.slice(0, 10)}
+                <b>{t('completiondate')}: </b> &nbsp; {order?.date?.slice(0, 10)}
               </p>
               {order?.prepaymentImage ? (
                 <div>
-                  <b>Oldindan to'lov: </b> &nbsp;
+                  <b>{t('prepayment')}: </b> &nbsp;
                   <Prepayment order={order!} />
                 </div>
               ) : null}
               {order?.location ? (
                 <div>
-                  <b>Manzil: </b> &nbsp;
+                  <b>{t('location')}: </b> &nbsp;
                   <Link
                     target='_blank'
                     className='underline'
@@ -124,7 +126,7 @@ const ViewOrder = () => {
                       ...(Object.keys(data).length ? data : {}),
                     })}
                   >
-                    Ko'rish
+                    {t('see')}
                   </Link>
                 </div>
               ) : null}
@@ -134,10 +136,10 @@ const ViewOrder = () => {
                 <Separator />
                 <CardContent className='mt-5'>
                   <p>
-                    <b>Buketlar soni: </b> &nbsp; {order?.bouquet?.qty} ta
+                    <b>{t('bouquetsnumber')}: </b> &nbsp; {order?.bouquet?.qty}
                   </p>
                   <p>
-                    <b>Buketlar narxi: </b> &nbsp; {getSum(order?.bouquet.price)}
+                    <b>{t('bouquetsprice')}: </b> &nbsp; {getSum(order?.bouquet.price)}
                   </p>
                 </CardContent>
               </>
@@ -147,10 +149,10 @@ const ViewOrder = () => {
                 <Separator />
                 <CardContent className='mt-5'>
                   <p>
-                    <b>Gullar soni: </b> &nbsp; {order?.flower.qty} ta
+                    <b>{t('flowersnumber')}: </b> &nbsp; {order?.flower.qty}
                   </p>
                   <p>
-                    <b>Umumiy narxi: </b> &nbsp; {getSum(order?.flower.price)}
+                    <b>{t('flowersprice')}: </b> &nbsp; {getSum(order?.flower.price)}
                   </p>
                 </CardContent>
               </>
@@ -158,14 +160,14 @@ const ViewOrder = () => {
             <Separator />
             <CardContent className='mt-5'>
               <p>
-                <b>Buketlar umumiy soni: </b> &nbsp;{' '}
+                <b>{t('totalnumberbouquets')}: </b> &nbsp;{' '}
                 {isNaN(order?.bouquet.qty! + order?.flower.qty!)
                   ? 0
                   : order?.bouquet.qty! + order?.flower.qty!}{' '}
                 ta
               </p>
               <p>
-                <b>Buketlar umumiy narxi: </b> &nbsp;{' '}
+                <b>{t('totalpricebouquets')}: </b> &nbsp;{' '}
                 {getSum(order?.bouquet.price! + order?.flower.price!)}
               </p>
             </CardContent>
@@ -173,7 +175,7 @@ const ViewOrder = () => {
           {order?.bouquet.bouquets.length ? (
             <Card className='mt-2 p-6'>
               <Collapsible>
-                <CollapsibleTrigger>Buketlar</CollapsibleTrigger>
+                <CollapsibleTrigger>{t('bouquets')}</CollapsibleTrigger>
                 <CollapsibleContent className='mt-3'>
                   <div className='flex flex-wrap gap-4'>
                     {order.bouquet.bouquets.map(bouquet => (
@@ -192,16 +194,16 @@ const ViewOrder = () => {
                         <CardContent className='p-2'>
                           {bouquet.bouquetId.name ? (
                             <p>
-                              <b>Nomi: </b> {bouquet.bouquetId.name}
+                              <b>{t('name')}: </b> {bouquet.bouquetId.name}
                             </p>
                           ) : null}
                           <p>
-                            <b>Narxi: </b>
+                            <b>{t('price')}: </b>
                             {getSum(bouquet.price)}
                           </p>
                           <p>
-                            <b>Soni: </b>
-                            {bouquet.qty} ta
+                            <b>{t('number')}: </b>
+                            {bouquet.qty}
                           </p>
                         </CardContent>
                       </Card>
@@ -214,7 +216,7 @@ const ViewOrder = () => {
           {order?.flower.flowers.length ? (
             <Card className='mt-2 p-6'>
               <Collapsible>
-                <CollapsibleTrigger>Gullar</CollapsibleTrigger>
+                <CollapsibleTrigger>{t('flowers')}</CollapsibleTrigger>
                 <CollapsibleContent className='mt-3'>
                   <div className='flex flex-wrap gap-4'>
                     {order.flower.flowers.map(flower => (
@@ -230,16 +232,16 @@ const ViewOrder = () => {
                         <CardContent className='p-2'>
                           {flower.flowerId.name ? (
                             <p>
-                              <b>Nomi: </b> {flower.flowerId.name}
+                              <b>{t('name')}: </b> {flower.flowerId.name}
                             </p>
                           ) : null}
                           <p>
-                            <b>Narxi: </b>
+                            <b>{t('price')}: </b>
                             {getSum(flower.price)}
                           </p>
                           <p>
-                            <b>Soni: </b>
-                            {flower.qty} ta
+                            <b>{t('price')}: </b>
+                            {flower.qty}
                           </p>
                         </CardContent>
                       </Card>

@@ -27,11 +27,13 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { yandexgo } from '@/lib/constants'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { t } from 'i18next'
 
 const columns: TColumns[] = [
   {
     field: 'orderNumber',
-    headerName: 'Zakaz nomeri',
+    headerName: 'ordernumber',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => (
       <Link href={`/orders/view/${row._id}`}>{row.orderNumber}</Link>
@@ -39,10 +41,11 @@ const columns: TColumns[] = [
   },
   {
     field: 'status',
-    headerName: "Holarni o'zgartirish",
+    headerName: 'changestatus',
     renderCell: ({ row }: { row: TOrder }) => {
       const dispatch = useDispatch()
       const { status } = useParams()
+      const { t } = useTranslation()
 
       const { isLoading } = useAppSelector(state => state.orders)
 
@@ -55,20 +58,20 @@ const columns: TColumns[] = [
               size='sm'
               disabled={status !== 'new' || (row.prepayment && row.payment === 'pending')}
             >
-              Tayyor
+              {t('done')}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
+              <DialogTitle>{t('areyousure')}</DialogTitle>
             </DialogHeader>
             <DialogFooter className='gap-2'>
               <Button onClick={confirm} disabled={isLoading}>
-                Ha
+                {t('yes')}
               </Button>
               <DialogClose asChild>
                 <Button variant='secondary' disabled={isLoading}>
-                  Yo'q
+                  {t('no')}
                 </Button>
               </DialogClose>
             </DialogFooter>
@@ -79,19 +82,19 @@ const columns: TColumns[] = [
   },
   {
     field: 'customerId',
-    headerName: 'Mijoz raqami',
+    headerName: 'customernumber',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.customerId.phone}</p>,
   },
   {
     field: 'date',
-    headerName: "Tayyor bo'lish sanasi",
+    headerName: 'completiondate',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row?.date?.slice(0, 10)}</p>,
   },
   {
     field: 'prepayment',
-    headerName: "Oldindan to'lov",
+    headerName: 'prepayment',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       return row.prepayment ? <Prepayment order={row!} /> : <Badge variant='destructive' />
@@ -99,21 +102,22 @@ const columns: TColumns[] = [
   },
   {
     field: 'prepaymentNumber',
-    headerName: "To'lov",
+    headerName: 'payment',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) =>
       row.prepaymentNumber ? (
-        <p>{row.prepaymentNumber} marta to'lov qilindi.</p>
+        <p>{t('paidtimes', { number: row.prepaymentNumber })}</p>
       ) : (
         <Badge variant='destructive' />
       ),
   },
   {
     field: 'location',
-    headerName: 'Manzil',
+    headerName: 'location',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       const { data: session } = useSession()
+      const { t } = useTranslation()
 
       let data: any = {}
       if (session?.currentUser?.location?.split(', ').length) {
@@ -131,7 +135,7 @@ const columns: TColumns[] = [
             ...(Object.keys(data).length ? data : {}),
           })}
         >
-          Ko'rish
+          {t('see')}
         </Link>
       ) : (
         <Badge variant='destructive' />
@@ -140,13 +144,13 @@ const columns: TColumns[] = [
   },
   {
     field: 'bouquetId',
-    headerName: 'Buketlar soni',
+    headerName: 'bouquetsnumber',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.bouquet?.qty}</p>,
   },
   {
     field: 'flowersId',
-    headerName: 'Gullar soni',
+    headerName: 'flowersnumber',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => <p>{row.flower?.qty}</p>,
   },
@@ -157,6 +161,7 @@ const columns: TColumns[] = [
     renderCell: ({ row }: { row: TOrder }) => {
       const { status } = useParams()
       const dispatch = useDispatch()
+      const { t } = useTranslation()
 
       const sendMessage = () => dispatch(sendMessageUnsubmitted(row._id))
 
@@ -169,9 +174,9 @@ const columns: TColumns[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link href={`/orders/view/${row._id}`}>Zakazni ko'rish</Link>
+              <Link href={`/orders/view/${row._id}`}>{t('vieworder')}</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={sendMessage}>Zakazni topshirdim</DropdownMenuItem>
+            <DropdownMenuItem onClick={sendMessage}>{t('submittedorder')}</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
@@ -188,7 +193,7 @@ const columns: TColumns[] = [
 export const mobileColumns: TColumns[] = [
   {
     field: 'orderNumber',
-    headerName: 'Zakaz nomeri',
+    headerName: 'ordernumber',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => (
       <Link href={`/orders/view/${row._id}`}>{row.orderNumber}</Link>
@@ -196,7 +201,7 @@ export const mobileColumns: TColumns[] = [
   },
   {
     field: 'date',
-    headerName: "Ma'lumot",
+    headerName: 'info',
     sortable: true,
     renderCell: ({ row }: { row: TOrder }) => {
       const { data: session } = useSession()
@@ -236,6 +241,7 @@ export const mobileColumns: TColumns[] = [
     renderCell: ({ row }: { row: TOrder }) => {
       const { status } = useParams()
       const dispatch = useDispatch()
+      const { t } = useTranslation()
       const [open, setOpen] = useState(false)
 
       const { isLoading } = useAppSelector(state => state.orders)
@@ -258,29 +264,29 @@ export const mobileColumns: TColumns[] = [
                   onClick={() => setOpen(true)}
                   disabled={row.prepayment && row.payment === 'pending'}
                 >
-                  Zakaz tayyor
+                  {t('done')}
                 </DropdownMenuItem>
               ) : null}
               <DropdownMenuItem asChild>
-                <Link href={`/orders/view/${row._id}`}>Zakazni ko'rish</Link>
+                <Link href={`/orders/view/${row._id}`}>{t('vieworder')}</Link>
               </DropdownMenuItem>
               {status === 'unsubmitted' ? (
-                <DropdownMenuItem onClick={sendMessage}>Zakazni topshirdim</DropdownMenuItem>
+                <DropdownMenuItem onClick={sendMessage}>{t('submittedorder')}</DropdownMenuItem>
               ) : null}
             </DropdownMenuContent>
           </DropdownMenu>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Ishonchingiz komilmi?</DialogTitle>
+                <DialogTitle>{t('areyousure')}</DialogTitle>
               </DialogHeader>
               <DialogFooter className='gap-2'>
                 <Button onClick={confirm} disabled={isLoading}>
-                  Ha
+                  {t('yes')}
                 </Button>
                 <DialogClose asChild>
                   <Button variant='secondary' disabled={isLoading}>
-                    Yo'q
+                    {t('no')}
                   </Button>
                 </DialogClose>
               </DialogFooter>

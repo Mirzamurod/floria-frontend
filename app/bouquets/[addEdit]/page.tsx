@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -19,9 +20,10 @@ const AddEditBouquet = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { addEdit } = useParams()
+  const { t } = useTranslation()
   const formSchema = yup.object().shape({
-    price: yup.string().required('Narx majburiy'),
-    category: yup.string().required('Kategoriya majburiy'),
+    price: yup.string().required(t('pricerequired')),
+    category: yup.string().required(t('categoryrequired')),
     name: yup.string(),
     info: yup.string(),
   })
@@ -79,7 +81,7 @@ const AddEditBouquet = () => {
   useEffect(() => {
     if (errors?.length)
       errors.map(item =>
-        setError(item.path as keyof TBouquetForm, { type: 'custom', message: item.msg })
+        setError(item.path as keyof TBouquetForm, { type: 'custom', message: t(item.msg) })
       )
   }, [errors])
 
@@ -91,10 +93,10 @@ const AddEditBouquet = () => {
     <FormProvider {...methods}>
       <div className='flex md:flex-row flex-col md:justify-between'>
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
-          {addEdit === 'add' ? "Buket qo'shish" : "Buketni o'zgartirish"}
+          {addEdit === 'add' ? t('addbouquet') : t('editbouquet')}
         </h2>
         <Button asChild>
-          <Link href='/bouquets/list'>Buketlarga o'tish</Link>
+          <Link href='/bouquets/list'>{t('gobouquets')}</Link>
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>

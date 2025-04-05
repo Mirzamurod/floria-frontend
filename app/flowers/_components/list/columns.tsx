@@ -14,27 +14,27 @@ import { Switch } from '@/components/ui/switch'
 const columns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'Rasm',
+    headerName: 'image',
     renderCell: ({ row }: { row: TFlower }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
-  { field: 'name', headerName: 'Nom', sortable: true },
+  { field: 'name', headerName: 'name', sortable: true },
   {
     field: 'price',
-    headerName: 'Narx',
+    headerName: 'price',
     sortable: true,
     renderCell: ({ row }: { row: TFlower }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'categoryId',
-    headerName: 'Kategoriya',
+    headerName: 'category',
     sortable: true,
     renderCell: ({ row }: { row: TFlower }) => <p>{row?.category?.name}</p>,
   },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     sortable: true,
     renderCell: ({ row }: { row: TFlower }) => {
       const dispatch = useDispatch()
@@ -68,14 +68,14 @@ const columns: TColumns[] = [
 export const mobileColumns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'Rasm',
+    headerName: 'image',
     renderCell: ({ row }: { row: TFlower }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   {
     field: 'price',
-    headerName: 'Narx',
+    headerName: 'price',
     sortable: true,
     renderCell: ({ row }: { row: TFlower }) => (
       <div>
@@ -87,7 +87,7 @@ export const mobileColumns: TColumns[] = [
   },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     renderCell: ({ row }: { row: TFlower }) => {
       const dispatch = useDispatch()
 

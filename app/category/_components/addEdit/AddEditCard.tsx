@@ -2,7 +2,7 @@ import Input from '@/components/input'
 import { TInputType } from '@/types/input'
 
 const AddEditCard = () => {
-  const inputs: TInputType[] = [{ name: 'name', label: 'Nomi', required: true }]
+  const inputs: TInputType[] = [{ name: 'name', required: true }]
 
   return (
     <div>

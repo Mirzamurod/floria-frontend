@@ -10,10 +10,10 @@ import { deleteCategory, editCategoryBlock } from '@/store/category'
 import { TCategory } from '@/types/category'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'Nomi', sortable: true },
+  { field: 'name', headerName: 'name', sortable: true },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     sortable: true,
     renderCell: ({ row }: { row: TCategory }) => {
       const dispatch = useDispatch()

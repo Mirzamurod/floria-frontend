@@ -2,6 +2,7 @@
 
 import { createElement, FC } from 'react'
 import ReactPaginate from 'react-paginate'
+import { useTranslation } from 'react-i18next'
 import {
   TableBody,
   TableCell,
@@ -31,6 +32,7 @@ const Table: FC<TTable> = props => {
     pageSizeOptions = ['10', '20', '50'],
   } = props
   const width = useWindowWidth()
+  const { t } = useTranslation()
 
   const changeSortable = (column: TColumns) => {
     if (column.sortable) changeSort(column.field)
@@ -64,7 +66,7 @@ const Table: FC<TTable> = props => {
                     column.sortable && 'cursor-pointer'
                   )}
                 >
-                  {column.headerName}
+                  {t(column.headerName)}
                   {sortModel?.field === column.field ? (
                     sortModel.sort === 'asc' ? (
                       <ArrowDown size={14} />
@@ -90,7 +92,7 @@ const Table: FC<TTable> = props => {
                     <Loader2 className='animate-spin' />
                   </div>
                 ) : (
-                  <p className='text-center'>Ma'lumot yo'q</p>
+                  <p className='text-center'>{t('nodata')}</p>
                 )}
               </TableCell>
             </TableRow>

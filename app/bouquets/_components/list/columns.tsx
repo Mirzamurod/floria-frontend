@@ -14,26 +14,26 @@ import { useAppSelector } from '@/store'
 const columns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'Rasm',
+    headerName: 'image',
     renderCell: ({ row }: { row: TBouquet }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   {
     field: 'price',
-    headerName: 'Narx',
+    headerName: 'price',
     sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => <p>{getSum(row.price)}</p>,
   },
   {
     field: 'categoryId',
-    headerName: 'Kategoriya',
+    headerName: 'category',
     sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => <p>{row?.category?.name}</p>,
   },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => {
       const dispatch = useDispatch()
@@ -67,14 +67,14 @@ const columns: TColumns[] = [
 export const mobileColumns: TColumns[] = [
   {
     field: 'image',
-    headerName: 'Rasm',
+    headerName: 'image',
     renderCell: ({ row }: { row: TBouquet }) => (
       <Image src={row.image} alt={row.image} width={30} height={50} />
     ),
   },
   {
     field: 'price',
-    headerName: 'Narx',
+    headerName: 'price',
     sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => (
       <div>
@@ -85,7 +85,7 @@ export const mobileColumns: TColumns[] = [
   },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     sortable: true,
     renderCell: ({ row }: { row: TBouquet }) => {
       const dispatch = useDispatch()

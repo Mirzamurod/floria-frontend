@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Image from 'next/image'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import {
   Dialog,
   DialogClose,
@@ -22,6 +23,7 @@ interface IProps {
 const Prepayment: FC<IProps> = props => {
   const { order } = props
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const buttonColor = {
     accepted: 'bg-green-600 hover:bg-green-700',
@@ -35,12 +37,14 @@ const Prepayment: FC<IProps> = props => {
     <Dialog>
       <DialogTrigger asChild>
         <Button size='sm' className={`${buttonColor[order.payment]} text-white`}>
-          Ko'rish
+          {t('see')}
         </Button>
       </DialogTrigger>
       <DialogContent className='h-[calc(100vh-100px)]'>
         <DialogHeader className='z-20'>
-          <DialogTitle>Zakaz raqami: {order.orderNumber}</DialogTitle>
+          <DialogTitle>
+            {t('ordernumber')}: {order.orderNumber}
+          </DialogTitle>
           <DialogDescription>{order.customerId.phone}</DialogDescription>
         </DialogHeader>
         <div className='h-max'>
@@ -62,7 +66,7 @@ const Prepayment: FC<IProps> = props => {
             }
             onClick={() => changeOrder('cancelled')}
           >
-            Soxta
+            {t('fake')}
           </Button>
           <Button
             size='sm'
@@ -73,11 +77,11 @@ const Prepayment: FC<IProps> = props => {
             }
             onClick={() => changeOrder('accepted')}
           >
-            Haqiqiy
+            {t('real')}
           </Button>
           <DialogClose asChild>
             <Button size='sm' variant='outline'>
-              Yopish
+              {t('close')}
             </Button>
           </DialogClose>
         </DialogFooter>

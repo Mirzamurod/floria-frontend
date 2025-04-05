@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -11,6 +12,7 @@ import { useAppSelector } from '@/store'
 const UserInfo = () => {
   const dispatch = useDispatch()
   const { data: session } = useSession()
+  const { t } = useTranslation()
   const [userName, setCardName] = useState(session?.currentUser?.userName ?? '')
   const [userPhone, setCardNumber] = useState(session?.currentUser?.userPhone ?? '+998')
 
@@ -24,40 +26,40 @@ const UserInfo = () => {
   return (
     <Card className='mt-2'>
       <CardHeader>
-        <CardTitle>Foydalanuvchi ma'lumotlari</CardTitle>
+        <CardTitle>{t('userinfo')}</CardTitle>
       </CardHeader>
       <CardContent>
         <form className='flex flex-col gap-4' onSubmit={onSubmit}>
           <div>
             <Label htmlFor='userName'>
-              Ism <span className='text-red-500'>*</span>
+              {t('username')} <span className='text-red-500'>*</span>
             </Label>
             <Input
-              id='userName'
               required
               type='text'
-              disabled={telegramLoading}
-              placeholder='Ism'
+              id='userName'
               value={userName}
+              placeholder={t('username')}
+              disabled={telegramLoading}
               onChange={e => setCardName(e.target.value)}
             />
           </div>
           <div>
             <Label htmlFor='userPhone'>
-              Telefon raqam <span className='text-red-500'>*</span>
+              {t('phone')} <span className='text-red-500'>*</span>
             </Label>
             <Input
-              id='userPhone'
               required
               type='text'
+              id='userPhone'
+              value={userPhone}
               disabled={telegramLoading}
               placeholder='+998901234567'
-              value={userPhone}
               onChange={e => setCardNumber(e.target.value)}
             />
           </div>
           <Button type='submit' disabled={telegramLoading}>
-            O'zgartirish
+            {t('edit')}
           </Button>
         </form>
       </CardContent>

@@ -1,5 +1,7 @@
-import { TColumns } from '@/types/table'
 import { useDispatch } from 'react-redux'
+import { addMonths, addWeeks, format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
+import { TColumns } from '@/types/table'
 import { useAppSelector } from '@/store'
 import { Switch } from '@/components/ui/switch'
 import { TUser } from '@/types/user'
@@ -11,23 +13,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { addMonths, addWeeks, format } from 'date-fns'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'Name', sortable: true },
-  { field: 'email', headerName: 'Email', sortable: true },
+  { field: 'name', headerName: 'username', sortable: true },
+  { field: 'email', headerName: 'email', sortable: true },
   {
     field: 'date',
-    headerName: 'End date',
+    headerName: 'enddate',
     sortable: true,
     renderCell: ({ row }: { row: TUser }) => <p>{format(row.date, 'd MMM y')}</p>,
   },
   {
     field: 'plan',
-    headerName: 'Plan',
+    headerName: 'plan',
     sortable: true,
     renderCell: ({ row }: { row: TUser }) => {
       const dispatch = useDispatch()
+      const { t } = useTranslation()
 
       const onChange = (plan: TUser['plan']) => {
         let date: null | Date = row.date
@@ -39,11 +41,11 @@ const columns: TColumns[] = [
       return (
         <Select defaultValue={row.plan} onValueChange={onChange}>
           <SelectTrigger className='w-auto'>
-            <SelectValue placeholder='Choose plan' />
+            <SelectValue placeholder='chooseplan' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='week'>Week</SelectItem>
-            <SelectItem value='month'>Month</SelectItem>
+            <SelectItem value='week'>{t('week', { number: 2 })}</SelectItem>
+            <SelectItem value='month'>{t('month', { number: 1 })}</SelectItem>
             <SelectItem value='vip'>Vip</SelectItem>
           </SelectContent>
         </Select>
@@ -52,7 +54,7 @@ const columns: TColumns[] = [
   },
   {
     field: 'block',
-    headerName: 'Active',
+    headerName: 'active',
     sortable: true,
     renderCell: ({ row }: { row: TUser }) => {
       const dispatch = useDispatch()

@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -18,7 +19,8 @@ const AddEditCategory = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { addEdit } = useParams()
-  const formSchema = yup.object().shape({ name: yup.string().required('Nomi majburiy') })
+  const { t } = useTranslation()
+  const formSchema = yup.object().shape({ name: yup.string().required(t('namerequired')) })
   const methods = useForm<TCategoryForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
@@ -55,7 +57,7 @@ const AddEditCategory = () => {
   useEffect(() => {
     if (errors?.length)
       errors.map(item =>
-        setError(item.path as keyof TCategoryForm, { type: 'custom', message: item.msg })
+        setError(item.path as keyof TCategoryForm, { type: 'custom', message: t(item.msg) })
       )
   }, [errors])
 
@@ -63,10 +65,10 @@ const AddEditCategory = () => {
     <FormProvider {...methods}>
       <div className='flex md:flex-row flex-col md:justify-between'>
         <h2 className='scroll-m-20 pb-2 text-3xl font-semibold tracking-tight'>
-          {addEdit === 'add' ? "Kategoriya qo'shish" : "Kategoriyani o'zgartirish"}
+          {addEdit === 'add' ? t('addcategory') : t('editcategory')}
         </h2>
         <Button asChild>
-          <Link href='/category/list'>Kategoriyaga o'tish</Link>
+          <Link href='/category/list'>{t('gocategory')}</Link>
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className='my-4 md:my-0'>

@@ -20,48 +20,48 @@ export const yandexgo = ({
 
 export const sidebar: TSidebar = {
   client: [
-    { title: 'Dashboard', icon: Home, href: '/' },
+    { title: 'dashboard', icon: Home, href: '/' },
     {
-      title: 'Zakazlar',
+      title: 'orders',
       icon: Logs,
       children: [
-        { title: 'Yangi zakazlar', href: '/orders/status/new', icon: ListOrdered },
-        { title: 'Eski zakazlar', href: '/orders/status/old', icon: ListOrdered },
-        { title: "Bekor bo'lganlar", href: '/orders/status/cancelled', icon: ListOrdered },
-        { title: 'Topshirilmagan zakazlar', href: '/orders/status/unsubmitted', icon: ListOrdered },
+        { title: 'neworders', href: '/orders/status/new', icon: ListOrdered },
+        { title: 'oldorders', href: '/orders/status/old', icon: ListOrdered },
+        { title: 'cancelledorders', href: '/orders/status/cancelled', icon: ListOrdered },
+        { title: 'unsubmittedorders', href: '/orders/status/unsubmitted', icon: ListOrdered },
       ],
     },
     {
-      title: 'Buketlar',
+      title: 'bouquets',
       icon: GiHerbsBundle,
       children: [
-        { title: "Buketlar ro'yxati", icon: List, href: '/bouquets/list' },
-        { title: "Buket qo'shish", icon: IoMdAddCircleOutline, href: '/bouquets/add' },
+        { title: 'bouquetslist', icon: List, href: '/bouquets/list' },
+        { title: 'addbouquet', icon: IoMdAddCircleOutline, href: '/bouquets/add' },
       ],
     },
     {
-      title: 'Gullar',
+      title: 'flowers',
       icon: Flower2,
       children: [
-        { title: "Gullar ro'yxati", icon: List, href: '/flowers/list' },
-        { title: "Gul qo'shish", icon: IoMdAddCircleOutline, href: '/flowers/add' },
+        { title: 'flowerslist', icon: List, href: '/flowers/list' },
+        { title: 'addflower', icon: IoMdAddCircleOutline, href: '/flowers/add' },
       ],
     },
     {
-      title: 'Kategoriya',
+      title: 'category',
       icon: Flower2,
       children: [
-        { title: "Kategoriya ro'yxati", icon: List, href: '/category/list' },
-        { title: "Kategoriya qo'shish", icon: IoMdAddCircleOutline, href: '/category/add' },
+        { title: 'categorylist', icon: List, href: '/category/list' },
+        { title: 'addcategory', icon: IoMdAddCircleOutline, href: '/category/add' },
       ],
     },
   ],
   admin: [
-    { title: 'Dashboard', icon: Home, href: '/' },
+    { title: 'dashboard', icon: Home, href: '/' },
     {
-      title: 'Users',
+      title: 'users',
       icon: Users,
-      children: [{ title: 'Users List', href: '/users/list', icon: Users }],
+      children: [{ title: 'userslist', href: '/users/list', icon: Users }],
     },
   ],
 }

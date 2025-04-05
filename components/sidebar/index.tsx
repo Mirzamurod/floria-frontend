@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 import { signOut, useSession } from 'next-auth/react'
 import { ChevronUp, User2 } from 'lucide-react'
 import {
@@ -31,6 +32,7 @@ const Sidebar = () => {
   const pathname = usePathname()
   const { setOpenMobile } = useSidebar()
   const { data: session } = useSession()
+  const { t } = useTranslation()
 
   return (
     <ShadSidebar className='bg-background z-50'>
@@ -56,13 +58,13 @@ const Sidebar = () => {
                       >
                         <Link href={{ pathname: item.href, query: item.query }}>
                           <item.icon size={16} />
-                          <span>{item.title}</span>
+                          <span>{t(item.title!)}</span>
                         </Link>
                       </SidebarMenuButton>
                     ) : (
                       <SidebarMenu className='flex flex-row items-center p-2'>
                         <item.icon size={16} />
-                        {item.title}
+                        {t(item.title!)}
                       </SidebarMenu>
                     )}
                     {item.children?.length
@@ -76,7 +78,7 @@ const Sidebar = () => {
                               >
                                 <Link href={{ pathname: child.href, query: child.query }}>
                                   <child.icon size={16} />
-                                  <span>{child.title}</span>
+                                  <span>{t(child.title!)}</span>
                                 </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -106,10 +108,10 @@ const Sidebar = () => {
                   className='cursor-pointer'
                   onClick={() => setOpenMobile(false)}
                 >
-                  <Link href='/profile'>Profile</Link>
+                  <Link href='/profile'>{t('profile')}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()} className='cursor-pointer'>
-                  <span>Sign out</span>
+                  <span>{t('signout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

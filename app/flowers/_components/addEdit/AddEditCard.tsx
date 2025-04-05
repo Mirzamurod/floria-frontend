@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 import { useFormContext } from 'react-hook-form'
 import Input from '@/components/input'
 import { TInputType } from '@/types/input'
@@ -26,15 +26,15 @@ interface IProps {
 
 const AddEditCard: FC<IProps> = props => {
   const { image, setImage, imageLink, setImageLink } = props
-  const { addEdit } = useParams()
   const { control } = useFormContext()
+  const { t } = useTranslation()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const { categories } = useAppSelector(state => state.category)
 
   const inputs: TInputType[] = [
-    { name: 'price', label: 'Narxi', required: true, type: 'number' },
-    { name: 'name', label: 'Nomi', required: true },
+    { name: 'price', required: true, type: 'number' },
+    { name: 'name', required: true },
   ]
 
   return (
@@ -42,7 +42,7 @@ const AddEditCard: FC<IProps> = props => {
       <div className='grid md:grid-cols-3 gap-3'>
         <div className='flex flex-col gap-3'>
           <Label>
-            Rasm <span className='text-red-500'>*</span>
+            {t('image')} <span className='text-red-500'>*</span>
           </Label>
           <Button
             onClick={event => {
@@ -51,11 +51,11 @@ const AddEditCard: FC<IProps> = props => {
             }}
           >
             <Upload />
-            Upload
+            {t('upload')}
           </Button>
           <input
-            type='file'
             hidden
+            type='file'
             ref={fileInputRef}
             onChange={e => {
               setImage((e.target.files as any)[0])
@@ -78,13 +78,13 @@ const AddEditCard: FC<IProps> = props => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Kategoriya <span className='text-red-500'>*</span>
+                {t('category')} <span className='text-red-500'>*</span>
               </FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder='Kategoriyani tanlang' />
+                      <SelectValue placeholder={t('choosecategory')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -100,7 +100,7 @@ const AddEditCard: FC<IProps> = props => {
             </FormItem>
           )}
         />
-        <Input name='info' label="Ma'lumot" textarea />
+        <Input name='info' label={t('info')} textarea />
       </div>
     </div>
   )
