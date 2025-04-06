@@ -1,10 +1,10 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '../ui/menubar'
 import i18n from '@/app/i18nInstance'
-import { useTranslation } from 'react-i18next'
 
-const Language = () => {
+const Language = ({ en }: { en?: boolean }) => {
   const { i18n: i18next } = useTranslation()
 
   const changeLanguage = (lng: 'uz' | 'ru' | 'en') => i18next.changeLanguage(lng)
@@ -14,15 +14,9 @@ const Language = () => {
       <MenubarMenu>
         <MenubarTrigger className='capitalize'>{i18n.language}</MenubarTrigger>
         <MenubarContent>
-          {['uz', 'ru', 'en'].map(lang => (
-            <MenubarItem
-              key={lang}
-              className='capitalize'
-              onClick={() => changeLanguage(lang as 'uz' | 'ru' | 'en')}
-            >
-              {lang}
-            </MenubarItem>
-          ))}
+          <MenubarItem onClick={() => changeLanguage('uz')}>Uz</MenubarItem>
+          <MenubarItem onClick={() => changeLanguage('ru')}>Ru</MenubarItem>
+          {en ? <MenubarItem onClick={() => changeLanguage('en')}>En</MenubarItem> : null}
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

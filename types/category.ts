@@ -2,7 +2,8 @@ import { TError } from './error'
 
 export type TCategory = {
   _id: string
-  name: string
+  nameUz: string
+  nameRu: string
   createdAt: string
   updatedAt: string
   userId: string
@@ -20,5 +21,6 @@ export interface ICategoryStore {
 }
 
 export type TCategoryForm = {
-  name: string
+  nameUz: string
+  nameRu: string
 }

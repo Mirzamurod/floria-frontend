@@ -49,7 +49,7 @@ const LayoutProvider: FC<IProps> = props => {
                 {ordersUnsubmitted.length ? <p>Sizda 1ta topshirilmagan zakaz bor.</p> : null}
               </div>
               <div className='flex gap-2'>
-                <Language />
+                <Language en />
                 <div>
                   <ModeToggle />
                 </div>

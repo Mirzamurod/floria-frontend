@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { addDays, addHours } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
+import { useTranslation } from 'react-i18next'
 import { ModeToggle } from '@/components/shared/mode-toggle'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -23,10 +24,12 @@ import { themeConfig } from '@/lib/constants'
 import { getPublicCategories } from '@/store/category'
 import { getUser } from '@/store/user/login'
 import { useAppSelector } from '@/store'
+import Language from '@/components/language'
 
 const Orders = () => {
   const { userId } = useParams()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const UZBEKISTAN_TIMEZONE = 'Asia/Tashkent'
   const now = new Date()
   const nowInUzbekistan = toZonedTime(now, UZBEKISTAN_TIMEZONE)
@@ -183,6 +186,7 @@ const Orders = () => {
             <p className='text-xl'>{themeConfig.app.name}</p>
           </div>
           <div className='flex gap-x-2'>
+            <Language />
             <Popover open={popup} onOpenChange={setPopup}>
               <PopoverTrigger asChild>
                 <Button variant='ghost' size='icon' className='relative'>
@@ -211,8 +215,8 @@ const Orders = () => {
       {/* Tabs */}
       <Tabs defaultValue='bouquets' className='mt-4 container'>
         <TabsList>
-          <TabsTrigger value='bouquets'>Buketlar</TabsTrigger>
-          <TabsTrigger value='flowers'>Gullar</TabsTrigger>
+          <TabsTrigger value='bouquets'>{t('bouquets')}</TabsTrigger>
+          <TabsTrigger value='flowers'>{t('flowers')}</TabsTrigger>
         </TabsList>
         <TabsContent value='bouquets'>
           <Bouquets

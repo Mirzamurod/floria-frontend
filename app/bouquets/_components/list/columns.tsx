@@ -10,6 +10,8 @@ import DeleteDialog from '@/components/DeleteDialog'
 import { deleteBouquet, editBouquetBlock } from '@/store/bouquet'
 import { Switch } from '@/components/ui/switch'
 import { useAppSelector } from '@/store'
+import getCategory from '@/lib/getCategory'
+import { useTranslation } from 'react-i18next'
 
 const columns: TColumns[] = [
   {
@@ -29,7 +31,11 @@ const columns: TColumns[] = [
     field: 'categoryId',
     headerName: 'category',
     sortable: true,
-    renderCell: ({ row }: { row: TBouquet }) => <p>{row?.category?.name}</p>,
+    renderCell: ({ row }: { row: TBouquet }) => {
+      const { i18n } = useTranslation()
+
+      return getCategory(row.category, i18n.language)
+    },
   },
   {
     field: 'block',
@@ -76,12 +82,16 @@ export const mobileColumns: TColumns[] = [
     field: 'price',
     headerName: 'price',
     sortable: true,
-    renderCell: ({ row }: { row: TBouquet }) => (
-      <div>
-        <p>{getSum(row.price)}</p>
-        <p>{row?.category?.name}</p>
-      </div>
-    ),
+    renderCell: ({ row }: { row: TBouquet }) => {
+      const { i18n } = useTranslation()
+
+      return (
+        <div>
+          <p>{getSum(row.price)}</p>
+          <p>{getCategory(row.category, i18n.language)}</p>
+        </div>
+      )
+    },
   },
   {
     field: 'block',

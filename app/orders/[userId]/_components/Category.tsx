@@ -1,8 +1,10 @@
 import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { useAppSelector } from '@/store'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import getCategory from '@/lib/getCategory'
 
 interface IProps {
   active: string
@@ -11,6 +13,7 @@ interface IProps {
 
 const Category: FC<IProps> = props => {
   const { active, setActive } = props
+  const { i18n, t } = useTranslation()
   const { isLoading, categories } = useAppSelector(state => state.category)
 
   const changeActive = (text: string) => setActive(text)
@@ -27,7 +30,7 @@ const Category: FC<IProps> = props => {
               onClick={() => changeActive('')}
               variant={active === '' ? 'default' : 'outline'}
             >
-              Hammasi
+              {t('all')}
             </Button>
             {categories.map(category => (
               <Button
@@ -36,7 +39,7 @@ const Category: FC<IProps> = props => {
                 onClick={() => changeActive(category._id)}
                 variant={active === category._id ? 'default' : 'outline'}
               >
-                {category.name}
+                {getCategory(category, i18n.language)}
               </Button>
             ))}
           </>

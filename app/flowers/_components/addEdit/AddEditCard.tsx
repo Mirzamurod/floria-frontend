@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/select'
 import { useAppSelector } from '@/store'
 import { Button } from '@/components/ui/button'
+import getCategory from '@/lib/getCategory'
 
 interface IProps {
   image: File | null
@@ -27,7 +28,7 @@ interface IProps {
 const AddEditCard: FC<IProps> = props => {
   const { image, setImage, imageLink, setImageLink } = props
   const { control } = useFormContext()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const { categories } = useAppSelector(state => state.category)
@@ -90,7 +91,7 @@ const AddEditCard: FC<IProps> = props => {
                   <SelectContent>
                     {categories.map(category => (
                       <SelectItem key={category._id} value={category._id}>
-                        {category.name}
+                        {getCategory(category, i18n.language)}
                       </SelectItem>
                     ))}
                   </SelectContent>

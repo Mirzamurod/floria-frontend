@@ -10,7 +10,8 @@ import { deleteCategory, editCategoryBlock } from '@/store/category'
 import { TCategory } from '@/types/category'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'name', sortable: true },
+  { field: 'nameUz', headerName: 'nameuz', sortable: true },
+  { field: 'nameRu', headerName: 'nameru', sortable: true },
   {
     field: 'block',
     headerName: 'active',

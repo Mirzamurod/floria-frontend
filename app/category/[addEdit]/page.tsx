@@ -20,11 +20,16 @@ const AddEditCategory = () => {
   const router = useRouter()
   const { addEdit } = useParams()
   const { t } = useTranslation()
-  const formSchema = yup.object().shape({ name: yup.string().required(t('namerequired')) })
+  const formSchema = yup
+    .object()
+    .shape({
+      nameUz: yup.string().required(t('namerequired')),
+      nameRu: yup.string().required(t('namerequired')),
+    })
   const methods = useForm<TCategoryForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { name: '' },
+    defaultValues: { nameUz: '', nameRu: '' },
   })
   const { handleSubmit, setValue, setError, reset } = methods
 

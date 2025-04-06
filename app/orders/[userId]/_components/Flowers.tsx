@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
+import { useTranslation } from 'react-i18next'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -26,6 +27,7 @@ interface IProps {
 
 const Flowers: FC<IProps> = props => {
   const { items, setItems, page, setPage, limit, setLimit, active, setActive } = props
+  const { t } = useTranslation()
 
   const { isLoading, flowers, pageCount } = useAppSelector(state => state.flower)
 
@@ -74,10 +76,8 @@ const Flowers: FC<IProps> = props => {
       <Category active={active} setActive={setActive} />
       <Alert>
         <OctagonAlert className='h-4 w-4' />
-        <AlertTitle>Diqqat!</AlertTitle>
-        <AlertDescription>
-          Siz tannagan gullardan buket qilib beriladi, gullarning soniga etibor bering!
-        </AlertDescription>
+        <AlertTitle>{t('attention')}!</AlertTitle>
+        <AlertDescription>{t('flowerwarning')}</AlertDescription>
       </Alert>
       <div className='grid grid-cols-2 gap-4 mt-4'>
         {isLoading && !flowers.length ? (
@@ -105,10 +105,10 @@ const Flowers: FC<IProps> = props => {
               </div>
               <CardContent className='p-2'>
                 <p>
-                  <b>Nomi: </b> {flower.name}
+                  <b>{t('name')}: </b> {flower.name}
                 </p>
                 <p>
-                  <b>Narxi: </b>
+                  <b>{t('price')}: </b>
                   {getSum(flower.price)}
                 </p>
               </CardContent>
@@ -131,14 +131,14 @@ const Flowers: FC<IProps> = props => {
                   </>
                 ) : (
                   <Button className='w-full rounded-none' onClick={() => changeItem(flower, '+')}>
-                    Qo'shish
+                    {t('add')}
                   </Button>
                 )}
               </CardFooter>
             </Card>
           ))
         ) : (
-          <h3>Ma'lumot yo'q</h3>
+          <h3>{t('nodata')}</h3>
         )}
       </div>
       {flowers.length ? (

@@ -84,5 +84,22 @@
   "email": "Email",
   "enddate": "End date",
   "plan": "Plan",
-  "chooseplan": "Choose plan"
+  "chooseplan": "Choose plan",
+  "nameuz": "Uzbek name",
+  "nameru": "Russian name",
+  "custombouquet": "Special bouquet",
+  "total": "Total",
+  "ordering": "Ordering",
+  "all": "All",
+  "add": "Add",
+  "attention": "Attention",
+  "flowerwarning": "A bouquet will be made from the flowers you choose, pay attention to the number of flowers!",
+  "check": "Check",
+  "checkdesc": "Check the correctness of the bouquet and flowers",
+  "deliveryortakeaway": "Delivery or take away",
+  "takeaway": "Take away",
+  "delivery": "Delivery",
+  "locationwarning": "After clicking on the order button, send the address via telegram!",
+  "whenshouldready": "When should it be ready?",
+  "daywarning": "If the order is to be prepared in 2 or more days, payment must be made in advance. After placing the order, the card number will be sent via Telegram. You will need to transfer the required amount and send a screenshot as proof."
 }

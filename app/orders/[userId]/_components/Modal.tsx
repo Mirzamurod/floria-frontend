@@ -1,6 +1,7 @@
 import { FC, Fragment } from 'react'
 import Image from 'next/image'
 import { addDays, addHours } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 import {
   Dialog,
   DialogContent,
@@ -51,54 +52,48 @@ const Modal: FC<IProps> = props => {
     date,
     setDate,
   } = props
+  const { t } = useTranslation()
   const { user } = useAppSelector(state => state.login)
 
   return (
     <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <DialogContent>
         <DialogHeader className='text-start'>
-          <DialogTitle>Tekshirish</DialogTitle>
-          <DialogDescription>Buket va gullarni to'g'riligini tekshiring</DialogDescription>
+          <DialogTitle>{t('check')}</DialogTitle>
+          <DialogDescription>{t('checkdesc')}</DialogDescription>
         </DialogHeader>
         <ScrollArea className='max-h-[70vh]'>
-          <p>Yetkazib berish yoki olib ketish</p>
+          <p>{t('deliveryortakeaway')}</p>
           <RadioGroup value={delivery} onValueChange={setDelivery} className='mb-4 mt-1'>
             {user?.location ? (
               <div className='flex items-center space-x-2'>
                 <RadioGroupItem value='takeaway' id='takeaway' />
-                <Label htmlFor='takeaway'>Olib ketish</Label>
+                <Label htmlFor='takeaway'>{t('takeaway')}</Label>
               </div>
             ) : null}
             <div className='flex items-center space-x-2'>
               <RadioGroupItem value='delivery' id='delivery' />
-              <Label htmlFor='delivery'>Yetkazib berish</Label>
+              <Label htmlFor='delivery'>{t('delivery')}</Label>
             </div>
           </RadioGroup>
           {delivery === 'delivery' ? (
             <Alert className='mb-2'>
               <OctagonAlert className='h-4 w-4' />
-              <AlertDescription>
-                Zakaz berishni bosganingizdan keyin telegram orqali manzilni yuboring!
-              </AlertDescription>
+              <AlertDescription>{t('locationwarning')}</AlertDescription>
             </Alert>
           ) : null}
-          <p>Qachonga tayyor bo'lishi kerak?</p>
+          <p>{t('whenshouldready')}</p>
           <DatePicker date={date} setDate={setDate} />
           {date! > addDays(addHours(new Date(), 3), 2) ? (
             <Alert className='mt-2'>
               <OctagonAlert className='h-4 w-4' />
-              <AlertDescription>
-                Agar zakaz 2 yoki undan ko'proq kundan keyin tayyorlab berilishi kerak bo'lsa,
-                to'lov oldindan qilinadi. To'lov zakaz qilinganidan keyin telegram orqali karta
-                raqami beriladi, shunga kerakli summani tashlab rasmini jo'natishingiz kerak
-                bo'ladi.
-              </AlertDescription>
+              <AlertDescription>{t('daywarning')}</AlertDescription>
             </Alert>
           ) : null}
-          {!bouquets.length && !flowers.length ? <h3>Ma'lumot yo'q</h3> : null}
+          {!bouquets.length && !flowers.length ? <h3>{t('nodata')}</h3> : null}
           {bouquets.length ? (
             <>
-              <p className='mt-2'>Buketlar</p>
+              <p className='mt-2'>{t('bouquets')}</p>
               {bouquets.map(item => (
                 <Fragment key={item.bouquetId}>
                   <div className='flex justify-between items-center mt-1'>
@@ -138,7 +133,7 @@ const Modal: FC<IProps> = props => {
           ) : null}
           {flowers.length ? (
             <>
-              <p className='mt-2'>Maxsus guldasta</p>
+              <p className='mt-2'>{t('custombouquet')}</p>
               {flowers.map(item => (
                 <Fragment key={item.flowerId}>
                   <div className='flex justify-between items-center mt-1'>
@@ -179,7 +174,7 @@ const Modal: FC<IProps> = props => {
           {bouquets.length || flowers.length ? (
             <>
               <div className='flex justify-between items-center mt-2'>
-                <p>Umumiy:</p>
+                <p>{t('total')}:</p>
                 <p>{total(bouquets).totalUnit + total(flowers).totalUnit}</p>
                 <p>{getSum(total(bouquets).totalSum + total(flowers).totalSum)}</p>
               </div>
@@ -188,7 +183,7 @@ const Modal: FC<IProps> = props => {
         </ScrollArea>
         <DialogFooter>
           <Button disabled={!bouquets.length && !flowers.length} onClick={onCheckout}>
-            Zakaz berish
+            {t('ordering')}
           </Button>
         </DialogFooter>
       </DialogContent>

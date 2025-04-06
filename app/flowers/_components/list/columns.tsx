@@ -1,15 +1,17 @@
+import Link from 'next/link'
 import Image from 'next/image'
+import { useDispatch } from 'react-redux'
 import { TColumns } from '@/types/table'
 import { getSum } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
-import Link from 'next/link'
 import DeleteDialog from '@/components/DeleteDialog'
 import { deleteFlower, editFlowerBlock } from '@/store/flowers'
 import { TFlower } from '@/types/flower'
-import { useDispatch } from 'react-redux'
 import { useAppSelector } from '@/store'
 import { Switch } from '@/components/ui/switch'
+import getCategory from '@/lib/getCategory'
+import { useTranslation } from 'react-i18next'
 
 const columns: TColumns[] = [
   {
@@ -30,7 +32,11 @@ const columns: TColumns[] = [
     field: 'categoryId',
     headerName: 'category',
     sortable: true,
-    renderCell: ({ row }: { row: TFlower }) => <p>{row?.category?.name}</p>,
+    renderCell: ({ row }: { row: TFlower }) => {
+      const { i18n } = useTranslation()
+
+      return <p>{getCategory(row.category, i18n.language)}</p>
+    },
   },
   {
     field: 'block',
@@ -77,13 +83,17 @@ export const mobileColumns: TColumns[] = [
     field: 'price',
     headerName: 'price',
     sortable: true,
-    renderCell: ({ row }: { row: TFlower }) => (
-      <div>
-        <p>{row.name}</p>
-        <p>{getSum(row.price)}</p>
-        <p>{row?.category?.name}</p>
-      </div>
-    ),
+    renderCell: ({ row }: { row: TFlower }) => {
+      const { i18n } = useTranslation()
+
+      return (
+        <div>
+          <p>{row.name}</p>
+          <p>{getSum(row.price)}</p>
+          <p>{getCategory(row.category, i18n.language)}</p>
+        </div>
+      )
+    },
   },
   {
     field: 'block',

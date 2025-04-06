@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Image from 'next/image'
 import ReactPaginate from 'react-paginate'
+import { useTranslation } from 'react-i18next'
 import { useAppSelector } from '@/store'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -24,6 +25,7 @@ interface IProps {
 
 const Bouquets: FC<IProps> = props => {
   const { items, setItems, page, setPage, limit, setLimit, active, setActive } = props
+  const { t } = useTranslation()
 
   const { isLoading, bouquets, pageCount } = useAppSelector(state => state.bouquet)
 
@@ -97,16 +99,16 @@ const Bouquets: FC<IProps> = props => {
               <CardContent className='p-2'>
                 {bouquet.name ? (
                   <p>
-                    <b>Nomi: </b> {bouquet.name}
+                    <b>{t('name')}: </b> {bouquet.name}
                   </p>
                 ) : null}
                 <p>
-                  <b>Narxi: </b>
+                  <b>{t('price')}: </b>
                   {getSum(bouquet.price)}
                 </p>
                 {bouquet.info ? (
                   <p>
-                    <b>Ma'lumot: </b> {bouquet.info}
+                    <b>{t('info')}: </b> {bouquet.info}
                   </p>
                 ) : null}
               </CardContent>
@@ -129,14 +131,14 @@ const Bouquets: FC<IProps> = props => {
                   </>
                 ) : (
                   <Button className='w-full rounded-none' onClick={() => changeItem(bouquet, '+')}>
-                    Qo'shish
+                    {t('add')}
                   </Button>
                 )}
               </CardFooter>
             </Card>
           ))
         ) : (
-          <h3>Ma'lumot yo'q</h3>
+          <h3>{t('nodata')}</h3>
         )}
       </div>
       {bouquets.length ? (

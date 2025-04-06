@@ -84,5 +84,22 @@
   "email": "Email",
   "enddate": "Tugash sanasi",
   "plan": "Plan",
-  "chooseplan": "Planni tanlash"
+  "chooseplan": "Planni tanlash",
+  "nameuz": "O'zbekcha nomi",
+  "nameru": "Ruscha nomi",
+  "custombouquet": "Maxsus guldasta",
+  "total": "Umumiy",
+  "ordering": "Buyurtma berish",
+  "all": "Hammasi",
+  "add": "Qo'shish",
+  "attention": "Diqqat",
+  "flowerwarning": "Siz tannagan gullardan buket qilib beriladi, gullarning soniga etibor bering!",
+  "check": "Tekshirish",
+  "checkdesc": "Buket va gullarni to'g'riligini tekshiring",
+  "deliveryortakeaway": "Yetkazib berish yoki olib ketish",
+  "takeaway": "Olib ketish",
+  "delivery": "Yetkazib berish",
+  "locationwarning": "Zakaz berishni bosganingizdan keyin telegram orqali manzilni yuboring!",
+  "whenshouldready": "Qachonga tayyor bo'lishi kerak?",
+  "daywarning": "Agar zakaz 2 yoki undan ko'proq kundan keyin tayyorlab berilishi kerak bo'lsa, to'lov oldindan qilinadi. To'lov zakaz qilinganidan keyin telegram orqali karta raqami beriladi, shunga kerakli summani tashlab rasmini jo'natishingiz kerak bo'ladi."
 }
