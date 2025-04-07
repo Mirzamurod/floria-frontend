@@ -103,7 +103,7 @@ const ViewOrder = () => {
                 <b>{t('customernumber')}: </b> &nbsp; {order?.customerId.phone}
               </p>
               <p>
-                <b>{t('customernumber')}: </b> &nbsp; {order?.customerId.name}
+                <b>{t('customername')}: </b> &nbsp; {order?.customerId.name}
               </p>
               <p>
                 <b>{t('completiondate')}: </b> &nbsp; {order?.date?.slice(0, 10)}
@@ -160,14 +160,13 @@ const ViewOrder = () => {
             <Separator />
             <CardContent className='mt-5'>
               <p>
-                <b>{t('totalnumberbouquets')}: </b> &nbsp;{' '}
+                <b>{t('totalnumberbouquets')}: </b> &nbsp;
                 {isNaN(order?.bouquet.qty! + order?.flower.qty!)
                   ? 0
-                  : order?.bouquet.qty! + order?.flower.qty!}{' '}
-                ta
+                  : order?.bouquet.qty! + order?.flower.qty!}
               </p>
               <p>
-                <b>{t('totalpricebouquets')}: </b> &nbsp;{' '}
+                <b>{t('totalpricebouquets')}: </b> &nbsp;
                 {getSum(order?.bouquet.price! + order?.flower.price!)}
               </p>
             </CardContent>

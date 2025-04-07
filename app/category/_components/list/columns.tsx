@@ -19,7 +19,7 @@ const columns: TColumns[] = [
     renderCell: ({ row }: { row: TCategory }) => {
       const dispatch = useDispatch()
 
-      const { isLoadingBlock } = useAppSelector(state => state.bouquet)
+      const { isLoadingBlock } = useAppSelector(state => state.category)
 
       const onChange = () => dispatch(editCategoryBlock(row._id, { block: !row.block }))
 

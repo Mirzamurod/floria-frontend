@@ -101,5 +101,11 @@
   "delivery": "Yetkazib berish",
   "locationwarning": "Zakaz berishni bosganingizdan keyin telegram orqali manzilni yuboring!",
   "whenshouldready": "Qachonga tayyor bo'lishi kerak?",
-  "daywarning": "Agar zakaz 2 yoki undan ko'proq kundan keyin tayyorlab berilishi kerak bo'lsa, to'lov oldindan qilinadi. To'lov zakaz qilinganidan keyin telegram orqali karta raqami beriladi, shunga kerakli summani tashlab rasmini jo'natishingiz kerak bo'ladi."
+  "daywarning": "Agar zakaz 2 yoki undan ko'proq kundan keyin tayyorlab berilishi kerak bo'lsa, to'lov oldindan qilinadi. To'lov zakaz qilinganidan keyin telegram orqali karta raqami beriladi, shunga kerakli summani tashlab rasmini jo'natishingiz kerak bo'ladi.",
+  "warninginactive": "Saytdan foydalanish uchun akkountizn faollashtirishingiz kerak. Buning uchun adminga yozing.",
+  "writetoadmin": "Adminga yozish",
+  "homepage": "Bosh safiha",
+  "searchphone": "Qidirish (telefon raqam)",
+  "purchase": "Sotib olishi",
+  "warningunsubmittedorder": "Sizda {{number}} ta topshirilmagan zakaz bor."
 }

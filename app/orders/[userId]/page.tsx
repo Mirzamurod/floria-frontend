@@ -154,7 +154,7 @@ const Orders = () => {
   }
 
   const onCheckout = () => {
-    telegram.MainButton.text = 'Buyurtma berish'
+    telegram.MainButton.text = t('ordering')
     telegram.MainButton.show()
   }
 

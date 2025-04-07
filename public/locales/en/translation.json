@@ -101,5 +101,11 @@
   "delivery": "Delivery",
   "locationwarning": "After clicking on the order button, send the address via telegram!",
   "whenshouldready": "When should it be ready?",
-  "daywarning": "If the order is to be prepared in 2 or more days, payment must be made in advance. After placing the order, the card number will be sent via Telegram. You will need to transfer the required amount and send a screenshot as proof."
+  "daywarning": "If the order is to be prepared in 2 or more days, payment must be made in advance. After placing the order, the card number will be sent via Telegram. You will need to transfer the required amount and send a screenshot as proof.",
+  "warninginactive": "To use the site, you must activate your account. To do this, write to the admin.",
+  "writetoadmin": "Write to admin",
+  "homepage": "Home page",
+  "searchphone": "Search (phone number)",
+  "purchase": "Purchase",
+  "warningunsubmittedorder": "You have {{number}} unsubmitted orders."
 }
