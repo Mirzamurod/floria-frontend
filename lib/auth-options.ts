@@ -33,8 +33,19 @@ export const authOptions: NextAuthOptions = {
         session.currentUser = user
         return session
       }
-      session.currentUser = isExistingUser
-      return session
+
+      if (!(isExistingUser.date > new Date())) {
+        const updatedUser = await User.findByIdAndUpdate(
+          isExistingUser._id,
+          { block: true },
+          { new: true }
+        )
+        session.currentUser = updatedUser
+        return session
+      } else {
+        session.currentUser = isExistingUser
+        return session
+      }
     },
   },
   session: { strategy: 'jwt' },

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { flower, clientsapi, clienteditapi } from '@/store/apis'
+import { flower, clientsapi, clienteditapi, paymentclient } from '@/store/apis'
 import { IUsersStore, TUser } from '@/types/user'
 
 const initialState: IUsersStore = {
@@ -26,15 +26,15 @@ const users = createSlice({
       state.isLoading = false
     },
     // edit user
-    onStartGetUser: state => {
+    onStartAddEditUser: state => {
       state.isLoading = true
       state.success = false
     },
-    onSuccessGetUser: (state, { payload }) => {
+    onSuccessAddEditUser: (state, { payload }) => {
       state.isLoading = false
       state.success = payload.success
     },
-    onFailGetUser: state => {
+    onFailAddEditUser: state => {
       state.isLoading = false
     },
   },
@@ -58,9 +58,19 @@ export const editClient = (
     url: clienteditapi + id,
     method: 'patch',
     data,
-    onStart: users.actions.onStartGetUser.type,
-    onSuccess: users.actions.onSuccessGetUser.type,
-    onFail: users.actions.onFailGetUser.type,
+    onStart: users.actions.onStartAddEditUser.type,
+    onSuccess: users.actions.onSuccessAddEditUser.type,
+    onFail: users.actions.onFailAddEditUser.type,
+  })
+
+export const paymentClient = (id: string, date: Date) =>
+  flower({
+    url: paymentclient + id,
+    method: 'patch',
+    data: { date },
+    onStart: users.actions.onStartAddEditUser.type,
+    onSuccess: users.actions.onSuccessAddEditUser.type,
+    onFail: users.actions.onFailAddEditUser.type,
   })
 
 export default users.reducer

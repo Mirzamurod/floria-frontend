@@ -5,7 +5,7 @@ import { TColumns } from '@/types/table'
 import { useAppSelector } from '@/store'
 import { Switch } from '@/components/ui/switch'
 import { TUser } from '@/types/user'
-import { editClient } from '@/store/users'
+import { editClient, paymentClient } from '@/store/users'
 import {
   Select,
   SelectContent,
@@ -13,6 +13,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 const columns: TColumns[] = [
   { field: 'name', headerName: 'username', sortable: true },
@@ -49,6 +59,35 @@ const columns: TColumns[] = [
             <SelectItem value='vip'>Vip</SelectItem>
           </SelectContent>
         </Select>
+      )
+    },
+  },
+  {
+    field: 'payment',
+    headerName: 'payment',
+    renderCell: ({ row }: { row: TUser }) => {
+      const { t } = useTranslation()
+      const dispatch = useDispatch()
+
+      const onChange = () => dispatch(paymentClient(row._id, row.date))
+
+      return (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button disabled={row.plan === 'vip'}>{t('paymentmade')}</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{t('areyousure')}</DialogTitle>
+            </DialogHeader>
+            <DialogFooter className='gap-2'>
+              <Button onClick={onChange}>{t('yes')}</Button>
+              <DialogClose asChild>
+                <Button variant='secondary'>{t('no')}</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )
     },
   },
