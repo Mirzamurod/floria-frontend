@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
         return session
       }
 
-      if (!(isExistingUser.date > new Date())) {
+      if (isExistingUser.role === 'client' && !(isExistingUser.date > new Date())) {
         const updatedUser = await User.findByIdAndUpdate(
           isExistingUser._id,
           { block: true },
