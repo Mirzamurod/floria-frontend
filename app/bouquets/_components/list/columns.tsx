@@ -18,7 +18,7 @@ const columns: TColumns[] = [
     field: 'image',
     headerName: 'image',
     renderCell: ({ row }: { row: TBouquet }) => (
-      <Image src={row.image} alt={row.image} width={30} height={50} />
+      <Image src={row.image} alt={row.image} width={30} height={50} unoptimized />
     ),
   },
   {
@@ -75,7 +75,7 @@ export const mobileColumns: TColumns[] = [
     field: 'image',
     headerName: 'image',
     renderCell: ({ row }: { row: TBouquet }) => (
-      <Image src={row.image} alt={row.image} width={30} height={50} />
+      <Image src={row.image} alt={row.image} width={30} height={50} unoptimized />
     ),
   },
   {
