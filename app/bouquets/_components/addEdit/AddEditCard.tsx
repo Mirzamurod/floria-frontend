@@ -59,9 +59,7 @@ const AddEditCard: FC<IProps> = props => {
             accept='image/png, image/jpeg, image/jpg'
           />
         </div>
-        {imageLink ? (
-          <Image src={imageLink} alt='bouquet image' width={200} height={200} unoptimized />
-        ) : null}
+        {imageLink ? <Image src={imageLink} alt='bouquet image' width={200} height={200} /> : null}
       </div>
       <div className='grid md:grid-cols-3 gap-3 mt-3'>
         {inputs.map(input => (
