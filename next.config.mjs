@@ -13,7 +13,7 @@ const nextConfig = {
       { protocol: 'http', hostname: 'localhost', pathname: '/images/**' },
       { protocol: 'https', hostname: 'floria.uz', pathname: '/images/**' },
       { protocol: 'https', hostname: 'api.telegram.org', pathname: '**' },
-      { protocol: 'http', hostname: '127.0.0.1', pathname: '**' },
+      { protocol: 'http', hostname: 'localhost', pathname: '**' },
     ],
   },
 }

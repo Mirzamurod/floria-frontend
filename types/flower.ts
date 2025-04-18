@@ -4,6 +4,7 @@ import { TError } from './error'
 export type TFlower = {
   _id: string
   image: string
+  orgImage: string
   name: string
   price: number
   info?: string

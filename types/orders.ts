@@ -59,6 +59,7 @@ export interface IBouquet {
   qty: number
   price: number
   image: string
+  orgImage: string
 }
 
 export interface IFlower {
@@ -66,4 +67,5 @@ export interface IFlower {
   qty: number
   price: number
   image: string
+  orgImage: string
 }

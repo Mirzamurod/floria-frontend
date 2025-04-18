@@ -11,12 +11,11 @@ import { getSum } from '@/lib/utils'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { OctagonAlert } from 'lucide-react'
 import Category from './Category'
-
-type TItem = { flowerId: string; qty: number; price: number; image: string }
+import { IFlower } from '@/types/orders'
 
 interface IProps {
-  items: TItem[]
-  setItems: (value: TItem[]) => void
+  items: IFlower[]
+  setItems: (value: IFlower[]) => void
   page: number
   setPage: (value: number) => void
   limit: string
@@ -37,11 +36,17 @@ const Flowers: FC<IProps> = props => {
   }
 
   const changeItem = (item: TFlower, operator: '-' | '+') => {
-    let data: TItem[] = []
+    let data: IFlower[] = []
     if (!items.some(i => i.flowerId === item._id))
       setItems([
         ...items,
-        { flowerId: item._id, qty: 1, price: item.price as number, image: item.image },
+        {
+          flowerId: item._id,
+          qty: 1,
+          price: item.price as number,
+          image: item.image,
+          orgImage: item.orgImage,
+        },
       ])
     else {
       if (operator === '+') {

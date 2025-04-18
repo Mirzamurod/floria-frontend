@@ -4,6 +4,7 @@ import { TError } from './error'
 export type TBouquet = {
   _id: string
   image: string
+  orgImage: string
   name?: string
   price: number
   info?: string

@@ -9,12 +9,11 @@ import { Button } from '@/components/ui/button'
 import { TBouquet } from '@/types/bouquet'
 import { getSum } from '@/lib/utils'
 import Category from './Category'
-
-type TItem = { bouquetId: string; qty: number; price: number; image: string }
+import { IBouquet } from '@/types/orders'
 
 interface IProps {
-  items: TItem[]
-  setItems: (value: TItem[]) => void
+  items: IBouquet[]
+  setItems: (value: IBouquet[]) => void
   page: number
   setPage: (value: number) => void
   limit: string
@@ -35,11 +34,17 @@ const Bouquets: FC<IProps> = props => {
   }
 
   const changeItem = (item: TBouquet, operator: '-' | '+') => {
-    let data: TItem[] = []
+    let data: IBouquet[] = []
     if (!items.some(i => i.bouquetId === item._id))
       setItems([
         ...items,
-        { bouquetId: item._id, qty: 1, price: item.price as number, image: item.image },
+        {
+          bouquetId: item._id,
+          qty: 1,
+          price: item.price as number,
+          image: item.image,
+          orgImage: item.orgImage,
+        },
       ])
     else {
       if (operator === '+') {
